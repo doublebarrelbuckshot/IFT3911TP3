@@ -17,7 +17,13 @@ public class AdminManagement extends Subject {
 	
 	public static void main(String[] args)
 	{
-		TransportationFactory tf =  AirFactory.getInstance();
+		TransportationFactory airFactory =  AirFactory.getInstance();
+		TransportationHub airPort = airFactory.createTransportationHub("Pierre Elliot Trudeau");
+		System.out.println("AIRPORT: " + airPort.get_name());
+		
+		TransportationManager tptManager = TransportationManager.getInstance();
+		tptManager._listTptHubs.add(airPort);
+		
 	}
 	
 	
