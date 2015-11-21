@@ -1,6 +1,7 @@
 package AdminPkg;
 
 import TransportationPkg.TripGeneral;
+import AdminPkg.AirAdminPkg.AirFactory;
 import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.TransportationVehicle;
@@ -16,7 +17,7 @@ public class AdminManagement extends Subject {
 	
 	public static void main(String[] args)
 	{
-		
+		TransportationFactory tf =  AirFactory.getInstance();
 	}
 	
 	

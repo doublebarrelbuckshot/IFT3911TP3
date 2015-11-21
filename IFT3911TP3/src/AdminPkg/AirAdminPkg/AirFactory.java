@@ -4,11 +4,12 @@ import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationCompany;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.AviationPkg.Aeroport;
+import TransportationPkg.AviationPkg.Avion;
 import TransportationPkg.AviationPkg.CompagnieAerienne;
 import AdminPkg.TransportationFactory;
 
 public class AirFactory extends TransportationFactory {
-	private AirFactory _instance;
+	private static AirFactory _instance;
 
 	public TransportationHub createTransportationHub(String aName) {
 		Aeroport a = new Aeroport();
@@ -24,14 +25,18 @@ public class AirFactory extends TransportationFactory {
 	}
 
 	public TransportationVehicle createTransportVehicle() {
-		throw new UnsupportedOperationException();
+		Avion a = new Avion();
+		return a;
 	}
 
-	private AirFactory getInstance() {
-		return this._instance;
+	public static AirFactory getInstance() {
+		if (_instance == null)
+			_instance = new AirFactory();
+		
+		return _instance;
 	}
 
 	private AirFactory() {
-		throw new UnsupportedOperationException();
+		
 	}
 }
