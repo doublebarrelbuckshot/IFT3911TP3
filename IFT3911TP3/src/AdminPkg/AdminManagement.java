@@ -13,6 +13,13 @@ public class AdminManagement extends Subject {
 	public TransportationFactory _unnamed_TransportationFactory_;
 	public ICommand _commands;
 
+	
+	public static void main(String[] args)
+	{
+		
+	}
+	
+	
 	private AdminManagement() {
 		throw new UnsupportedOperationException();
 	}

@@ -5,3 +5,4 @@ public class Administrator {
 	private String _password;
 	public UIAdmin _systemeAdmin;
 }
+
