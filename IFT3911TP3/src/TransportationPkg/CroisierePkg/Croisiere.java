@@ -20,9 +20,4 @@ public class Croisiere extends TripGeneral {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
-	public void accept(ITripVisitor visitor) {
-		// TODO Auto-generated method stub
-		
-	}
 }

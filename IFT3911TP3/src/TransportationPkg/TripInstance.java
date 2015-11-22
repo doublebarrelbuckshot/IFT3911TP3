@@ -1,5 +1,7 @@
 package TransportationPkg;
 
+import AdminPkg.ITripVisitor;
+import ReservationPkg.Order;
 import java.util.Date;
 import java.util.Vector;
 
@@ -7,7 +9,7 @@ import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
 import ReservationPkg.Order;
 
-public abstract class TripInstance implements ISearchable {
+public abstract class TripInstance implements ITripVisitable,ISearchable {
 	protected Date _dateDepart;
 	protected double _fullPrice;
 	protected int _tripInstanceID;
@@ -123,6 +125,10 @@ public abstract class TripInstance implements ISearchable {
 	public double getFullPrice() {
 		return this._fullPrice;
 	}
+
+	
+	public abstract void accept(ITripVisitor visitor);
+
 	public boolean matchCriteria(SearchCriteria aSc){
 		if (aSc.get_tripDepartureDate().equals(this.get_dateDepart())){
 			ComfortClassEnum criteriaComfortClass = aSc.get_sectionType();

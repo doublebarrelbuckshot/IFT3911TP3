@@ -2,9 +2,10 @@ package TransportationPkg;
 
 import java.util.Vector;
 
+import AdminPkg.ITripVisitor;
 import CommonComponentsPkg.ComfortClassEnum;
 
-public abstract class ComfortClass implements ISearchable {
+public abstract class ComfortClass implements ISearchable, ITripVisitable {
 	protected double _prixPercent;
 	private ComfortClassEnum comfortClassType;
 	public TripInstance _tripInstance;
@@ -46,4 +47,10 @@ public abstract class ComfortClass implements ISearchable {
 	public void setComfortClassType(ComfortClassEnum comfortClassType) {
 		this.comfortClassType = comfortClassType;
 	}
+	
+	public Vector<GenericSeat> get_seating(){
+		return _seating;
+	}
+	
+	public abstract void accept(ITripVisitor visitor);
 }

@@ -3,7 +3,7 @@ package TransportationPkg;
 import AdminPkg.ITripVisitor;
 
 
-public interface IVisitable {
+public interface ITripVisitable {
 
 	public void accept(ITripVisitor visitor);
 }
