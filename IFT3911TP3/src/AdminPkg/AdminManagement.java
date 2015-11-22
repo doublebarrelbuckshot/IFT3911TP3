@@ -13,6 +13,7 @@ import TransportationPkg.GenericSeat;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationCompany;
+import TransportationPkg.TripInstance;
 
 public class AdminManagement extends Subject {
 	protected Administrator _listAdmins;
@@ -68,6 +69,36 @@ public class AdminManagement extends Subject {
 		tptManager.addTripGeneral(NY_HAVANA);
 		princess.addTripGeneral(NY_HAVANA);
 		
+		
+		/*
+		 * Init of trip instances NY_HAVANA
+		 */
+		Date dDepartInstNY_HAVANA = new Date();
+		dDepartInstNY_HAVANA.setDate(25);
+		dDepartInstNY_HAVANA.setMonth(1);
+		dDepartInstNY_HAVANA.setYear(2016);
+		
+		Date dArriveInstNY_HAVANA = new Date();
+		dArriveInstNY_HAVANA.setDate(27);
+		dArriveInstNY_HAVANA.setMonth(1);
+		dArriveInstNY_HAVANA.setYear(2016);
+		TripInstance NY_HAVANA1 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA, dArriveInstNY_HAVANA, 1001, 110);
+		NY_HAVANA.addTripInstance(NY_HAVANA1);
+		NY_HAVANA1.setTptVehicle(cruiseShip);
+		
+		Date dDepartInstNY_HAVANA2 = new Date();
+		dDepartInstNY_HAVANA2.setDate(25);
+		dDepartInstNY_HAVANA2.setMonth(1);
+		dDepartInstNY_HAVANA2.setYear(2016);
+		
+		Date dArriveInstNY_HAVANA2 = new Date();
+		dArriveInstNY_HAVANA2.setDate(27);
+		dArriveInstNY_HAVANA2.setMonth(1);
+		dArriveInstNY_HAVANA2.setYear(2016);
+		TripInstance NY_HAVANA2 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA2, dArriveInstNY_HAVANA2, 1002, 107);
+		NY_HAVANA.addTripInstance(NY_HAVANA2);
+		NY_HAVANA2.setTptVehicle(cruiseShip);
+
 		/*
 		 * TRIP GENERAL NY_ROME
 		 */
@@ -81,6 +112,36 @@ public class AdminManagement extends Subject {
 		TripGeneral NY_ROME = cruiseFactory.createTripGeneral(dDepartNY_ROME, dArriveNY_ROME, "NY_ROME845", portNY, portRome);
 		tptManager.addTripGeneral(NY_ROME);
 		princess.addTripGeneral(NY_ROME);
+
+		
+		/*
+		 * Init of trip instances NY_ROME
+		 */
+		Date dDepartInstNY_ROME = new Date();
+		dDepartInstNY_ROME.setDate(20);
+		dDepartInstNY_ROME.setMonth(2);
+		dDepartInstNY_ROME.setYear(2016);
+		
+		Date dArriveInstNY_ROME = new Date();
+		dArriveInstNY_ROME.setDate(27);
+		dArriveInstNY_ROME.setMonth(2);
+		dArriveInstNY_ROME.setYear(2016);
+		TripInstance NY_ROME1 = cruiseFactory.createTripInstance(dDepartInstNY_ROME, dArriveInstNY_ROME, 1003, 220);
+		NY_ROME.addTripInstance(NY_ROME1);
+		NY_ROME1.setTptVehicle(cruiseShip);
+		
+		Date dDepartInstNY_ROME2 = new Date();
+		dDepartInstNY_ROME2.setDate(1);
+		dDepartInstNY_ROME2.setMonth(2);
+		dDepartInstNY_ROME2.setYear(2016);
+		
+		Date dArriveInstNY_ROME2 = new Date();
+		dArriveInstNY_ROME2.setDate(8);
+		dArriveInstNY_ROME2.setMonth(2);
+		dArriveInstNY_ROME2.setYear(2016);
+		TripInstance NY_ROME2 = cruiseFactory.createTripInstance(dDepartInstNY_ROME2, dArriveInstNY_ROME2, 1004, 240);
+		NY_ROME.addTripInstance(NY_ROME2);
+		NY_ROME2.setTptVehicle(cruiseShip);
 
 		
 		/*
@@ -98,7 +159,21 @@ public class AdminManagement extends Subject {
 		princess.addTripGeneral(HAVANA_ROME);
 
 
+		/*
+		 * Init of trip instances NY_ROME
+		 */
+		Date dDepartInstHAVANA_ROME = new Date();
+		dDepartInstHAVANA_ROME.setDate(11);
+		dDepartInstHAVANA_ROME.setMonth(3);
+		dDepartInstHAVANA_ROME.setYear(2016);
 		
+		Date dArriveInstHAVANA_ROME = new Date();
+		dArriveInstHAVANA_ROME.setDate(18);
+		dArriveInstHAVANA_ROME.setMonth(3);
+		dArriveInstHAVANA_ROME.setYear(2016);
+		TripInstance HAVANA_ROME1 = cruiseFactory.createTripInstance(dDepartInstHAVANA_ROME, dArriveInstHAVANA_ROME, 1005, 170);
+		HAVANA_ROME.addTripInstance(HAVANA_ROME1);
+		HAVANA_ROME1.setTptVehicle(cruiseShip);
 		
 		System.out.println("HAVANA_ROME: " + HAVANA_ROME.get_heureArriveStr() + "  " + HAVANA_ROME._hubArrival.get_name() + " " + HAVANA_ROME._hubDeparture.get_name());
 
@@ -140,6 +215,37 @@ public class AdminManagement extends Subject {
 		TripGeneral NY_FL = trainFactory.createTripGeneral(dDepartNY_FL, dArriveNY_FL, "NYFL1030", trainStationNY, trainStationFL);
 		tptManager.addTripGeneral(NY_FL);
 		amtrak.addTripGeneral(NY_FL);
+
+		/*
+		 * Init of trip instances NY_FL
+		 */
+		Date dDepartInstNY_FL = new Date();
+		dDepartInstNY_FL.setDate(11);
+		dDepartInstNY_FL.setMonth(2);
+		dDepartInstNY_FL.setYear(2016);
+		
+		Date dArriveInstNY_FL = new Date();
+		dArriveInstNY_FL.setDate(14);
+		dArriveInstNY_FL.setMonth(2);
+		dArriveInstNY_FL.setYear(2016);
+		TripInstance NY_FL1 = trainFactory.createTripInstance(dDepartInstNY_FL, dArriveInstNY_FL, 2001, 90);
+		NY_FL.addTripInstance(NY_FL1);
+		NY_FL1.setTptVehicle(train1);
+		
+		Date dDepartInstNY_FL2 = new Date();
+		dDepartInstNY_FL2.setDate(1);
+		dDepartInstNY_FL2.setMonth(2);
+		dDepartInstNY_FL2.setYear(2016);
+		
+		Date dArriveInstNY_FL2 = new Date();
+		dArriveInstNY_FL2.setDate(6);
+		dArriveInstNY_FL2.setMonth(2);
+		dArriveInstNY_FL2.setYear(2016);
+		TripInstance NY_FL2 = trainFactory.createTripInstance(dDepartInstNY_FL2, dArriveInstNY_FL2, 2002, 95);
+		NY_FL.addTripInstance(NY_FL2);
+		NY_FL2.setTptVehicle(train1);
+		
+
 		
 		/*
 		 * TRIP GENERAL NY_BOSTON
@@ -155,6 +261,19 @@ public class AdminManagement extends Subject {
 		tptManager.addTripGeneral(NY_BOSTON);
 		amtrak.addTripGeneral(NY_BOSTON);
 
+		Date dDepartInstNY_BOSTON = new Date();
+		dDepartInstNY_BOSTON.setDate(2);
+		dDepartInstNY_BOSTON.setMonth(3);
+		dDepartInstNY_BOSTON.setYear(2016);
+		
+		Date dArriveInstNY_BOSTON = new Date();
+		dArriveInstNY_BOSTON.setDate(3);
+		dArriveInstNY_BOSTON.setMonth(3);
+		dArriveInstNY_BOSTON.setYear(2016);
+		TripInstance NY_BOSTON1 = trainFactory.createTripInstance(dDepartInstNY_BOSTON, dArriveInstNY_BOSTON, 2006, 75);
+		NY_BOSTON.addTripInstance(NY_BOSTON1);
+		NY_BOSTON1.setTptVehicle(train1);
+		
 		
 		/*
 		 * TRIP GENERAL BOSTON_FL
@@ -170,7 +289,21 @@ public class AdminManagement extends Subject {
 		tptManager.addTripGeneral(BOSTON_FL);
 		amtrak.addTripGeneral(BOSTON_FL);
 
-
+		/*
+		 * init trip instances
+		 */
+		Date dDepartInstBOSTON_FL = new Date();
+		dDepartInstBOSTON_FL.setDate(6);
+		dDepartInstBOSTON_FL.setMonth(3);
+		dDepartInstBOSTON_FL.setYear(2016);
+		
+		Date dArriveInstBOSTON_FL = new Date();
+		dArriveInstBOSTON_FL.setDate(8);
+		dArriveInstBOSTON_FL.setMonth(3);
+		dArriveInstBOSTON_FL.setYear(2016);
+		TripInstance BOSTON_FL1 = trainFactory.createTripInstance(dDepartInstBOSTON_FL, dArriveInstBOSTON_FL, 2007, 68);
+		BOSTON_FL.addTripInstance(BOSTON_FL1);
+		BOSTON_FL1.setTptVehicle(train1);
 		
 		System.out.println("BOSTON_FL: " + BOSTON_FL.get_heureArriveStr() + "  " + BOSTON_FL._hubArrival.get_name() + " " + BOSTON_FL._hubDeparture.get_name());
 
@@ -212,6 +345,23 @@ public class AdminManagement extends Subject {
 		TripGeneral YUL_JFK = airFactory.createTripGeneral(dDepartYUL_JFK, dArriveYUL_JFK, "YULJKF1030", airportYUL, airportJFK);
 		tptManager.addTripGeneral(YUL_JFK);
 		westJet.addTripGeneral(YUL_JFK);
+		
+		/*
+		 * init trip instances
+		 */
+		Date dDepartInstYUL_JFK = new Date();
+		dDepartInstYUL_JFK.setDate(6);
+		dDepartInstYUL_JFK.setMonth(3);
+		dDepartInstYUL_JFK.setYear(2016);
+		
+		Date dArriveInstYUL_JFK = new Date();
+		dArriveInstYUL_JFK.setDate(8);
+		dArriveInstYUL_JFK.setMonth(3);
+		dArriveInstYUL_JFK.setYear(2016);
+		TripInstance YUL_JKF1 = airFactory.createTripInstance(dDepartInstYUL_JFK, dArriveInstYUL_JFK, 3001, 130);
+		YUL_JFK.addTripInstance(YUL_JKF1);
+		YUL_JKF1.setTptVehicle(plane1);
+		
 		
 		/*
 		 * TRIP GENERAL YUL-LAX
