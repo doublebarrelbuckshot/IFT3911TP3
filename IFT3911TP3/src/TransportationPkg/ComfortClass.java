@@ -6,9 +6,7 @@ import CommonComponentsPkg.ComfortClassEnum;
 
 public abstract class ComfortClass implements ISearchable {
 	protected double _prixPercent;
-	protected String _sectClass;
 	private ComfortClassEnum comfortClassType;
-	private boolean _isFullyReserved;
 	public TripInstance _tripInstance;
 	public Vector<GenericSeat> _seating = new Vector<GenericSeat>();
 	
