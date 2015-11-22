@@ -48,7 +48,7 @@ public class AdminTripVisitor implements ITripVisitor{
 	}
 
 	public void visit(Affaire affaire){
-		System.out.print();
+		System.out.print(affaire.getComfortClassType().name());
 		Vector<GenericSeat> listSeats =affaire.get_seating();
 		
 		for(GenericSeat seat : listSeats){
