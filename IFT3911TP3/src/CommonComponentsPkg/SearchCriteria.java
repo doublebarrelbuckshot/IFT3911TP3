@@ -1,13 +1,19 @@
 package CommonComponentsPkg;
 
+import java.util.Date;
+
 public class SearchCriteria {
 	private String _tripIDNumber;
 	private String _transportationCompanyName;
 	private String _transportationHubName;
 	private String _transportationHubVille;
-	private String _sectionType;
+	private ComfortClassEnum _sectionType;
 	private String _seatLocation;
 	private String _layoutType;
+	private String _transportationHubNameDeparture;
+	private String _transportationHubNameArrival;
+	private Date   _tripDepartureDate;
+	
 	private int _numberTravellers;
 	private boolean _travelTogether;
 	
@@ -35,10 +41,10 @@ public class SearchCriteria {
 	public void set_transportationHubVille(String _transportationHubVille) {
 		this._transportationHubVille = _transportationHubVille;
 	}
-	public String get_sectionType() {
+	public ComfortClassEnum get_sectionType() {
 		return _sectionType;
 	}
-	public void set_sectionType(String _sectionType) {
+	public void set_sectionType(ComfortClassEnum _sectionType) {
 		this._sectionType = _sectionType;
 	}
 	public String get_seatLocation() {
@@ -64,5 +70,23 @@ public class SearchCriteria {
 	}
 	public void set_travelTogether(boolean _travelTogether) {
 		this._travelTogether = _travelTogether;
+	}
+	public String get__transportationHubNameDeparture() {
+		return _transportationHubNameDeparture;
+	}
+	public void set__transportationHubNameDeparture(String _transportationHubNameDeparture) {
+		this._transportationHubNameDeparture = _transportationHubNameDeparture;
+	}
+	public String get__transportationHubNameArrival() {
+		return _transportationHubNameArrival;
+	}
+	public void set_transportationHubNameArrival(String _transportationHubNameArrival) {
+		this._transportationHubNameArrival = _transportationHubNameArrival;
+	}
+	public Date get_tripDepartureDate() {
+		return _tripDepartureDate;
+	}
+	public void set_tripDepartureDate(Date _tripDepartureDate) {
+		this._tripDepartureDate = _tripDepartureDate;
 	}
 }

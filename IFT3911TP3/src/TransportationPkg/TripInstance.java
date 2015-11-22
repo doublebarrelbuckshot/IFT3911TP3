@@ -1,13 +1,13 @@
 package TransportationPkg;
 
-import ReservationPkg.Order;
-
 import java.util.Date;
 import java.util.Vector;
 
-import TransportationPkg.ComfortClass;
+import CommonComponentsPkg.ComfortClassEnum;
+import CommonComponentsPkg.SearchCriteria;
+import ReservationPkg.Order;
 
-public abstract class TripInstance {
+public abstract class TripInstance implements ISearchable {
 	protected Date _dateDepart;
 	protected double _fullPrice;
 	protected int _tripInstanceID;
@@ -126,6 +126,18 @@ public abstract class TripInstance {
 	public double getFullPrice() {
 		return this._fullPrice;
 	}
-	
+	public boolean matchCriteria(SearchCriteria aSc){
+		if (aSc.get_tripDepartureDate().equals(this.get_dateDepart())){
+			ComfortClassEnum criteriaComfortClass = aSc.get_sectionType();
+			for (ComfortClass comfortClass:this.get_comfortClasses()){
+				if(criteriaComfortClass.equals(comfortClass.getComfortClassType())){
+					if (comfortClass.hasAvailableSeats()){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	
 }
