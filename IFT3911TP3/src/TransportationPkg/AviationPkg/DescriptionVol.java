@@ -1,6 +1,8 @@
 package TransportationPkg.AviationPkg;
 
+import AdminPkg.ITripVisitor;
 import TransportationPkg.ComfortClass;
+import TransportationPkg.ITripVisitable;
 import TransportationPkg.TripInstance;
 import TransportationPkg.VehicleLayout;
 import TransportationPkg.CroisierePkg.Famille;
@@ -21,6 +23,7 @@ public class DescriptionVol extends TripInstance {
 	public void removeComfortClass(ComfortClass aCc) {
 		throw new UnsupportedOperationException();
 	}
+
 	public void assignLayoutToClass(VehicleLayout vl) {
 		if(vl instanceof AirLarge )
 		{
@@ -46,6 +49,13 @@ public class DescriptionVol extends TripInstance {
 			d.layout = vl;
 			this._comfortClasses.add(d);
 		}
+	}
 		
+
+	public void accept(ITripVisitor visitor){
+		visitor.visit(this);
+		for(ITripVisitable section : this.get_comfortClasses()){
+			section.accept(visitor);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package TransportationPkg.CroisierePkg;
 
+import AdminPkg.ITripVisitor;
 import TransportationPkg.ComfortClass;
 import TransportationPkg.TripInstance;
 import TransportationPkg.VehicleLayout;
@@ -39,6 +40,10 @@ public class DescriptionCroisiere extends TripInstance {
 			d.layout = vl;
 			this._comfortClasses.add(d);
 		}
+	}
 		
+
+	public void accept(ITripVisitor visitor){
+		visitor.visit(this);
 	}
 }

@@ -27,4 +27,8 @@ public abstract class GenericSeat implements ISearchable {
 	public void confirmed() {
 		throw new UnsupportedOperationException();
 	}
+	public GenericSeatState get_state(){
+		return _state;
+	}
+	
 }

@@ -11,9 +11,4 @@ public class Vol extends TripGeneral {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
-	public void accept(ITripVisitor visitor ) {
-		// TODO Auto-generated method stub
-		
-	}
 }

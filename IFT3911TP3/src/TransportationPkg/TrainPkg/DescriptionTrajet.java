@@ -1,5 +1,6 @@
 package TransportationPkg.TrainPkg;
 
+import AdminPkg.ITripVisitor;
 import TransportationPkg.ComfortClass;
 import TransportationPkg.TripInstance;
 import TransportationPkg.VehicleLayout;
@@ -22,6 +23,7 @@ public class DescriptionTrajet extends TripInstance {
 		throw new UnsupportedOperationException();
 	}
 	
+
 	public void assignLayoutToClass( VehicleLayout vl) {
 		if(vl instanceof TrainEtroit )
 		{
@@ -29,5 +31,8 @@ public class DescriptionTrajet extends TripInstance {
 			f.layout = vl;
 			this._comfortClasses.add(f);
 		}		
+	}
+	public void accept(ITripVisitor visitor){
+		visitor.visit(this);
 	}
 }
