@@ -27,6 +27,7 @@ public class AdminManagement extends Subject {
 		initTrain();
 		initCruise();
 		
+		
 	}
 	
 	public static void initCruise(){
