@@ -16,10 +16,15 @@ import TransportationPkg.AviationPkg.AirEtroit;
 import TransportationPkg.AviationPkg.AirLarge;
 import TransportationPkg.AviationPkg.AirMoyen;
 import TransportationPkg.AviationPkg.AirPhysicalSeat;
+import TransportationPkg.CroisierePkg.Famille;
+import TransportationPkg.CroisierePkg.FamilyDeluxe;
+import TransportationPkg.CroisierePkg.Interieur;
+import TransportationPkg.CroisierePkg.LayoutDeluxe;
 import TransportationPkg.CroisierePkg.LayoutFamille;
 import TransportationPkg.CroisierePkg.LayoutInterior;
 import TransportationPkg.CroisierePkg.LayoutOcean;
 import TransportationPkg.CroisierePkg.LayoutSuite;
+import TransportationPkg.CroisierePkg.Ocean;
 import TransportationPkg.CroisierePkg.PhysicalCabine;
 import TransportationPkg.TrainPkg.TrainEtroit;
 import TransportationPkg.TrainPkg.TrainPhysicalSeat;
@@ -90,10 +95,7 @@ public class SimulationData {
 		
 		 */
 		
-		
 		princess.addTransportationVehicle(cruiseShip);
-		
-		
 		/*
 		 * TRIP GENERAL NY_HAVANA
 		 */
@@ -125,6 +127,12 @@ public class SimulationData {
 		NY_HAVANA.addTripInstance(NY_HAVANA1);
 		NY_HAVANA1.setTptVehicle(cruiseShip);
 		
+		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = cruiseShip._layoutSections.get(i);
+			NY_HAVANA1.assignLayoutToClass(vl); 
+		}
+				
 		Date dDepartInstNY_HAVANA2 = new Date();
 		dDepartInstNY_HAVANA2.setDate(25);
 		dDepartInstNY_HAVANA2.setMonth(1);
@@ -137,6 +145,12 @@ public class SimulationData {
 		TripInstance NY_HAVANA2 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA2, dArriveInstNY_HAVANA2, 1002, 107);
 		NY_HAVANA.addTripInstance(NY_HAVANA2);
 		NY_HAVANA2.setTptVehicle(cruiseShip);
+		
+		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = cruiseShip._layoutSections.get(i);
+			NY_HAVANA2.assignLayoutToClass(vl);
+		}
 
 		/*
 		 * TRIP GENERAL NY_ROME
@@ -169,6 +183,12 @@ public class SimulationData {
 		NY_ROME.addTripInstance(NY_ROME1);
 		NY_ROME1.setTptVehicle(cruiseShip);
 		
+		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = cruiseShip._layoutSections.get(i);
+			NY_ROME1.assignLayoutToClass(vl); 
+		}
+		
 		Date dDepartInstNY_ROME2 = new Date();
 		dDepartInstNY_ROME2.setDate(1);
 		dDepartInstNY_ROME2.setMonth(2);
@@ -181,6 +201,12 @@ public class SimulationData {
 		TripInstance NY_ROME2 = cruiseFactory.createTripInstance(dDepartInstNY_ROME2, dArriveInstNY_ROME2, 1004, 240);
 		NY_ROME.addTripInstance(NY_ROME2);
 		NY_ROME2.setTptVehicle(cruiseShip);
+		
+		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = cruiseShip._layoutSections.get(i);
+			NY_ROME2.assignLayoutToClass(vl);
+		}
 
 		
 		/*
@@ -214,9 +240,17 @@ public class SimulationData {
 		HAVANA_ROME.addTripInstance(HAVANA_ROME1);
 		HAVANA_ROME1.setTptVehicle(cruiseShip);
 		
+		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = cruiseShip._layoutSections.get(i);
+			HAVANA_ROME1.assignLayoutToClass(vl); 
+		}
+		
 		System.out.println("HAVANA_ROME: " + HAVANA_ROME.get_heureArriveStr() + "  " + HAVANA_ROME._hubArrival.get_name() + " " + HAVANA_ROME._hubDeparture.get_name());
 
 	}
+	
+
 	public static void initTrain(){
 		
 		TransportationManager tptManager = TransportationManager.getInstance();
@@ -389,7 +423,9 @@ public class SimulationData {
 		
 		TransportationVehicle plane1 = airFactory.createTransportVehicle(100, "Boeing", westJet);
 		
-		
+		/*
+		 * Set up Plane Layout
+		 */
 		VehicleLayout ae = new AirEtroit();
 		ae.set_capacity(30);
 		ae.configureSeating();

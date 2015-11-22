@@ -18,7 +18,8 @@ public abstract class TripInstance implements ISearchable {
 	public Vector<ComfortClass> _comfortClasses = new Vector<ComfortClass>();
 	public TransportationVehicle _tptVehicle;
 
-	
+	public abstract void assignLayoutToClass(VehicleLayout vl);
+
 	public Date get_dateDepart() {
 		return _dateDepart;
 	}

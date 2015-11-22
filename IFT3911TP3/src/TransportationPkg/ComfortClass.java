@@ -11,6 +11,7 @@ public abstract class ComfortClass implements ISearchable {
 	private boolean _isFullyReserved;
 	public TripInstance _tripInstance;
 	public Vector<GenericSeat> _seating = new Vector<GenericSeat>();
+	public VehicleLayout layout;
 	
 	public boolean hasAvailableSeats(){
 		throw new UnsupportedOperationException();
