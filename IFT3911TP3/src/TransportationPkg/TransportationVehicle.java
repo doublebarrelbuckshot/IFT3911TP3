@@ -1,10 +1,12 @@
 package TransportationPkg;
 
 import java.util.Vector;
+
+import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.TripInstance;
 import TransportationPkg.VehicleLayout;
 
-public abstract class TransportationVehicle {
+public abstract class TransportationVehicle implements ISearchable {
 	protected String _modele;
 	protected int _capaciteMax;
 	protected String _vehicleIdentifier;
@@ -80,7 +82,7 @@ public abstract class TransportationVehicle {
 	}
 
 	public void addVehicleLayout(VehicleLayout aVl) {
-		throw new UnsupportedOperationException();
+		this._layoutSections.add(aVl);
 	}
 
 	public void removeVehicleLayout(VehicleLayout aD) {
@@ -89,5 +91,8 @@ public abstract class TransportationVehicle {
 
 	public void changeCapacity(int aC) {
 		throw new UnsupportedOperationException();
+	}
+	public boolean matchCriteria(SearchCriteria aSc){
+		return true;
 	}
 }

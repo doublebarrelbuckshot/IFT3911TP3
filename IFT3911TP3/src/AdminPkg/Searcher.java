@@ -2,16 +2,16 @@ package AdminPkg;
 
 import java.util.Vector;
 
-import AdminPkg.Searcher;
 import ClientPkg.SystemeClient;
-import TransportationPkg.TripInstance;
 import CommonComponentsPkg.SearchCriteria;
+import TransportationPkg.GenericSeat;
+import TransportationPkg.ISearchable;
 import TransportationPkg.InstanceSeat;
-import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationCompany;
+import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TripGeneral;
-import TransportationPkg.GenericSeat;
+import TransportationPkg.TripInstance;
 
 public abstract class Searcher {
 	protected AdminPkg.Searcher _instance;
@@ -48,18 +48,44 @@ public abstract class Searcher {
 		return foundTptCompanies;
 	}
 
-//	public Vector<TransportationVehicle> findTransportationVehicle(SearchCriteria aSc) {
-//		Vector<TransportationVehicle> listTptVehicles = transportationManager.get_listTransportationVehicles();
-//		Vector<TransportationVehicle> foundTptVehicles = new Vector<TransportationVehicle>();
-//		for(TransportationVehicle vehicle : listTptVehicles){
-//			
-//		}
-//	}
-
-	public TripGeneral findTripGeneral() {
-		throw new UnsupportedOperationException();
+	public Vector<TransportationVehicle> findTransportationVehicle(SearchCriteria aSc) {
+		Vector<TransportationCompany> listTptCompanies = transportationManager.get_listTptCompanies();
+		Vector<TransportationVehicle> foundVehicles = new Vector<TransportationVehicle>();
+		for(TransportationCompany company : listTptCompanies){
+			for(TransportationVehicle vehicle : company.get_tptVehicles()){
+				if(vehicle.matchCriteria(aSc)){
+					foundVehicles.add(vehicle);
+				}
+			}
+		}
+		return foundVehicles;
 	}
-
+	
+	public Vector<TripGeneral> findTripGeneral(SearchCriteria aSc) {
+		Vector<ISearchable> listSearchable = transportationManager.get_listSearchable();
+		Vector<TripGeneral> foundTripGenerals = new Vector<TripGeneral>(); 
+		for(ISearchable searchable : listSearchable){
+			if(searchable instanceof TripGeneral){
+				if (searchable.matchCriteria(aSc)){
+					foundTripGenerals.addElement((TripGeneral)searchable);
+				}
+			}
+		}
+		return foundTripGenerals;
+	}
+	public Vector<TripInstance> findTripInstances(SearchCriteria aSc) {
+		Vector<TripGeneral> listTripGeneral = findTripGeneral(aSc);
+		Vector<TripInstance> foundTripInstances = new Vector<TripInstance>(); 
+		for(TripGeneral tripGeneral : listTripGeneral){
+			for (TripInstance tripInstance: tripGeneral.get_tripInstances()){
+				if(tripInstance.matchCriteria(aSc)){
+					foundTripInstances.addElement(tripInstance);
+				}
+			}
+		}
+		return foundTripInstances;
+	}
+	
 	public GenericSeat findGenericSeat(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}

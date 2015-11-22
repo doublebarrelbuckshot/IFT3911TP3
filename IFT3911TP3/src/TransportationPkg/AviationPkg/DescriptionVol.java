@@ -2,6 +2,7 @@ package TransportationPkg.AviationPkg;
 
 import AdminPkg.ITripVisitor;
 import TransportationPkg.ComfortClass;
+import TransportationPkg.ITripVisitable;
 import TransportationPkg.TripInstance;
 
 public class DescriptionVol extends TripInstance {
@@ -16,5 +17,8 @@ public class DescriptionVol extends TripInstance {
 	
 	public void accept(ITripVisitor visitor){
 		visitor.visit(this);
+		for(ITripVisitable section : this.get_comfortClasses()){
+			section.accept(visitor);
+		}
 	}
 }

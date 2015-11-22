@@ -9,7 +9,6 @@ import TransportationPkg.ISearchable;
 import TransportationPkg.TripGeneral;
 
 public class TransportationManager {
-	private java.util.Vector<TransportationVehicle> _listTransportationVehicles;
 	private static TransportationManager _instance;
 	public ConfigValues _config;
 	public Vector<TransportationHub> _listTptHubs = new Vector<TransportationHub>();
@@ -60,15 +59,6 @@ public class TransportationManager {
 
 	public void addTripGeneral(String aTripID, TransportationHub aDepart, TransportationHub aArrive) {
 		throw new UnsupportedOperationException();
-	}
-
-	public java.util.Vector<TransportationVehicle> get_listTransportationVehicles() {
-		return _listTransportationVehicles;
-	}
-
-	public void set_listTransportationVehicles(
-			java.util.Vector<TransportationVehicle> _listTransportationVehicles) {
-		this._listTransportationVehicles = _listTransportationVehicles;
 	}
 
 	public TransportationManager get_instance() {

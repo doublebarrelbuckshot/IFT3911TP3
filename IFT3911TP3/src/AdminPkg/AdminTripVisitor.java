@@ -1,5 +1,10 @@
 package AdminPkg;
 
+import java.util.Vector;
+
+import TransportationPkg.GenericSeat;
+import TransportationPkg.ReservedState;
+import TransportationPkg.AviationPkg.Affaire;
 import TransportationPkg.AviationPkg.DescriptionVol;
 import TransportationPkg.CroisierePkg.DescriptionCroisiere;
 import TransportationPkg.TrainPkg.DescriptionTrajet;
@@ -8,6 +13,10 @@ import TransportationPkg.TrainPkg.DescriptionTrajet;
 
 public class AdminTripVisitor implements ITripVisitor{
 
+	private int count=0;
+	
+	public int get_count(){return count;}
+	
 	@Override
 	public void visit(DescriptionVol vol) {
 		System.out.println(vol.get_tripDescription().get_hubDeparture()+"-"+vol.get_tripDescription().get_hubArrival());
@@ -38,4 +47,13 @@ public class AdminTripVisitor implements ITripVisitor{
 		
 	}
 
+	public void visit(Affaire affaire){
+		System.out.print();
+		Vector<GenericSeat> listSeats =affaire.get_seating();
+		
+		for(GenericSeat seat : listSeats){
+			if(seat.get_state() instanceof ReservedState)
+				count++;
+		}
+	}
 }
