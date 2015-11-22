@@ -14,8 +14,17 @@ public abstract class TransportationCompany implements ISearchable {
 	public Vector<TransportationVehicle> _tptVehicles = new Vector<TransportationVehicle>();
 	public Vector<TripGeneral> _tripGenerals = new Vector<TripGeneral>();
 
+	public void addTripGeneral(TripGeneral tg)
+	{
+		this._tripGenerals.add(tg);
+	}
 	public void addTripGeneral(TransportationHub aThDepart, TransportationHub aThArrive) {
 		throw new UnsupportedOperationException();
+	}
+	
+	public void addTransportationVehicle(TransportationVehicle tv)
+	{
+		this._tptVehicles.add(tv);
 	}
 
 	public void removeTripGeneral(TripGeneral aTg) {
@@ -65,6 +74,7 @@ public abstract class TransportationCompany implements ISearchable {
 	public void set_tptVehicles(Vector<TransportationVehicle> _tptVehicles) {
 		this._tptVehicles = _tptVehicles;
 	}
+	
 
 	public Vector<TripGeneral> get_tripGenerals() {
 		return _tripGenerals;

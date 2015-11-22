@@ -6,9 +6,11 @@ import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationCompany;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TripGeneral;
+import TransportationPkg.TripInstance;
 import TransportationPkg.AviationPkg.Aeroport;
 import TransportationPkg.AviationPkg.Avion;
 import TransportationPkg.AviationPkg.CompagnieAerienne;
+import TransportationPkg.AviationPkg.DescriptionVol;
 import TransportationPkg.AviationPkg.Vol;
 import AdminPkg.TransportationFactory;
 
@@ -29,8 +31,11 @@ public class AirFactory extends TransportationFactory {
 		return ca;
 	}
 
-	public TransportationVehicle createTransportVehicle() {
+	public TransportationVehicle createTransportVehicle(int capacity, String manufacturer, TransportationCompany company) {
 		Avion a = new Avion();
+		a.set_capaciteMax(capacity);
+		a.set_manufacturer(manufacturer);
+		a.setTptCompany(company);
 		return a;
 	}
 
@@ -43,6 +48,17 @@ public class AirFactory extends TransportationFactory {
 		v.set_hubDeparture(depart);
 		return v;
 	}
+	
+	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, int tripInstanceID, double price )
+	{
+		DescriptionVol dv = new DescriptionVol();
+		dv.set_dateDepart(dateDepart);
+		dv.set_dateArrive(dateArrival);
+		dv.set_tripInstanceID(tripInstanceID);
+		dv.set_fullPrice(price);
+		return dv;
+	}
+	
 	public static AirFactory getInstance() {
 		if (_instance == null)
 			_instance = new AirFactory();

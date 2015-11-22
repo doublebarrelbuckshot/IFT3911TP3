@@ -6,32 +6,58 @@ import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationCompany;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TripGeneral;
+import TransportationPkg.TripInstance;
+import TransportationPkg.CroisierePkg.Croisiere;
+import TransportationPkg.TrainPkg.Gare;
+import TransportationPkg.TrainPkg.LigneTrain;
+import TransportationPkg.TrainPkg.Train;
+import TransportationPkg.TrainPkg.Trajet;
 import AdminPkg.TransportationFactory;
 
 public class TrainFactory extends TransportationFactory {
-	private TrainFactory _instance;
+	private static TrainFactory _instance;
 
 	public TransportationHub createTransportationHub(String aName) {
-		throw new UnsupportedOperationException();
+		Gare g = new Gare();
+		g.set_name(aName);
+		return g;
 	}
 
 	public TransportationCompany createTransportCompany(String aName) {
-		throw new UnsupportedOperationException();
+		LigneTrain lt = new LigneTrain();
+		lt.set_name(aName);
+		return lt;
 	}
 
-	public TransportationVehicle createTransportVehicle() {
-		throw new UnsupportedOperationException();
+	public TransportationVehicle createTransportVehicle(int capacity, String manufacturer, TransportationCompany company) {
+		Train t = new Train();
+		t.set_capaciteMax(capacity);
+		t.set_manufacturer(manufacturer);
+		t.setTptCompany(company);
+		return t;
+		
 	}
 
-	private TrainFactory getInstance() {
-		return this._instance;
+	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, int tripInstanceID, double price )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public static TrainFactory getInstance() {
+		if (_instance == null)
+			_instance = new TrainFactory();
+		return _instance;
 	}
 	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, String tripID, TransportationHub depart, TransportationHub arrive ){
-		throw new UnsupportedOperationException();
-	}
+		Trajet t = new Trajet();
+		t.set_heureArrive(dateArrival);
+		t.set_heureDepart(dateDepart);
+		t.set_tripID(tripID);
+		t.set_hubArrival(arrive);
+		t.set_hubDeparture(depart);
+		return t;	
+		}	
 
 
 	private TrainFactory() {
-		throw new UnsupportedOperationException();
 	}
 }

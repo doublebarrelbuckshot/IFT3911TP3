@@ -15,7 +15,8 @@ public class TransportationManager {
 	public Vector<TransportationHub> _listTptHubs = new Vector<TransportationHub>();
 	public Vector<TransportationCompany> _listTptCompanies = new Vector<TransportationCompany>();
 	public Vector<ISearchable> _listSearchable = new Vector<ISearchable>();
-
+	public Vector<TripGeneral> _listTripGenerals = new Vector<TripGeneral>();
+	
 	private TransportationManager() {
 	}
 
@@ -26,11 +27,11 @@ public class TransportationManager {
 	}
 
 	public void addTripGeneral(TripGeneral aTg) {
-		throw new UnsupportedOperationException();
+		this._listTripGenerals.add(aTg);
 	}
 
 	public void addTransportCompany(TransportationCompany aTc) {
-		throw new UnsupportedOperationException();
+		this._listTptCompanies.add(aTc);
 	}
 
 	public void addTransportationHub(TransportationHub aTh) {

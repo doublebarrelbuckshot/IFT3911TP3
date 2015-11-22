@@ -18,6 +18,79 @@ public abstract class TripInstance {
 	public Vector<ComfortClass> _comfortClasses = new Vector<ComfortClass>();
 	public TransportationVehicle _tptVehicle;
 
+	
+	public Date get_dateDepart() {
+		return _dateDepart;
+	}
+
+	public void set_dateDepart(Date _dateDepart) {
+		this._dateDepart = _dateDepart;
+	}
+
+	public double get_fullPrice() {
+		return _fullPrice;
+	}
+
+	public void set_fullPrice(double _fullPrice) {
+		this._fullPrice = _fullPrice;
+	}
+
+	public int get_tripInstanceID() {
+		return _tripInstanceID;
+	}
+
+	public void set_tripInstanceID(int _tripInstanceID) {
+		this._tripInstanceID = _tripInstanceID;
+	}
+
+	public Date get_dateArrive() {
+		return _dateArrive;
+	}
+
+	public void set_dateArrive(Date _dateArrive) {
+		this._dateArrive = _dateArrive;
+	}
+
+	public Order get_unnamed_Order_() {
+		return _unnamed_Order_;
+	}
+
+	public void set_unnamed_Order_(Order _unnamed_Order_) {
+		this._unnamed_Order_ = _unnamed_Order_;
+	}
+
+	public TripGeneral get_tripDescription() {
+		return _tripDescription;
+	}
+
+	public void set_tripDescription(TripGeneral _tripDescription) {
+		this._tripDescription = _tripDescription;
+	}
+
+	public IOrder get_listOrders() {
+		return _listOrders;
+	}
+
+	public void set_listOrders(IOrder _listOrders) {
+		this._listOrders = _listOrders;
+	}
+
+	public Vector<ComfortClass> get_comfortClasses() {
+		return _comfortClasses;
+	}
+
+	public void set_comfortClasses(Vector<ComfortClass> _comfortClasses) {
+		this._comfortClasses = _comfortClasses;
+	}
+
+	public TransportationVehicle get_tptVehicle() {
+		return _tptVehicle;
+	}
+
+	public void set_tptVehicle(TransportationVehicle _tptVehicle) {
+		this._tptVehicle = _tptVehicle;
+	}
+
 	public GenericSeat getSeat(String aSl) {
 		throw new UnsupportedOperationException();
 	}
@@ -53,4 +126,6 @@ public abstract class TripInstance {
 	public double getFullPrice() {
 		return this._fullPrice;
 	}
+	
+	
 }
