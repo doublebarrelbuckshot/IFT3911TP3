@@ -1,26 +1,25 @@
 package ClientPkg;
 
-import TransportationPkg.AviationPkg.Vol;
-import TransportationPkg.CroisierePkg.Croisiere;
-import TransportationPkg.TrainPkg.Trajet;
+import TransportationPkg.AviationPkg.DescriptionVol;
+import TransportationPkg.CroisierePkg.DescriptionCroisiere;
+import TransportationPkg.TrainPkg.DescriptionTrajet;
 import AdminPkg.ITripVisitor;
 
 public class ClientTripVisitor implements ITripVisitor{
 
 	@Override
-	public void visit(Vol vol) {
-		System.out.println(vol._hubDeparture + "-"+ vol._hubArrival);
+	public void visit(DescriptionVol vol) {
 		
 	}
 
 	@Override
-	public void visit(Trajet trajet) {
+	public void visit(DescriptionTrajet trajet) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Croisiere croisiere) {
+	public void visit(DescriptionCroisiere croisiere) {
 		// TODO Auto-generated method stub
 		
 	}

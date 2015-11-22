@@ -9,7 +9,7 @@ import java.util.Vector;
 import AdminPkg.ITripVisitor;
 import TransportationPkg.TripInstance;
 
-public abstract class TripGeneral implements ISearchable, IVisitable {
+public abstract class TripGeneral implements ISearchable {
 	protected Date _heureDepart;
 	protected String _tripID;
 	protected Date _heureArrive;
@@ -106,5 +106,5 @@ public abstract class TripGeneral implements ISearchable, IVisitable {
 		throw new UnsupportedOperationException();
 	}
 	
-	public abstract void accept(ITripVisitor visitor);
+	
 }

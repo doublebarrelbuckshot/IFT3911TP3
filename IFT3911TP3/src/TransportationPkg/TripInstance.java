@@ -1,5 +1,6 @@
 package TransportationPkg;
 
+import AdminPkg.ITripVisitor;
 import ReservationPkg.Order;
 
 import java.util.Date;
@@ -7,7 +8,7 @@ import java.util.Vector;
 
 import TransportationPkg.ComfortClass;
 
-public abstract class TripInstance {
+public abstract class TripInstance implements IVisitable{
 	protected Date _dateDepart;
 	protected double _fullPrice;
 	protected int _tripInstanceID;
@@ -124,5 +125,6 @@ public abstract class TripInstance {
 		return this._fullPrice;
 	}
 	
+	public abstract void accept(ITripVisitor visitor);
 	
 }
