@@ -9,7 +9,6 @@ import TransportationPkg.ISearchable;
 import TransportationPkg.TripGeneral;
 
 public class TransportationManager {
-	private java.util.Vector<TransportationVehicle> _listTransportationVehicles;
 	private static TransportationManager _instance;
 	public ConfigValues _config;
 	public Vector<TransportationHub> _listTptHubs = new Vector<TransportationHub>();
@@ -28,47 +27,37 @@ public class TransportationManager {
 
 	public void addTripGeneral(TripGeneral aTg) {
 		this._listTripGenerals.add(aTg);
+		_listSearchable.add(aTg);
 	}
 
 	public void addTransportCompany(TransportationCompany aTc) {
 		this._listTptCompanies.add(aTc);
+		_listSearchable.add(aTc);
 	}
 
 	public void addTransportationHub(TransportationHub aTh) {
-		throw new UnsupportedOperationException();
+		this._listTptHubs.add(aTh);
+		_listSearchable.add(aTh);
 	}
 
-	public void addTransportationVehicle(TransportationVehicle aTv) {
-		throw new UnsupportedOperationException();
-	}
 
 	public void removeTransportationHub(TransportationHub aTh) {
-		throw new UnsupportedOperationException();
+		this._listTptCompanies.remove(aTh);
+		_listSearchable.remove(aTh);
 	}
 
 	public void removeTransportCompany(TransportationCompany aTc) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void removeTransportationVehicle(TransportationVehicle aTv) {
-		throw new UnsupportedOperationException();
+		this._listTptCompanies.remove(aTc);
+		_listSearchable.remove(aTc);
 	}
 
 	public void removeTripGeneral(TripGeneral aTg) {
-		throw new UnsupportedOperationException();
+		this._listTripGenerals.remove(aTg);
+		_listSearchable.remove(aTg);
 	}
 
 	public void addTripGeneral(String aTripID, TransportationHub aDepart, TransportationHub aArrive) {
-		throw new UnsupportedOperationException();
-	}
-
-	public java.util.Vector<TransportationVehicle> get_listTransportationVehicles() {
-		return _listTransportationVehicles;
-	}
-
-	public void set_listTransportationVehicles(
-			java.util.Vector<TransportationVehicle> _listTransportationVehicles) {
-		this._listTransportationVehicles = _listTransportationVehicles;
+		//this._listTripGenerals.add(arg0)
 	}
 
 	public TransportationManager get_instance() {
