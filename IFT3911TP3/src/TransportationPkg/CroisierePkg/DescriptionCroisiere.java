@@ -16,30 +16,34 @@ public class DescriptionCroisiere extends TripInstance {
 	}
 	
 	public void assignLayoutToClass(VehicleLayout vl) {
+		ComfortClass cc = null;
 		if(vl instanceof LayoutFamille )
 		{
-			Famille f = new Famille();
-			f.layout = vl;
-			this._comfortClasses.add(f);
+			cc = new Famille();
+			cc.layout = vl;
+			this._comfortClasses.add(cc);
 		}
 		else if(vl instanceof LayoutDeluxe )
 		{
-			FamilyDeluxe d = new FamilyDeluxe();
-			d.layout = vl;
-			this._comfortClasses.add(d);
+			cc = new FamilyDeluxe();
 		}
 		else if(vl instanceof LayoutInterior )
 		{
-			Interieur d = new Interieur();
-			d.layout = vl;
-			this._comfortClasses.add(d);
+			cc = new Interieur();
 		}
 		else if(vl instanceof LayoutOcean )
 		{
-			Ocean d = new Ocean();
-			d.layout = vl;
-			this._comfortClasses.add(d);
+			cc = new Ocean();
 		}
+		else if(vl instanceof LayoutSuite)
+		{
+			cc = new Suite();
+		}
+
+		cc.layout = vl;
+		this._comfortClasses.add(cc);
+		
+		cc.createPhysicalSeats(vl);
 	}
 		
 

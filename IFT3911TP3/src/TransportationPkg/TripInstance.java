@@ -2,6 +2,7 @@ package TransportationPkg;
 
 import AdminPkg.ITripVisitor;
 import ReservationPkg.Order;
+
 import java.util.Date;
 import java.util.Vector;
 
@@ -25,6 +26,7 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 	public Date get_dateDepart() {
 		return _dateDepart;
 	}
+
 
 	public void set_dateDepart(Date _dateDepart) {
 		this._dateDepart = _dateDepart;

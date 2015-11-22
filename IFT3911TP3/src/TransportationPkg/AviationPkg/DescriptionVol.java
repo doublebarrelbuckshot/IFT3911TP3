@@ -2,7 +2,9 @@ package TransportationPkg.AviationPkg;
 
 import AdminPkg.ITripVisitor;
 import TransportationPkg.ComfortClass;
+import TransportationPkg.GenericSeat;
 import TransportationPkg.ITripVisitable;
+import TransportationPkg.InstanceSeat;
 import TransportationPkg.TripInstance;
 import TransportationPkg.VehicleLayout;
 import TransportationPkg.CroisierePkg.Famille;
@@ -25,30 +27,28 @@ public class DescriptionVol extends TripInstance {
 	}
 
 	public void assignLayoutToClass(VehicleLayout vl) {
+		ComfortClass cc = null;
 		if(vl instanceof AirLarge )
 		{
-			Premiere f = new Premiere();
-			f.layout = vl;
-			this._comfortClasses.add(f);
+			cc = new Premiere();
 		}
 		else if(vl instanceof AirConfort )
 		{
-			Affaire d = new Affaire();
-			d.layout = vl;
-			this._comfortClasses.add(d);
+			cc = new Affaire();
 		}
 		else if(vl instanceof AirMoyen )
 		{
-			EconomiquePremium d = new EconomiquePremium();
-			d.layout = vl;
-			this._comfortClasses.add(d);
+			cc = new EconomiquePremium();
 		}
 		else if(vl instanceof AirEtroit )
 		{
-			Economique d = new Economique();
-			d.layout = vl;
-			this._comfortClasses.add(d);
+			cc = new Economique();
 		}
+		
+		cc.layout = vl;
+		this._comfortClasses.add(cc);
+		
+		cc.createPhysicalSeats(vl);
 	}
 		
 

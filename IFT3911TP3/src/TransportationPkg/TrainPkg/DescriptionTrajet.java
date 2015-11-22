@@ -25,12 +25,16 @@ public class DescriptionTrajet extends TripInstance {
 	
 
 	public void assignLayoutToClass( VehicleLayout vl) {
+		ComfortClass cc = null;
 		if(vl instanceof TrainEtroit )
 		{
-			TrainPremiere f = new TrainPremiere();
-			f.layout = vl;
-			this._comfortClasses.add(f);
-		}		
+			cc = new TrainPremiere();
+
+		}
+		cc.layout = vl;
+		this._comfortClasses.add(cc);
+		
+		cc.createPhysicalSeats(vl);
 	}
 	public void accept(ITripVisitor visitor){
 		visitor.visit(this);

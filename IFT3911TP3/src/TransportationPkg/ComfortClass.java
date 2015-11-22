@@ -15,6 +15,15 @@ public abstract class ComfortClass implements ISearchable, ITripVisitable {
 	public boolean hasAvailableSeats(){
 		throw new UnsupportedOperationException();
 	}
+	
+	public void createPhysicalSeats(VehicleLayout vl){
+		for(int i=0; i<vl._seating.size(); i++)
+		{
+			InstanceSeat inSeat = new InstanceSeat();
+			this._seating.add(inSeat);
+			inSeat._physicalSeat = vl._seating.get(i);
+		}
+	}
 	public void addGS() {
 		throw new UnsupportedOperationException();
 	}

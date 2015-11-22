@@ -130,6 +130,9 @@ public class SimulationData {
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
+			if(vl == null)
+				System.out.println("BEFORE");
+			
 			NY_HAVANA1.assignLayoutToClass(vl); 
 		}
 				
@@ -326,6 +329,12 @@ public class SimulationData {
 		NY_FL.addTripInstance(NY_FL1);
 		NY_FL1.setTptVehicle(train1);
 		
+		for(int i=0; i<train1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = train1._layoutSections.get(i);
+			NY_FL1.assignLayoutToClass(vl); 
+		}
+		
 		Date dDepartInstNY_FL2 = new Date();
 		dDepartInstNY_FL2.setDate(1);
 		dDepartInstNY_FL2.setMonth(2);
@@ -338,6 +347,12 @@ public class SimulationData {
 		TripInstance NY_FL2 = trainFactory.createTripInstance(dDepartInstNY_FL2, dArriveInstNY_FL2, 2002, 95);
 		NY_FL.addTripInstance(NY_FL2);
 		NY_FL2.setTptVehicle(train1);
+		
+		for(int i=0; i<train1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = train1._layoutSections.get(i);
+			NY_FL2.assignLayoutToClass(vl); 
+		}
 		
 
 		
@@ -367,6 +382,12 @@ public class SimulationData {
 		TripInstance NY_BOSTON1 = trainFactory.createTripInstance(dDepartInstNY_BOSTON, dArriveInstNY_BOSTON, 2006, 75);
 		NY_BOSTON.addTripInstance(NY_BOSTON1);
 		NY_BOSTON1.setTptVehicle(train1);
+		
+		for(int i=0; i<train1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = train1._layoutSections.get(i);
+			NY_BOSTON1.assignLayoutToClass(vl); 
+		}
 		
 		
 		/*
@@ -398,6 +419,12 @@ public class SimulationData {
 		TripInstance BOSTON_FL1 = trainFactory.createTripInstance(dDepartInstBOSTON_FL, dArriveInstBOSTON_FL, 2007, 68);
 		BOSTON_FL.addTripInstance(BOSTON_FL1);
 		BOSTON_FL1.setTptVehicle(train1);
+		
+		for(int i=0; i<train1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = train1._layoutSections.get(i);
+			BOSTON_FL1.assignLayoutToClass(vl); 
+		}
 		
 		System.out.println("BOSTON_FL: " + BOSTON_FL.get_heureArriveStr() + "  " + BOSTON_FL._hubArrival.get_name() + " " + BOSTON_FL._hubDeparture.get_name());
 
@@ -492,6 +519,12 @@ public class SimulationData {
 		YUL_JFK.addTripInstance(YUL_JKF1);
 		YUL_JKF1.setTptVehicle(plane1);
 		
+		for(int i=0; i<plane1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = plane1._layoutSections.get(i);
+			YUL_JKF1.assignLayoutToClass(vl); 
+		}
+		
 		
 		/*
 		 * TRIP GENERAL YUL-LAX
@@ -522,6 +555,12 @@ public class SimulationData {
 		TripInstance YUL_LAX1 = airFactory.createTripInstance(dDepartInstYUL_LAX, dArriveInstYUL_LAX, 3003, 200);
 		YUL_LAX.addTripInstance(YUL_LAX1);
 		YUL_LAX1.setTptVehicle(plane1);
+		
+		for(int i=0; i<plane1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = plane1._layoutSections.get(i);
+			YUL_LAX1.assignLayoutToClass(vl); 
+		}
 
 		Date dDepartInstYUL_LAX2 = new Date();
 		dDepartInstYUL_LAX2.setDate(8);
@@ -535,6 +574,12 @@ public class SimulationData {
 		TripInstance YUL_LAX2 = airFactory.createTripInstance(dDepartInstYUL_LAX2, dArriveInstYUL_LAX2, 3004, 200);
 		YUL_LAX.addTripInstance(YUL_LAX2);
 		YUL_LAX2.setTptVehicle(plane1);
+		
+		for(int i=0; i<plane1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = plane1._layoutSections.get(i);
+			YUL_LAX2.assignLayoutToClass(vl); 
+		}
 		
 		/*
 		 * TRIP GENERAL LAX-JFK
@@ -565,6 +610,12 @@ public class SimulationData {
 		TripInstance LAX_JFK1 = airFactory.createTripInstance(dDepartInstLAX_JFK, dArriveInstLAX_JFK, 3005, 210);
 		LAX_JFK.addTripInstance(LAX_JFK1);
 		LAX_JFK1.setTptVehicle(plane1);
+		
+		for(int i=0; i<plane1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = plane1._layoutSections.get(i);
+			LAX_JFK1.assignLayoutToClass(vl); 
+		}
 
 		Date dDepartInstLAX_JFK2 = new Date();
 		dDepartInstLAX_JFK2.setDate(11);
@@ -578,6 +629,12 @@ public class SimulationData {
 		TripInstance LAX_JFK2 = airFactory.createTripInstance(dDepartInstLAX_JFK2, dArriveInstLAX_JFK2, 3006, 212);
 		LAX_JFK.addTripInstance(LAX_JFK2);
 		LAX_JFK2.setTptVehicle(plane1);
+		
+		for(int i=0; i<plane1._layoutSections.size(); i++)
+		{
+			VehicleLayout vl = plane1._layoutSections.get(i);
+			LAX_JFK2.assignLayoutToClass(vl); 
+		}
 
 		
 		System.out.println("LAX-JFK: " + LAX_JFK.get_heureArriveStr() + "  " + LAX_JFK._hubArrival.get_name() + " " + LAX_JFK._hubDeparture.get_name());
