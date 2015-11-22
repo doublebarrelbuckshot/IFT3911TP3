@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Vector;
 
 import AdminPkg.ITripVisitor;
+import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.TripInstance;
 
 public abstract class TripGeneral implements ISearchable, IVisitable {
@@ -104,6 +105,30 @@ public abstract class TripGeneral implements ISearchable, IVisitable {
 
 	public Date changeArriveTime(Date aD) {
 		throw new UnsupportedOperationException();
+	}
+	
+	public boolean matchCriteria(SearchCriteria aSc){
+		String departureHubName = aSc.get__transportationHubNameDeparture();
+		String arrivalHubName = aSc.get__transportationHubNameArrival();
+		String transportationHubName = aSc.get_transportationHubName();
+		String transportationCompanyName = aSc.get_transportationCompanyName();
+		if (!departureHubName.isEmpty() && !arrivalHubName.isEmpty()){
+			if(this.get_hubDeparture().get_name().equals(departureHubName) && 
+			   this.get_hubArrival().get_name().equals(arrivalHubName)){
+				return true;
+			}
+		}else{
+			if( !transportationHubName.isEmpty()){
+				if(this.get_hubDeparture().get_name().equals(transportationHubName)){
+					return true;
+				}
+			}else{
+				if(this.getTptCompany().get_name().equals(transportationCompanyName)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public abstract void accept(ITripVisitor visitor);
