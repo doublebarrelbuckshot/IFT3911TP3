@@ -87,16 +87,13 @@ public abstract class TripInstance implements ISearchable {
 		return _tptVehicle;
 	}
 
-	public void set_tptVehicle(TransportationVehicle _tptVehicle) {
-		this._tptVehicle = _tptVehicle;
-	}
 
 	public GenericSeat getSeat(String aSl) {
 		throw new UnsupportedOperationException();
 	}
 
-	public void addTptVehicle() {
-		throw new UnsupportedOperationException();
+	public void setTptVehicle(TransportationVehicle _tptVehicle) {
+		this._tptVehicle = _tptVehicle;
 	}
 
 	public void removeTptVehicle(TransportationVehicle aTv) {

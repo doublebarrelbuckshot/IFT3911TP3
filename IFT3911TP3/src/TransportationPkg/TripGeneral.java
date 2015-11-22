@@ -86,8 +86,8 @@ public abstract class TripGeneral implements ISearchable, IVisitable {
 		this._hubArrival = _hubArrival;
 	}
 
-	public void addTripInstance() {
-		throw new UnsupportedOperationException();
+	public void addTripInstance(TripInstance ti) {
+		this._tripInstances.add(ti);
 	}
 
 	public boolean referencesTptHub(TransportationHub aA) {

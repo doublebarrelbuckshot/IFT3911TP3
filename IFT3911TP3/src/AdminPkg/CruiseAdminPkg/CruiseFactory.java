@@ -10,8 +10,10 @@ import TransportationPkg.TripInstance;
 import TransportationPkg.AviationPkg.Vol;
 import TransportationPkg.CroisierePkg.CompagnieCroisiere;
 import TransportationPkg.CroisierePkg.Croisiere;
+import TransportationPkg.CroisierePkg.DescriptionCroisiere;
 import TransportationPkg.CroisierePkg.Paquebot;
 import TransportationPkg.CroisierePkg.Port;
+import TransportationPkg.TrainPkg.DescriptionTrajet;
 import AdminPkg.TransportationFactory;
 
 public class CruiseFactory extends TransportationFactory {
@@ -55,8 +57,12 @@ public class CruiseFactory extends TransportationFactory {
 
 	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, int tripInstanceID, double price )
 	{
-		throw new UnsupportedOperationException();
-	}
+		DescriptionCroisiere dv = new DescriptionCroisiere();
+		dv.set_dateDepart(dateDepart);
+		dv.set_dateArrive(dateArrival);
+		dv.set_tripInstanceID(tripInstanceID);
+		dv.set_fullPrice(price);
+		return dv;	}
 	private CruiseFactory() {
 
 	}
