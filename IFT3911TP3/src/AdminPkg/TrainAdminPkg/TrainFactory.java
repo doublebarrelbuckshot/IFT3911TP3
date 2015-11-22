@@ -7,7 +7,9 @@ import TransportationPkg.TransportationCompany;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TripGeneral;
 import TransportationPkg.TripInstance;
+import TransportationPkg.AviationPkg.DescriptionVol;
 import TransportationPkg.CroisierePkg.Croisiere;
+import TransportationPkg.TrainPkg.DescriptionTrajet;
 import TransportationPkg.TrainPkg.Gare;
 import TransportationPkg.TrainPkg.LigneTrain;
 import TransportationPkg.TrainPkg.Train;
@@ -40,7 +42,12 @@ public class TrainFactory extends TransportationFactory {
 
 	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, int tripInstanceID, double price )
 	{
-		throw new UnsupportedOperationException();
+		DescriptionTrajet dv = new DescriptionTrajet();
+		dv.set_dateDepart(dateDepart);
+		dv.set_dateArrive(dateArrival);
+		dv.set_tripInstanceID(tripInstanceID);
+		dv.set_fullPrice(price);
+		return dv;
 	}
 	public static TrainFactory getInstance() {
 		if (_instance == null)
