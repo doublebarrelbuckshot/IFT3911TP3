@@ -8,7 +8,7 @@ public class InstanceSeat extends GenericSeat {
 	public IPassenger _passenger;
 	public Passager _unnamed_Passager_;
 
-	public ISearchable find(SearchCriteria aSc) {
+	public boolean matchCriteria(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}
 }

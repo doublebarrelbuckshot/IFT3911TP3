@@ -6,7 +6,7 @@ import TransportationPkg.ConfigValues;
 
 public class AirConfig extends ConfigValues {
 
-	public ISearchable find(SearchCriteria aSc) {
+	public boolean matchCriteria(SearchCriteria aSc){
 		throw new UnsupportedOperationException();
 	}
 }

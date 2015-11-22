@@ -1,6 +1,7 @@
 package TransportationPkg;
 
 import CommonComponentsPkg.Adresse;
+import CommonComponentsPkg.SearchCriteria;
 import AdminPkg.TransportationManager;
 import java.util.Vector;
 import TransportationPkg.TransportationVehicle;
@@ -82,6 +83,13 @@ public abstract class TransportationCompany implements ISearchable {
 
 	public void set_tripGenerals(Vector<TripGeneral> _tripGenerals) {
 		this._tripGenerals = _tripGenerals;
+	}
+	
+	public boolean matchCriteria(SearchCriteria aSc){
+		if(aSc.get_transportationCompanyName().equals(this.get_name())){
+			return true;
+		} 
+		return false;
 	}
 	
 	

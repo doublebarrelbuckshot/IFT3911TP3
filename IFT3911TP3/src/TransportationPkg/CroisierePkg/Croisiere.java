@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import TransportationPkg.CroisierePkg.ItineraryItem;
 import TransportationPkg.ISearchable;
+import AdminPkg.ITripVisitor;
 import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.TripGeneral;
 
@@ -15,7 +16,13 @@ public class Croisiere extends TripGeneral {
 		throw new UnsupportedOperationException();
 	}
 
-	public ISearchable find(SearchCriteria aSc) {
+	public boolean matchCriteria(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void accept(ITripVisitor visitor) {
+		// TODO Auto-generated method stub
+		
 	}
 }

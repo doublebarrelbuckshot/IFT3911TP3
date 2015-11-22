@@ -2,7 +2,7 @@ package TransportationPkg;
 
 import CommonComponentsPkg.SearchCriteria;
 
-public interface ISearchable<sc extends SearchCriteria> {
+public interface ISearchable {
 
-	public ISearchable find(SearchCriteria aSc);
+	public boolean matchCriteria(SearchCriteria aSc);
 }

@@ -6,7 +6,7 @@ import TransportationPkg.TransportationHub;
 
 public class Aeroport extends TransportationHub {
 
-	public ISearchable find(SearchCriteria aSc) {
+	public boolean matchCriteria(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}
 }

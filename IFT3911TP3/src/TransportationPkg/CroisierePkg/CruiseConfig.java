@@ -6,7 +6,7 @@ import TransportationPkg.ConfigValues;
 
 public class CruiseConfig extends ConfigValues {
 
-	public ISearchable find(SearchCriteria aSc) {
+	public boolean matchCriteria(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}
 }

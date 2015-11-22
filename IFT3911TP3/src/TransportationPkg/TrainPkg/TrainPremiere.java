@@ -7,7 +7,7 @@ import TransportationPkg.ComfortClass;
 public class TrainPremiere extends ComfortClass {
 	private double _prixPercent = 1.0;
 
-	public ISearchable find(SearchCriteria aSc) {
+	public boolean matchCriteria(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}
 
