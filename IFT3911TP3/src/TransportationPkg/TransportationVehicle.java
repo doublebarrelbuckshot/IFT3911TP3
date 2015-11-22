@@ -80,7 +80,7 @@ public abstract class TransportationVehicle {
 	}
 
 	public void addVehicleLayout(VehicleLayout aVl) {
-		throw new UnsupportedOperationException();
+		this._layoutSections.add(aVl);
 	}
 
 	public void removeVehicleLayout(VehicleLayout aD) {

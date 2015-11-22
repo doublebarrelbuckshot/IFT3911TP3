@@ -10,6 +10,19 @@ import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TripGeneral;
 import TransportationPkg.TripInstance;
+import TransportationPkg.VehicleLayout;
+import TransportationPkg.AviationPkg.AirConfort;
+import TransportationPkg.AviationPkg.AirEtroit;
+import TransportationPkg.AviationPkg.AirLarge;
+import TransportationPkg.AviationPkg.AirMoyen;
+import TransportationPkg.AviationPkg.AirPhysicalSeat;
+import TransportationPkg.CroisierePkg.LayoutFamille;
+import TransportationPkg.CroisierePkg.LayoutInterior;
+import TransportationPkg.CroisierePkg.LayoutOcean;
+import TransportationPkg.CroisierePkg.LayoutSuite;
+import TransportationPkg.CroisierePkg.PhysicalCabine;
+import TransportationPkg.TrainPkg.TrainEtroit;
+import TransportationPkg.TrainPkg.TrainPhysicalSeat;
 
 public class SimulationData {
 
@@ -40,9 +53,44 @@ public class SimulationData {
 		TransportationCompany princess = cruiseFactory.createTransportCompany("Princess Cruises");
 		tptManager.addTransportCompany(princess);
 		
-		
+		/*
+		 * Init cruise ship
+		 */
 		TransportationVehicle cruiseShip = cruiseFactory.createTransportVehicle(2400, "Rhode Island Ship Builders", princess);
+		
+		for(int i = 0; i<10; i++)
+		{
+			VehicleLayout li = new LayoutInterior();
+			VehicleLayout lo = new LayoutOcean();
+			VehicleLayout ls = new LayoutSuite();
+			VehicleLayout lf = new LayoutFamille();
+		
+			cruiseShip.addVehicleLayout(li);
+			li.configureSeating();
+			cruiseShip.addVehicleLayout(lo);
+			lo.configureSeating();
+			cruiseShip.addVehicleLayout(ls);
+			ls.configureSeating();
+			cruiseShip.addVehicleLayout(lf);
+			lf.configureSeating();
+		}
+		
+		/*
+		 *TO PRINT OUT ROOM NUMBERS FOR EACH SEAT
+		for(int i =0; i<cruiseShip.get_layoutSections().size(); i++)
+		{
 
+				for(int k=0; k<cruiseShip.get_layoutSections().get(i)._seating.size(); k++)
+				{
+					PhysicalCabine pc = (PhysicalCabine)cruiseShip.get_layoutSections().get(i)._seating.get(k);
+					System.out.println(pc.getRoomIdentifier());
+				}
+		
+		}
+		
+		 */
+		
+		
 		princess.addTransportationVehicle(cruiseShip);
 		
 		
@@ -188,8 +236,29 @@ public class SimulationData {
 		tptManager.addTransportCompany(amtrak);
 		
 		
-		TransportationVehicle train1 = trainFactory.createTransportVehicle(100, "Bombardier", amtrak);
+		TransportationVehicle train1 = trainFactory.createTransportVehicle(400, "Bombardier", amtrak);
 
+		
+		for(int i = 0; i<400; i++)
+		{
+			VehicleLayout te = new TrainEtroit();
+		
+			train1.addVehicleLayout(te);
+			te.configureSeating();
+		}
+		
+		/*
+		 * TO PRINT TRAIN SEAT NUMBERS
+		 */
+		/*
+		for(int i =0; i<train1.get_layoutSections().size(); i++)
+		{
+			for(int j=0; j<train1.get_layoutSections().get(i).get_seating().size(); j++){
+				TrainPhysicalSeat tfs = (TrainPhysicalSeat)train1.get_layoutSections().get(i).get_seating().get(j);
+				System.out.println(tfs.get_columnLetter() + "  " + tfs.get_rowNumber());
+			}
+		}
+		*/
 		amtrak.addTransportationVehicle(train1);
 		
 		
@@ -319,7 +388,41 @@ public class SimulationData {
 		
 		
 		TransportationVehicle plane1 = airFactory.createTransportVehicle(100, "Boeing", westJet);
+		
+		
+		VehicleLayout ae = new AirEtroit();
+		ae.set_capacity(30);
+		ae.configureSeating();
+		plane1.addVehicleLayout(ae);
 
+
+		VehicleLayout ac = new AirConfort();
+		ac.set_capacity(25);
+		ac.configureSeating();
+		plane1.addVehicleLayout(ac);
+
+
+		VehicleLayout am = new AirMoyen();
+		am.set_capacity(25);
+		am.configureSeating();
+		plane1.addVehicleLayout(am);
+
+		VehicleLayout al = new AirLarge();
+		al.set_capacity(20);
+		al.configureSeating();
+		plane1.addVehicleLayout(al);
+
+		/*
+		 * TO PRINT OUT SEATING
+		for(int i =0; i<plane1.get_layoutSections().size(); i++)
+		{
+			for(int j=0; j<plane1.get_layoutSections().get(i).get_seating().size(); j++){
+				AirPhysicalSeat tfs = (AirPhysicalSeat)plane1.get_layoutSections().get(i).get_seating().get(j);
+				System.out.println(tfs.get_columnLetter() + "  " + tfs.get_rowNumber());
+			}
+		}
+		*/
+		
 		westJet.addTransportationVehicle(plane1);
 		
 		
