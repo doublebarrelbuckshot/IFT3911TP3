@@ -98,6 +98,7 @@ public class AdminManagement extends Subject {
 
 
 		
+		
 		System.out.println("HAVANA_ROME: " + HAVANA_ROME.get_heureArriveStr() + "  " + HAVANA_ROME._hubArrival.get_name() + " " + HAVANA_ROME._hubDeparture.get_name());
 
 	}
