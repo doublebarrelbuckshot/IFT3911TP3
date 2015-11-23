@@ -17,9 +17,12 @@ import TransportationPkg.TripInstance;
 import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.InstanceSeat;
 import TransportationPkg.GenericSeat;
+import TransportationPkg.TransportationCompany;
+import AdminPkg.RenameTransportationCompany;
 import AdminPkg.SimulationData;
 import AdminPkg.Subject;
 import AdminPkg.UIAdmin;
+import ReservationPkg.Company;
 import ReservationPkg.IClientUI;
 import AdminPkg.Observer;
 import AdminPkg.Searcher;
@@ -33,12 +36,10 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		SimulationData.initAir();
 		SimulationData.initTrain();
 		SimulationData.initCruise();
-		SearchCriteria criteria = new SearchCriteria();
-		criteria.set_transportationCompanyName("AMTRAK");
-		Searcher searcher = Searcher.getInstance();
-		TransportationCompany company = searcher.findTransportationCompany(criteria);
 		ClientUI cGUI = ClientUI.getInstance();
 		UIAdmin aGUI = UIAdmin.getInstance();
+	
+
 		//cGUI.update(new Subject());
 	}
 
@@ -46,6 +47,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 	public static JTextArea  taOutput;
 	public static JTextArea taInput;
 	public static JButton bInput;
+	
 	private ClientUI()
 	{
 		super("ClientUI");
@@ -113,9 +115,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				updateOutput("User Entered " + iInput);
 			}
 
-			private void updateOutput(String text) {
-				taOutput.setText(taOutput.getText() + "\n" + text);	
-			} 
+
 		} );
 		jpInput.add(bInput);
 		jpCenter.add(jpOutput);
@@ -124,6 +124,10 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 
 	}
 
+	
+	private final void updateOutput(String text) {
+		taOutput.setText(taOutput.getText() + "\n" + text);	
+	} 
 	public final String showMenu()
 	{
 		StringBuilder sb = new StringBuilder();
