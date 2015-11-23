@@ -475,7 +475,7 @@ public class SimulationData {
 		am.set_capacity(25);
 		am.configureSeating();
 		VehiculeLayoutEnum m = VehiculeLayoutEnum.M;
-		ae.setVehiculeLayoutType(m);
+		am.setVehiculeLayoutType(m);
 		plane1.addVehicleLayout(am);
 
 		VehicleLayout al = new AirLarge();
