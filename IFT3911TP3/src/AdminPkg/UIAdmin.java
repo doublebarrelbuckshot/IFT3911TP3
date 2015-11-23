@@ -76,10 +76,12 @@ public class UIAdmin extends JFrame {
 			}
 
 			private void processInput(String input) {
+				String[] cliCommand = input.split(" ");
+				
 				boolean validInput = false;
 				int iInput = -1;
 				try{
-					iInput = Integer.parseInt(input);
+					iInput = Integer.parseInt(cliCommand[0]);
 					validInput = true;
 				}
 				catch(Exception e)
@@ -89,12 +91,34 @@ public class UIAdmin extends JFrame {
 				}
 
 				if(validInput)
-					processCommand(iInput);
+					processCommand(iInput, cliCommand);
 			
 
 			}
-			private void processCommand(int iInput) {
+			private void processCommand(int iInput, String[] cliCommand) {
 				updateOutput("User Entered " + iInput);
+				if(iInput == 1)
+				{
+					if(cliCommand.length<3)
+					{
+						
+					}
+					SearchCriteria criteria = new SearchCriteria();
+					criteria.set_transportationCompanyName(cliCommand[1]);
+					System.out.println("name: *" + cliCommand[1] + "*");
+					Searcher searcher = Searcher.getInstance();
+					try{
+					TransportationCompany company = searcher.findTransportationCompany(criteria);
+						updateOutput("Found: "+ company.get_name());
+						updateOutput("Renaming to: " + cliCommand[2]);
+					}
+					catch(Exception e)
+					{
+						System.out.println(e);
+						updateOutput("NONE FOUND");
+					}
+				}
+				
 			}
 
 			private void updateOutput(String text) {
@@ -108,13 +132,21 @@ public class UIAdmin extends JFrame {
 
 	}
 	
+	private final RenameTransportationCompany renameTptCompany(TransportationCompany tptCompany, String newName)
+	{
+	
+		RenameTransportationCompany rtc = new RenameTransportationCompany(tptCompany, newName);
+		return rtc;
+		
+	}
 	
 	public final String showMenu()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("*******MENU*******\n");
-		sb.append("1: Rename Transportation Hub \n");
-		sb.append("2: Rename Transportation Company \n");
+		sb.append("1: Rename Transportation Company \n");
+		sb.append("2: Rename Transportation Hub \n");
+
 		return sb.toString();
 
 	}

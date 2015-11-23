@@ -7,11 +7,13 @@ public class RenameTransportationCompany implements ICommand {
 	private String _newName;
 	private String _oldName;
 
-	public RenameTransportationCompany(String aS) {
-		throw new UnsupportedOperationException();
+	public RenameTransportationCompany(TransportationCompany tptco, String aS) {
+		this._receiver = tptco;
+		this._oldName = tptco.get_name();
+		this._newName = aS;
 	}
 
 	public void execute() {
-		throw new UnsupportedOperationException();
+		this._receiver.set_name(_newName);
 	}
 }
