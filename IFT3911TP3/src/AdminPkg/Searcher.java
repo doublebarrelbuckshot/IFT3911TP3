@@ -14,11 +14,13 @@ import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TripGeneral;
 import TransportationPkg.TripInstance;
 
-public abstract class Searcher {
-	protected AdminPkg.Searcher _instance;
+public class Searcher {
+	private static Searcher _instance;
 	public SystemeClient _unnamed_SystemeClient_;
 	private TransportationManager transportationManager = TransportationManager.getInstance();
-
+	
+	private Searcher(){
+	}
 	public InstanceSeat findSeat(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}
@@ -122,8 +124,10 @@ public abstract class Searcher {
 		
 	}
 
-	public AdminPkg.Searcher getInstance() {
-		return this._instance;
+	public static Searcher getInstance() {
+		if(_instance == null)
+			_instance = new Searcher();
+		return _instance;
 	}
 
 	public int getOrderChangeDeadline(SearchCriteria aSc) {

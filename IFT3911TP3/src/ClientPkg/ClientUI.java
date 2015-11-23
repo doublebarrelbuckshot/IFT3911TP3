@@ -22,6 +22,7 @@ import AdminPkg.Subject;
 import AdminPkg.UIAdmin;
 import ReservationPkg.IClientUI;
 import AdminPkg.Observer;
+import AdminPkg.Searcher;
 
 public class ClientUI extends JFrame implements IClientUI, Observer {
 
@@ -32,7 +33,10 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		SimulationData.initAir();
 		SimulationData.initTrain();
 		SimulationData.initCruise();
-
+		SearchCriteria criteria = new SearchCriteria();
+		criteria.set_transportationCompanyName("AMTRAK");
+		Searcher searcher = Searcher.getInstance();
+		TransportationCompany company = searcher.findTransportationCompany(criteria);
 		ClientUI cGUI = ClientUI.getInstance();
 		UIAdmin aGUI = UIAdmin.getInstance();
 		//cGUI.update(new Subject());

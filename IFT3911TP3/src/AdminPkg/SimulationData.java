@@ -436,7 +436,7 @@ public class SimulationData {
 		TransportationManager tptManager = TransportationManager.getInstance();
 
 		TransportationFactory airFactory =  AirFactory.getInstance();
-		TransportationHub airportYUL = airFactory.createTransportationHub("Pierre Elliot Trudeau", "PET");
+		TransportationHub airportYUL = airFactory.createTransportationHub("Pierre Elliot Trudeau", "YUL");
 		//System.out.println("AIRPORT: " + airportYUL.get_name());
 		tptManager._listTptHubs.add(airportYUL);
 
