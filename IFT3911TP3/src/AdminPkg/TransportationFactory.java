@@ -11,11 +11,11 @@ import TransportationPkg.TripInstance;
 public abstract class TransportationFactory {
 	public AdminManagement _unnamed_AdminManagement_;
 
-	public TransportationHub createTransportationHub(String aName) {
+	public TransportationHub createTransportationHub(String aName, String id) {
 		throw new UnsupportedOperationException();
 	}
 
-	public TransportationCompany createTransportCompany(String aName) {
+	public TransportationCompany createTransportCompany(String aName, String id) {
 		throw new UnsupportedOperationException();
 	}
 

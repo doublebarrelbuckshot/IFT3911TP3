@@ -6,7 +6,7 @@ import java.util.Vector;
 import TransportationPkg.TripGeneral;
 
 public abstract class TransportationHub implements ISearchable {
-	protected int _id;
+	protected String _id;
 	protected Adresse _adresse;
 	protected String _name;
 	protected boolean _isActive;
@@ -18,11 +18,11 @@ public abstract class TransportationHub implements ISearchable {
 		throw new UnsupportedOperationException();
 	}
 
-	public int get_id() {
+	public String get_id() {
 		return _id;
 	}
 
-	public void set_id(int _id) {
+	public void set_id(String _id) {
 		this._id = _id;
 	}
 

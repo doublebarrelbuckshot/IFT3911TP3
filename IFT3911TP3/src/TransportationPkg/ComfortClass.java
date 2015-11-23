@@ -58,6 +58,10 @@ public abstract class ComfortClass implements ISearchable, ITripVisitable {
 		this.comfortClassType = comfortClassType;
 	}
 	
+	public VehicleLayout get_layout(){
+		return layout;
+	}
+	
 	public Vector<GenericSeat> get_seating(){
 		return _seating;
 	}
