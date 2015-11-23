@@ -19,10 +19,6 @@ public abstract class Searcher {
 	public SystemeClient _unnamed_SystemeClient_;
 	private TransportationManager transportationManager = TransportationManager.getInstance();
 
-	public TripInstance findTripInstance(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
-	}
-
 	public InstanceSeat findSeat(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}
