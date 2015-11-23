@@ -25,7 +25,7 @@ public abstract class TripGeneral implements ISearchable {
 	}
 	
 	public String get_heureDepartStr(){
-	DateFormat df = new SimpleDateFormat("hh:mm a");
+	DateFormat df = new SimpleDateFormat("hh.mm");
 	return df.format(_heureDepart);
 	}
 	
@@ -46,7 +46,7 @@ public abstract class TripGeneral implements ISearchable {
 	}
 	
 	public String get_heureArriveStr(){
-		DateFormat df = new SimpleDateFormat("hh:mm a");
+		DateFormat df = new SimpleDateFormat("hh.mm");
 
 		return df.format(_heureArrive);
 	}

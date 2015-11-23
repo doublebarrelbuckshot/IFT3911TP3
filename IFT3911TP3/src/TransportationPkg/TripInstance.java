@@ -3,6 +3,8 @@ package TransportationPkg;
 import AdminPkg.ITripVisitor;
 import ReservationPkg.Order;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -25,6 +27,10 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 
 	public Date get_dateDepart() {
 		return _dateDepart;
+	}
+	public String get_dateDepartStr(){
+		DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+		return df.format(_dateDepart);
 	}
 
 
@@ -51,7 +57,11 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 	public Date get_dateArrive() {
 		return _dateArrive;
 	}
-
+	
+	public String get_dateArriveStr(){
+		DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+		return df.format(_dateArrive);
+	}
 	public void set_dateArrive(Date _dateArrive) {
 		this._dateArrive = _dateArrive;
 	}
