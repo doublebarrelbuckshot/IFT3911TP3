@@ -289,7 +289,6 @@ public class SimulationData {
 		
 		
 		TransportationVehicle train1 = trainFactory.createTransportVehicle(400, "Bombardier", amtrak);
-
 		
 			VehicleLayout te = new TrainEtroit();
 			te.set_capacity(400);

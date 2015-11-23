@@ -9,6 +9,7 @@ import TransportationPkg.TripGeneral;
 import AdminPkg.AirAdminPkg.AirFactory;
 import AdminPkg.CruiseAdminPkg.CruiseFactory;
 import AdminPkg.TrainAdminPkg.TrainFactory;
+import ClientPkg.ClientUI;
 import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.ITripVisitable;
@@ -21,16 +22,27 @@ public class AdminManagement extends Subject {
 	protected Administrator _listAdmins;
 	public UIAdmin _interacts;
 	public TransportationFactory _unnamed_TransportationFactory_;
-	public ICommand _commands;
-
+	public Vector<ICommand> _commands= new Vector<ICommand>();;
+	private static AdminManagement instance;
 	
 
+	public static AdminManagement getInstance()
+	{
+		if(instance == null)
+			instance = new AdminManagement();
+		return instance;
+	}
 	private AdminManagement() {
-		throw new UnsupportedOperationException();
+		this.attach(ClientUI.getInstance());
+		
 	}
 
-	public AdminManagement getInstance() {
-		throw new UnsupportedOperationException();
+
+	public void addICommand(ICommand ic)
+	{
+		ic.execute();
+		this._commands.add(ic);
+		this.notifyObservers(ic.getMessage());
 	}
 
 	public TripGeneral findTripGeneral(SearchCriteria aSc) {

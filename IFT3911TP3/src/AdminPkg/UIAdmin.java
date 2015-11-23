@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
@@ -31,7 +32,7 @@ public class UIAdmin extends JFrame {
 	public static JTextArea  taOutput;
 	public static JTextArea taInput;
 	public static JButton bInput;
-	
+
 	private UIAdmin()
 	{
 		super("AdminUI");
@@ -41,11 +42,11 @@ public class UIAdmin extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.setLocation(600,0);
 		initWindow();
-		
+
 	}
-	
+
 	private void initWindow() {
-		
+
 		/*
 		 * Init output JLabel
 		 */
@@ -60,7 +61,7 @@ public class UIAdmin extends JFrame {
 		jpOutput.add(taOutput);
 		jpCenter.add(jpOutput);
 		this.add(jpCenter);
-		
+
 		taInput = new JTextArea("");
 		taInput.setBorder(new TitledBorder("Input"));
 		taInput.setPreferredSize(new Dimension(410,100));
@@ -77,7 +78,7 @@ public class UIAdmin extends JFrame {
 
 			private void processInput(String input) {
 				String[] cliCommand = input.split(" ");
-				
+
 				boolean validInput = false;
 				int iInput = -1;
 				try{
@@ -92,33 +93,63 @@ public class UIAdmin extends JFrame {
 
 				if(validInput)
 					processCommand(iInput, cliCommand);
-			
+
 
 			}
 			private void processCommand(int iInput, String[] cliCommand) {
 				updateOutput("User Entered " + iInput);
 				if(iInput == 1)
 				{
-					if(cliCommand.length<3)
-					{
-						
-					}
-					SearchCriteria criteria = new SearchCriteria();
-					criteria.set_transportationCompanyName(cliCommand[1]);
-					System.out.println("name: *" + cliCommand[1] + "*");
-					Searcher searcher = Searcher.getInstance();
+					boolean companyFound = false;
 					try{
-					TransportationCompany company = searcher.findTransportationCompany(criteria);
-						updateOutput("Found: "+ company.get_name());
-						updateOutput("Renaming to: " + cliCommand[2]);
+						while(!companyFound)
+						{
+							String sCompanyName = JOptionPane.showInputDialog("Enter ID of company that you wish to rename.");
+							SearchCriteria criteria = new SearchCriteria();
+							criteria.set_transportationCompanyName(sCompanyName);
+							Searcher searcher = Searcher.getInstance();
+							TransportationCompany company = searcher.findTransportationCompany(criteria);
+							companyFound = true;
+							String newCompanyName = JOptionPane.showInputDialog("Enter new company Name");
+							updateOutput("Found: "+ company.get_name());
+							updateOutput("Renaming to: " + newCompanyName);
+							ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
+							AdminManagement am = AdminManagement.getInstance();
+							am.addICommand(renameCoyCommand);
+						}
 					}
 					catch(Exception e)
 					{
 						System.out.println(e);
 						updateOutput("NONE FOUND");
 					}
-				}
-				
+				}	
+				if(iInput == 2)
+				{
+					boolean companyFound = false;
+					try{
+						while(!companyFound)
+						{
+							String sHubID = JOptionPane.showInputDialog("Enter ID of TransportationHub that you wish to rename.");
+							SearchCriteria criteria = new SearchCriteria();
+							criteria.set_transportationHubName(sHubID);
+							Searcher searcher = Searcher.getInstance();
+							TransportationCompany company = searcher.findTransportationCompany(criteria);
+							companyFound = true;
+							String newCompanyName = JOptionPane.showInputDialog("Enter new company Name");
+							updateOutput("Found: "+ company.get_name());
+							updateOutput("Renaming to: " + newCompanyName);
+							ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
+							AdminManagement am = AdminManagement.getInstance();
+							am.addICommand(renameCoyCommand);
+						}
+					}
+					catch(Exception e)
+					{
+						System.out.println(e);
+						updateOutput("NONE FOUND");
+					}
+				}	
 			}
 
 			private void updateOutput(String text) {
@@ -131,15 +162,15 @@ public class UIAdmin extends JFrame {
 		this.add(jpCenter);
 
 	}
-	
+
 	private final RenameTransportationCompany renameTptCompany(TransportationCompany tptCompany, String newName)
 	{
-	
+
 		RenameTransportationCompany rtc = new RenameTransportationCompany(tptCompany, newName);
 		return rtc;
-		
+
 	}
-	
+
 	public final String showMenu()
 	{
 		StringBuilder sb = new StringBuilder();
@@ -156,8 +187,8 @@ public class UIAdmin extends JFrame {
 			instance = new UIAdmin();
 		return instance;
 	}
-	
-	
+
+
 	public TripGeneral findTripGeneral(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}

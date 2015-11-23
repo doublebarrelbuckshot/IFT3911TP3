@@ -15,5 +15,16 @@ public class RenameTransportationCompany implements ICommand {
 
 	public void execute() {
 		this._receiver.set_name(_newName);
+
+	}
+
+	public void unexecute() {
+		this._receiver.set_name(_oldName);
+		
+	}
+
+	public String getMessage() {
+		return "TransportationCompany: " + _oldName + " renamed to: " + _newName;
+		
 	}
 }
