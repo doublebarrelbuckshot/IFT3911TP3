@@ -3,6 +3,7 @@ package AdminPkg;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import TransportationPkg.TripGeneral;
 import AdminPkg.AirAdminPkg.AirFactory;
@@ -10,6 +11,7 @@ import AdminPkg.CruiseAdminPkg.CruiseFactory;
 import AdminPkg.TrainAdminPkg.TrainFactory;
 import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.GenericSeat;
+import TransportationPkg.ITripVisitable;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationCompany;
@@ -32,7 +34,17 @@ public class AdminManagement extends Subject {
 	}
 
 	public TripGeneral findTripGeneral(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
+		AdminTripVisitor visitor = new AdminTripVisitor();
+		TransportationManager tm = TransportationManager.getInstance();
+		Vector<TripGeneral> listTrip = tm.get_listTripGenerals();
+		
+		for(TripGeneral trip : listTrip){
+			for(ITripVisitable instance : trip.get_tripInstances()){
+				instance.accept(visitor);
+			}
+		}
+		
+		return null;
 	}
 
 	public GenericSeat findGenericSeat(SearchCriteria aSc) {
