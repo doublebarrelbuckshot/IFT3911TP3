@@ -1,17 +1,22 @@
 package AdminPkg;
 
+import java.util.Vector;
+
 public class Subject {
-	public Observer _observers;
+	public Vector<Observer> _observers = new Vector<Observer>();
 
 	public void attach(Observer aO) {
-		throw new UnsupportedOperationException();
+		this._observers.add(aO);
 	}
 
 	public void detach(Observer aO) {
-		throw new UnsupportedOperationException();
+		this._observers.remove(aO);
 	}
 
-	public void notifyObservers() {
-		throw new UnsupportedOperationException();
+	public void notifyObservers(String message) {
+		for(Observer o : _observers)
+		{
+			o.update(message);
+		}
 	}
 }

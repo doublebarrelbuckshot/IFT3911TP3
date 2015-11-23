@@ -14,4 +14,13 @@ public class RenameTransportationHub implements ICommand {
 	public void execute() {
 		throw new UnsupportedOperationException();
 	}
+
+	public void unexecute() {
+		// TODO Auto-generated method stub
+		
+	}
+	public String getMessage() {
+		throw new UnsupportedOperationException();
+		
+	}
 }

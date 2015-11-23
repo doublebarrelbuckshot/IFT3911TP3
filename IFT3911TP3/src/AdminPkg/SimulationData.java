@@ -270,7 +270,6 @@ public class SimulationData {
 		
 		
 		TransportationVehicle train1 = trainFactory.createTransportVehicle(400, "Bombardier", amtrak);
-
 		
 		for(int i = 0; i<400; i++)
 		{

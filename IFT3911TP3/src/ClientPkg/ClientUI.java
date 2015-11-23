@@ -170,7 +170,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		throw new UnsupportedOperationException();
 	}
 
-	public void update(Subject aS) {
-		//taOutput.setText("done");
+	public void update(String message) {
+		updateOutput(message);
 	}
 }
