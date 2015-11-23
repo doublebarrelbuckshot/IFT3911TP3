@@ -36,17 +36,6 @@ public class Searcher {
 		return foundTptHubs;
 	}
 
-	public Vector<TransportationCompany> findTransportCompany(SearchCriteria aSc) {
-		Vector<TransportationCompany> listTptCompanies = transportationManager.get_listTptCompanies();
-		Vector<TransportationCompany> foundTptCompanies = new Vector<TransportationCompany>();
-		for(TransportationCompany company : listTptCompanies){
-			if (company.matchCriteria(aSc)){
-				foundTptCompanies.addElement(company);
-			}
-		}
-		return foundTptCompanies;
-	}
-
 	public Vector<TransportationVehicle> findTransportationVehicle(SearchCriteria aSc) {
 		Vector<TransportationCompany> listTptCompanies = transportationManager.get_listTptCompanies();
 		Vector<TransportationVehicle> foundVehicles = new Vector<TransportationVehicle>();
