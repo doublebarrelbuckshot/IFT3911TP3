@@ -31,15 +31,6 @@ import TransportationPkg.TrainPkg.TrainPhysicalSeat;
 
 public class SimulationData {
 
-	public static void main(String[] args)
-	{
-		initAir();
-		initTrain();
-		initCruise();
-		
-		
-	}
-	
 	public static void initCruise(){
 
 		TransportationManager tptManager = TransportationManager.getInstance();
@@ -148,7 +139,7 @@ public class SimulationData {
 		TripInstance NY_HAVANA2 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA2, dArriveInstNY_HAVANA2, 1002, 107);
 		NY_HAVANA.addTripInstance(NY_HAVANA2);
 		NY_HAVANA2.setTptVehicle(cruiseShip);
-		
+	
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
