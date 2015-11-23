@@ -134,7 +134,15 @@ public abstract class Searcher {
 		throw new UnsupportedOperationException();
 	}
 
-	public TransportationCompany findTransportationCompany(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
+	public TransportationCompany findTransportationCompany(SearchCriteria aSc) throws Exception {
+		if(aSc.get_transportationCompanyName().isEmpty()){
+			throw new Exception("Le nom de compagnie ne peut etre nul pour la recherche de compagnie.");
+		}
+		for(TransportationCompany tptCompany : transportationManager.get_listTptCompanies()){
+			if (tptCompany.get_id().equals(aSc.get_transportationCompanyName())){
+				return tptCompany;
+			}
+		}
+		return null;
 	}
 }
