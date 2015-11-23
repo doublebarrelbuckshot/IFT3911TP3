@@ -45,7 +45,7 @@ public class AdminManagement extends Subject {
 		this.notifyObservers(ic.getMessage());
 	}
 
-	public TripGeneral findTripGeneral(SearchCriteria aSc) {
+	public String findTripGeneral(SearchCriteria aSc) {
 		AdminTripVisitor visitor = new AdminTripVisitor();
 		TransportationManager tm = TransportationManager.getInstance();
 		Vector<TripGeneral> listTrip = tm.get_listTripGenerals();
@@ -56,7 +56,7 @@ public class AdminManagement extends Subject {
 			}
 		}
 		
-		return null;
+		return visitor.getResult();
 	}
 
 	public GenericSeat findGenericSeat(SearchCriteria aSc) {

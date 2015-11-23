@@ -98,6 +98,8 @@ public class UIAdmin extends JFrame {
 			}
 			private void processCommand(int iInput, String[] cliCommand) {
 				updateOutput("User Entered " + iInput);
+				AdminManagement am = AdminManagement.getInstance();
+
 				if(iInput == 1)
 				{
 					boolean companyFound = false;
@@ -114,7 +116,6 @@ public class UIAdmin extends JFrame {
 							updateOutput("Found: "+ company.get_name());
 							updateOutput("Renaming to: " + newCompanyName);
 							ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
-							AdminManagement am = AdminManagement.getInstance();
 							am.addICommand(renameCoyCommand);
 						}
 					}
@@ -128,8 +129,12 @@ public class UIAdmin extends JFrame {
 				{
 					boolean companyFound = false;
 					try{
-						while(!companyFound)
-						{
+					
+							
+							String toPrint = am.findTripGeneral(new SearchCriteria());
+							updateOutput(toPrint);
+
+							/*
 							String sHubID = JOptionPane.showInputDialog("Enter ID of TransportationHub that you wish to rename.");
 							SearchCriteria criteria = new SearchCriteria();
 							criteria.set_transportationHubName(sHubID);
@@ -142,13 +147,15 @@ public class UIAdmin extends JFrame {
 							ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
 							AdminManagement am = AdminManagement.getInstance();
 							am.addICommand(renameCoyCommand);
-						}
+							*/
 					}
+					
 					catch(Exception e)
 					{
 						System.out.println(e);
 						updateOutput("NONE FOUND");
 					}
+					
 				}	
 			}
 
