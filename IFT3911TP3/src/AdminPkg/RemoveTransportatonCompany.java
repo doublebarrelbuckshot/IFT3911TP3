@@ -19,7 +19,7 @@ public class RemoveTransportatonCompany implements ICommand {
 		
 	}
 
-	public String getMessage() {
+	public String getMessage(boolean isExecute) {
 		throw new UnsupportedOperationException();
 		
 	}

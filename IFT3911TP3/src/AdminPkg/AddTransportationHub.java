@@ -6,21 +6,53 @@ public class AddTransportationHub implements ICommand {
 	private TransportationManager _receiver;
 	private TransportationHub _th;
 
+	private boolean undoSuccess =  false;
 	public AddTransportationHub(TransportationHub aTh) {
-		throw new UnsupportedOperationException();
+		this._th = aTh;
+		_receiver = TransportationManager.getInstance();
 	}
 
 	public void execute() {
-		throw new UnsupportedOperationException();
+		_receiver.addTransportationHub(_th);
 	}
 
 	public void unexecute() {
-		// TODO Auto-generated method stub
-		
+		if(canDeleteTransportationHub())
+		{
+			_receiver.removeTransportationHub(_th);
+			undoSuccess = true;
+		}		
 	}
 
-	public String getMessage() {
-		throw new UnsupportedOperationException();
+	public boolean canDeleteTransportationHub()
+	{
+		TransportationManager tm = TransportationManager.getInstance();
+
+		for(int i=0; i<tm.get_listTripGenerals().size(); i++)
+		{
+			if(tm.get_listTripGenerals().get(i)._hubArrival.get_id() == _th.get_id() ||
+				tm.get_listTripGenerals().get(i)._hubDeparture.get_id() == _th.get_id()	)
+			{
+				undoSuccess = false;
+				return false;
+			}
+		}
+		undoSuccess = true;
+		return true;
+		
+	}
+	
+	public String getMessage(boolean isExecute) {
+		if(isExecute)
+			return "Airport: " + _th.get_name() + " added!";
+		else{
+			if(undoSuccess)
+				return "Airport: " + _th.get_name() + " removed from system!";
+			else
+			{
+				return "Could not remove Airport " + _th.get_name()+ ". Ensure that it is not being referenced by another object.";
+			}
+		}
 		
 	}
 }

@@ -23,8 +23,11 @@ public class RenameTransportationCompany implements ICommand {
 		
 	}
 
-	public String getMessage() {
-		return "TransportationCompany: " + _oldName + " renamed to: " + _newName;
+	public String getMessage(boolean isExecute) {
+		if (isExecute)
+			return "TransportationCompany: " + _oldName + " renamed to: " + _newName;
+		else
+			return "TransportationCompany: " + _newName + " renamed to: " + _oldName;
 		
 	}
 }

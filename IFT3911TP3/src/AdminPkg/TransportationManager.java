@@ -34,7 +34,7 @@ public class TransportationManager {
 	}
 
 	public void addTransportationHub(TransportationHub aTh) {
-		throw new UnsupportedOperationException();
+		this._listTptHubs.add(aTh);
 	}
 
 	public void addTransportationVehicle(TransportationVehicle aTv) {
@@ -42,7 +42,7 @@ public class TransportationManager {
 	}
 
 	public void removeTransportationHub(TransportationHub aTh) {
-		throw new UnsupportedOperationException();
+		this._listTptCompanies.remove(aTh);
 	}
 
 	public void removeTransportCompany(TransportationCompany aTc) {

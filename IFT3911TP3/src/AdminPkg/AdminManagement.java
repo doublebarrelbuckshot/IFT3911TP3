@@ -2,7 +2,9 @@ package AdminPkg;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayDeque;
 import java.util.Date;
+import java.util.Deque;
 import java.util.Vector;
 
 import TransportationPkg.TripGeneral;
@@ -22,7 +24,7 @@ public class AdminManagement extends Subject {
 	protected Administrator _listAdmins;
 	public UIAdmin _interacts;
 	public TransportationFactory _unnamed_TransportationFactory_;
-	public Vector<ICommand> _commands= new Vector<ICommand>();;
+	Deque<ICommand> _commands = new ArrayDeque<ICommand>();
 	private static AdminManagement instance;
 	
 
@@ -41,10 +43,23 @@ public class AdminManagement extends Subject {
 	public void addICommand(ICommand ic)
 	{
 		ic.execute();
-		this._commands.add(ic);
-		this.notifyObservers(ic.getMessage());
+		this._commands.push(ic);
+		this.notifyObservers(ic.getMessage(true));
 	}
 
+	public void undo()
+	{
+		if(!this._commands.isEmpty())
+		{
+			ICommand ic = this._commands.pop();
+			ic.unexecute();
+			this.notifyObservers(ic.getMessage(false));
+
+		}
+		else
+			UIAdmin.getInstance().updateOutput("Cannot Undo, no Undo-able commands available");
+		
+	}
 	public String findTripGeneral(SearchCriteria aSc) {
 		AdminTripVisitor visitor = new AdminTripVisitor();
 		TransportationManager tm = TransportationManager.getInstance();

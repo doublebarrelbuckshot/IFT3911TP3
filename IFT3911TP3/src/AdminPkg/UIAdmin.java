@@ -11,11 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
 import AdminPkg.Administrator;
+import AdminPkg.AirAdminPkg.AirFactory;
 import TransportationPkg.TripGeneral;
 import ClientPkg.ClientUI;
 import CommonComponentsPkg.SearchCriteria;
@@ -50,16 +52,24 @@ public class UIAdmin extends JFrame {
 		/*
 		 * Init output JLabel
 		 */
+
+
 		taOutput = new JTextArea (showMenu());
 		taOutput.setEditable(false);
 		taOutput.setBorder(new TitledBorder("Output"));
-		taOutput.setPreferredSize(new Dimension(540,450));
+		//taOutput.setPreferredSize(new Dimension(540,450));
 		taOutput.setBackground(Color.WHITE);
 		taOutput.setOpaque(true);
+		//taOutput.setLineWrap(true);
 		JPanel jpCenter = new JPanel();
 		JPanel jpOutput = new JPanel();
-		jpOutput.add(taOutput);
-		jpCenter.add(jpOutput);
+		JScrollPane sp = new JScrollPane(taOutput); 
+		sp.setPreferredSize(new Dimension(540,450));
+		sp.setBounds(23, 40, 394, 191);
+
+		sp.setViewportView(taOutput);
+		jpOutput.add(sp);
+		//jpCenter.add(jpOutput);
 		this.add(jpCenter);
 
 		taInput = new JTextArea("");
@@ -111,30 +121,33 @@ public class UIAdmin extends JFrame {
 							criteria.set_transportationCompanyName(sCompanyName);
 							Searcher searcher = Searcher.getInstance();
 							TransportationCompany company = searcher.findTransportationCompany(criteria);
-							companyFound = true;
-							String newCompanyName = JOptionPane.showInputDialog("Enter new company Name");
-							updateOutput("Found: "+ company.get_name());
-							updateOutput("Renaming to: " + newCompanyName);
-							ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
-							am.addICommand(renameCoyCommand);
+							if(company != null)
+							{
+								companyFound = true;
+								String newCompanyName = JOptionPane.showInputDialog("Enter new company Name");
+								updateOutput("Found: "+ company.get_name());
+								updateOutput("Renaming to: " + newCompanyName);
+								ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
+								am.addICommand(renameCoyCommand);
+							}
 						}
 					}
 					catch(Exception e)
 					{
-						System.out.println(e);
-						updateOutput("NONE FOUND");
+						//System.out.println(e);
+						updateOutput("NO COMPANY FOUND FOUND");
 					}
 				}	
 				if(iInput == 2)
 				{
 					boolean companyFound = false;
 					try{
-					
-							
-							String toPrint = am.findTripGeneral(new SearchCriteria());
-							updateOutput(toPrint);
 
-							/*
+						updateOutput("All Trip General's in System:");
+						String toPrint = am.findTripGeneral(new SearchCriteria());
+						updateOutput(toPrint + "\n");
+
+						/*
 							String sHubID = JOptionPane.showInputDialog("Enter ID of TransportationHub that you wish to rename.");
 							SearchCriteria criteria = new SearchCriteria();
 							criteria.set_transportationHubName(sHubID);
@@ -147,21 +160,31 @@ public class UIAdmin extends JFrame {
 							ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
 							AdminManagement am = AdminManagement.getInstance();
 							am.addICommand(renameCoyCommand);
-							*/
+						 */
 					}
-					
+
 					catch(Exception e)
 					{
 						System.out.println(e);
 						updateOutput("NONE FOUND");
 					}
-					
-				}	
+
+				}
+				if(iInput == 3)
+				{
+					am.undo();
+				}
+				if(iInput == 4)
+				{
+					String airportName = JOptionPane.showInputDialog("Enter AirportName: ");
+					String airportID = JOptionPane.showInputDialog("Enter AirportID: ");
+					TransportationHub airport = AirFactory.getInstance().createTransportationHub(airportName, airportID);
+					ICommand addTransportationCommand = new AddTransportationHub(airport);
+					am.addICommand(addTransportationCommand);
+				}
 			}
 
-			private void updateOutput(String text) {
-				taOutput.setText(taOutput.getText() + "\n" + text);	
-			} 
+
 		} );
 		jpInput.add(bInput);
 		jpCenter.add(jpOutput);
@@ -169,7 +192,9 @@ public class UIAdmin extends JFrame {
 		this.add(jpCenter);
 
 	}
-
+	public void updateOutput(String text) {
+		taOutput.setText(taOutput.getText() + "\n" + text);	
+	} 
 	private final RenameTransportationCompany renameTptCompany(TransportationCompany tptCompany, String newName)
 	{
 
@@ -183,8 +208,10 @@ public class UIAdmin extends JFrame {
 		StringBuilder sb = new StringBuilder();
 		sb.append("*******MENU*******\n");
 		sb.append("1: Rename Transportation Company \n");
-		sb.append("2: Rename Transportation Hub \n");
-
+		sb.append("2: Print all TripGeneral\n");
+		sb.append("3: Undo Last\n");
+		sb.append("4. Add Airport");
+		
 		return sb.toString();
 
 	}

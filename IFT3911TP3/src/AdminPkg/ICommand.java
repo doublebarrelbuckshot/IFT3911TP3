@@ -4,5 +4,5 @@ public interface ICommand {
 
 	public void execute();
 	public void unexecute();
-	public String getMessage();
+	public String getMessage(boolean isExecute);
 }
