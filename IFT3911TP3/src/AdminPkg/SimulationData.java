@@ -103,7 +103,7 @@ public class SimulationData {
 		TripGeneral NY_HAVANA = cruiseFactory.createTripGeneral(dDepartNY_HAVANA, dArriveNY_HAVANA, "NY_HAVANA1030", portNY, portHavana);
 		tptManager.addTripGeneral(NY_HAVANA);
 		princess.addTripGeneral(NY_HAVANA);
-		
+		NY_HAVANA.setTptCompany(princess);
 		
 		/*
 		 * Init of trip instances NY_HAVANA
@@ -163,7 +163,7 @@ public class SimulationData {
 		TripGeneral NY_ROME = cruiseFactory.createTripGeneral(dDepartNY_ROME, dArriveNY_ROME, "NY_ROME845", portNY, portRome);
 		tptManager.addTripGeneral(NY_ROME);
 		princess.addTripGeneral(NY_ROME);
-
+		NY_ROME.setTptCompany(princess);
 		
 		/*
 		 * Init of trip instances NY_ROME
@@ -222,7 +222,7 @@ public class SimulationData {
 		TripGeneral HAVANA_ROME = cruiseFactory.createTripGeneral(dDepartHAVANA_ROME, dArriveHAVANA_ROME, "HAVANA_ROME415", portHavana, portRome);
 		tptManager.addTripGeneral(HAVANA_ROME);
 		princess.addTripGeneral(HAVANA_ROME);
-		
+		HAVANA_ROME.setTptCompany(princess);
 
 		/*
 		 * Init of trip instances NY_ROME
@@ -311,7 +311,7 @@ public class SimulationData {
 		TripGeneral NY_FL = trainFactory.createTripGeneral(dDepartNY_FL, dArriveNY_FL, "NYFL1030", trainStationNY, trainStationFL);
 		tptManager.addTripGeneral(NY_FL);
 		amtrak.addTripGeneral(NY_FL);
-
+		NY_FL.setTptCompany(amtrak);
 		/*
 		 * Init of trip instances NY_FL
 		 */
@@ -370,7 +370,8 @@ public class SimulationData {
 		TripGeneral NY_BOSTON = trainFactory.createTripGeneral(dDepartNY_BOSTON, dArriveNY_BOSTON, "NYBOSTON845", trainStationNY, trainStationBoston);
 		tptManager.addTripGeneral(NY_BOSTON);
 		amtrak.addTripGeneral(NY_BOSTON);
-
+		NY_BOSTON.setTptCompany(amtrak);
+		
 		Date dDepartInstNY_BOSTON = new Date();
 		dDepartInstNY_BOSTON.setDate(2);
 		dDepartInstNY_BOSTON.setMonth(3);
@@ -405,7 +406,7 @@ public class SimulationData {
 		TripGeneral BOSTON_FL = trainFactory.createTripGeneral(dDepartBOSTON_FL, dArriveBOSTON_FL, "BOSTON_FL415", trainStationBoston, trainStationFL);
 		tptManager.addTripGeneral(BOSTON_FL);
 		amtrak.addTripGeneral(BOSTON_FL);
-
+		BOSTON_FL.setTptCompany(amtrak);
 		/*
 		 * init trip instances
 		 */
@@ -513,6 +514,7 @@ public class SimulationData {
 		TripGeneral YUL_JFK = airFactory.createTripGeneral(dDepartYUL_JFK, dArriveYUL_JFK, "YULJKF1030", airportYUL, airportJFK);
 		tptManager.addTripGeneral(YUL_JFK);
 		westJet.addTripGeneral(YUL_JFK);
+		YUL_JFK.setTptCompany(westJet);
 		
 		/*
 		 * init trip instances
@@ -551,7 +553,7 @@ public class SimulationData {
 		TripGeneral YUL_LAX = airFactory.createTripGeneral(dDepartYUL_LAX, dArriveYUL_LAX, "YULLAX845", airportYUL, airportLAX);
 		tptManager.addTripGeneral(YUL_LAX);
 		westJet.addTripGeneral(YUL_LAX);
-		
+		YUL_LAX.setTptCompany(westJet);
 		/*
 		 * init trip instances
 		 */
@@ -608,7 +610,8 @@ public class SimulationData {
 		TripGeneral LAX_JFK = airFactory.createTripGeneral(dDepartLAX_JFK, dArriveLAX_JFK, "LAXJKF415", airportLAX, airportJFK);
 		tptManager.addTripGeneral(LAX_JFK);
 		westJet.addTripGeneral(LAX_JFK);
-
+		LAX_JFK.setTptCompany(westJet);
+		
 		/*
 		 * init trip instances
 		 */
