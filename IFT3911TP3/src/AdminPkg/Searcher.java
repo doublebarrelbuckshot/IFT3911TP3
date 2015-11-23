@@ -4,8 +4,9 @@ import java.util.Vector;
 
 import ClientPkg.SystemeClient;
 import CommonComponentsPkg.SearchCriteria;
+import TransportationPkg.AvailableSeat;
+import TransportationPkg.ComfortClass;
 import TransportationPkg.GenericSeat;
-import TransportationPkg.ISearchable;
 import TransportationPkg.InstanceSeat;
 import TransportationPkg.TransportationCompany;
 import TransportationPkg.TransportationHub;
@@ -62,14 +63,12 @@ public abstract class Searcher {
 	}
 	
 	public Vector<TripGeneral> findTripGeneral(SearchCriteria aSc) {
-		Vector<ISearchable> listSearchable = transportationManager.get_listSearchable();
+		Vector<TripGeneral> listTripGenerals = transportationManager.get_listTripGenerals();
 		Vector<TripGeneral> foundTripGenerals = new Vector<TripGeneral>(); 
-		for(ISearchable searchable : listSearchable){
-			if(searchable instanceof TripGeneral){
-				if (searchable.matchCriteria(aSc)){
-					foundTripGenerals.addElement((TripGeneral)searchable);
+		for(TripGeneral tripGeneral : listTripGenerals){
+				if (tripGeneral.matchCriteria(aSc)){
+					foundTripGenerals.addElement(tripGeneral);
 				}
-			}
 		}
 		return foundTripGenerals;
 	}
@@ -86,12 +85,45 @@ public abstract class Searcher {
 		return foundTripInstances;
 	}
 	
-	public GenericSeat findGenericSeat(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Searcher() {
-		throw new UnsupportedOperationException();
+	public Vector<GenericSeat> findGenericSeat(SearchCriteria aSc) throws Exception {
+		if(aSc.get_tripIDNumber().isEmpty()){
+			throw new Exception("Le trip id ne peut etre nul pour la recherche de siege.");
+		}
+		if (aSc.get_tripDepartureDate().equals(null)){
+			throw new Exception("La date de depart ne peut etre nul pour la recherche.");
+		}
+		Vector<TripGeneral> listTripGeneral = findTripGeneral(aSc);
+		if (listTripGeneral.isEmpty()){
+			return null;
+		}
+		if(listTripGeneral.size() > 1){
+			throw new Exception("Ne peut pas contenir plusieurs trip generals avec le meme id");
+		}
+		TripGeneral tripGeneral = listTripGeneral.firstElement();
+		Vector<TripInstance> listMatchedTripInstances = new Vector<TripInstance>();
+		for (TripInstance tripInstance : tripGeneral.get_tripInstances()){
+			if(tripInstance.get_dateDepart().equals(aSc.get_tripDepartureDate())){
+				listMatchedTripInstances.addElement(tripInstance);
+			}
+		}
+		if (listMatchedTripInstances.isEmpty()){
+			return null;
+		}
+		if (listMatchedTripInstances.size() > 1){
+			throw new Exception("Ne peut avoir plusieurs trip instances avec une meme date pour un trip general donne");
+		}
+		
+		TripInstance tripInstance = listMatchedTripInstances.firstElement();
+		Vector<GenericSeat> genericAvailableSeatList = new Vector<GenericSeat>();  
+		for(ComfortClass comfortClass : tripInstance.get_comfortClasses()){
+			for (GenericSeat genericSeat : comfortClass.get_seating()){
+				if(genericSeat.get_state() instanceof AvailableSeat){
+					genericAvailableSeatList.addElement(genericSeat);
+				}
+			}
+		}
+		return genericAvailableSeatList;
+		
 	}
 
 	public AdminPkg.Searcher getInstance() {
