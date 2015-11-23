@@ -1,11 +1,13 @@
 package TransportationPkg.TrainPkg;
 
 import TransportationPkg.ISearchable;
+import TransportationPkg.ITripVisitable;
 import AdminPkg.ITripVisitor;
 import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.ComfortClass;
+import TransportationPkg.CroisierePkg.Suite;
 
-public class TrainPremiere extends ComfortClass {
+public class TrainPremiere extends ComfortClass implements ITripVisitable{
 	private double _prixPercent = 1.0;
 
 	public boolean matchCriteria(SearchCriteria aSc) {
@@ -13,12 +15,12 @@ public class TrainPremiere extends ComfortClass {
 	}
 
 	public double getPricePercentage() {
-		throw new UnsupportedOperationException();
+		return this._prixPercent;
 	}
 
 	@Override
 	public void accept(ITripVisitor visitor) {
-		// TODO Auto-generated method stub
+		visitor.visit(this);
 		
 	}
 }

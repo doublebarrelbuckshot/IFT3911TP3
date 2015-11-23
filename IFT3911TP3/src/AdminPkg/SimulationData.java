@@ -6,6 +6,7 @@ import AdminPkg.AirAdminPkg.AirFactory;
 import AdminPkg.CruiseAdminPkg.CruiseFactory;
 import AdminPkg.TrainAdminPkg.TrainFactory;
 import CommonComponentsPkg.VehiculeLayoutEnum;
+import TransportationPkg.ComfortClass;
 import TransportationPkg.TransportationCompany;
 import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationVehicle;
@@ -117,6 +118,7 @@ public class SimulationData {
 		dArriveInstNY_HAVANA.setYear(116);
 		TripInstance NY_HAVANA1 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA, dArriveInstNY_HAVANA, 1001, 110);
 		NY_HAVANA.addTripInstance(NY_HAVANA1);
+		
 		NY_HAVANA1.setTptVehicle(cruiseShip);
 		NY_HAVANA1.set_tripDescription(NY_HAVANA);
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
@@ -125,9 +127,14 @@ public class SimulationData {
 			if(vl == null)
 				System.out.println("BEFORE");
 			
-			NY_HAVANA1.assignLayoutToClass(vl); 
+			NY_HAVANA1.assignLayoutToClass(vl);
+			
 		}
-				
+		//assign to all comfortclass the tripinstance
+		for(ComfortClass section : NY_HAVANA1.get_comfortClasses()){
+			section.set_tripInstace(NY_HAVANA1);
+		}
+	
 		Date dDepartInstNY_HAVANA2 = new Date();
 		dDepartInstNY_HAVANA2.setDate(25);
 		dDepartInstNY_HAVANA2.setMonth(1);
@@ -147,7 +154,10 @@ public class SimulationData {
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
 			NY_HAVANA2.assignLayoutToClass(vl);
 		}
-
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : NY_HAVANA2.get_comfortClasses()){
+					section.set_tripInstace(NY_HAVANA2);
+				}
 		/*
 		 * TRIP GENERAL NY_ROME
 		 */
@@ -185,7 +195,10 @@ public class SimulationData {
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
 			NY_ROME1.assignLayoutToClass(vl); 
 		}
-		
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : NY_ROME1.get_comfortClasses()){
+					section.set_tripInstace(NY_ROME1);
+				}
 		Date dDepartInstNY_ROME2 = new Date();
 		dDepartInstNY_ROME2.setDate(1);
 		dDepartInstNY_ROME2.setMonth(2);
@@ -205,7 +218,10 @@ public class SimulationData {
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
 			NY_ROME2.assignLayoutToClass(vl);
 		}
-
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : NY_ROME2.get_comfortClasses()){
+					section.set_tripInstace(NY_ROME2);
+				}
 		
 		/*
 		 * TRIP GENERAL HAVANA_ROME
@@ -244,7 +260,10 @@ public class SimulationData {
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
 			HAVANA_ROME1.assignLayoutToClass(vl); 
 		}
-		
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : HAVANA_ROME1.get_comfortClasses()){
+					section.set_tripInstace(HAVANA_ROME1);
+				}
 		System.out.println("HAVANA_ROME: " + HAVANA_ROME.get_heureArriveStr() + "  " + HAVANA_ROME._hubArrival.get_name() + " " + HAVANA_ROME._hubDeparture.get_name());
 
 	}
@@ -272,14 +291,13 @@ public class SimulationData {
 		TransportationVehicle train1 = trainFactory.createTransportVehicle(400, "Bombardier", amtrak);
 
 		
-		for(int i = 0; i<400; i++)
-		{
 			VehicleLayout te = new TrainEtroit();
+			te.set_capacity(400);
 			VehiculeLayoutEnum s = VehiculeLayoutEnum.S;
 			te.setVehiculeLayoutType(s);
 			train1.addVehicleLayout(te);
 			te.configureSeating();
-		}
+		
 		
 		/*
 		 * TO PRINT TRAIN SEAT NUMBERS
@@ -332,6 +350,10 @@ public class SimulationData {
 			VehicleLayout vl = train1._layoutSections.get(i);
 			NY_FL1.assignLayoutToClass(vl); 
 		}
+		//assign to all comfortclass the tripinstance
+		for(ComfortClass section : NY_FL1.get_comfortClasses()){
+			section.set_tripInstace(NY_FL1);
+		}
 		
 		Date dDepartInstNY_FL2 = new Date();
 		dDepartInstNY_FL2.setDate(1);
@@ -352,7 +374,10 @@ public class SimulationData {
 			VehicleLayout vl = train1._layoutSections.get(i);
 			NY_FL2.assignLayoutToClass(vl); 
 		}
-		
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : NY_FL2.get_comfortClasses()){
+					section.set_tripInstace(NY_FL2);
+				}
 
 		
 		/*
@@ -390,7 +415,10 @@ public class SimulationData {
 			NY_BOSTON1.assignLayoutToClass(vl); 
 		}
 		
-		
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : NY_BOSTON1.get_comfortClasses()){
+					section.set_tripInstace(NY_BOSTON1);
+				}
 		/*
 		 * TRIP GENERAL BOSTON_FL
 		 */
@@ -427,7 +455,10 @@ public class SimulationData {
 			VehicleLayout vl = train1._layoutSections.get(i);
 			BOSTON_FL1.assignLayoutToClass(vl); 
 		}
-		
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : BOSTON_FL1.get_comfortClasses()){
+					section.set_tripInstace(BOSTON_FL1);
+				}
 		System.out.println("BOSTON_FL: " + BOSTON_FL.get_heureArriveStr() + "  " + BOSTON_FL._hubArrival.get_name() + " " + BOSTON_FL._hubDeparture.get_name());
 
 	}
@@ -482,7 +513,7 @@ public class SimulationData {
 		al.set_capacity(20);
 		al.configureSeating();
 		VehiculeLayoutEnum l = VehiculeLayoutEnum.L;
-		ae.setVehiculeLayoutType(l);
+		al.setVehiculeLayoutType(l);
 		plane1.addVehicleLayout(al);
 
 		/*
@@ -533,10 +564,14 @@ public class SimulationData {
 		
 		for(int i=0; i<plane1._layoutSections.size(); i++)
 		{
+			
 			VehicleLayout vl = plane1._layoutSections.get(i);
-			YUL_JKF1.assignLayoutToClass(vl); 
+			YUL_JKF1.assignLayoutToClass(vl);
 		}
-		
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : YUL_JKF1.get_comfortClasses()){
+					section.set_tripInstace(YUL_JKF1);
+				}
 		
 		/*
 		 * TRIP GENERAL YUL-LAX
@@ -574,7 +609,11 @@ public class SimulationData {
 			VehicleLayout vl = plane1._layoutSections.get(i);
 			YUL_LAX1.assignLayoutToClass(vl); 
 		}
-
+		//assign to all comfortclass the tripinstance
+		for(ComfortClass section : YUL_LAX1.get_comfortClasses()){
+			section.set_tripInstace(YUL_LAX1);
+		}
+		
 		Date dDepartInstYUL_LAX2 = new Date();
 		dDepartInstYUL_LAX2.setDate(8);
 		dDepartInstYUL_LAX2.setMonth(3);
@@ -594,7 +633,10 @@ public class SimulationData {
 			VehicleLayout vl = plane1._layoutSections.get(i);
 			YUL_LAX2.assignLayoutToClass(vl); 
 		}
-		
+		//assign to all comfortclass the tripinstance
+		for(ComfortClass section : YUL_LAX2.get_comfortClasses()){
+			section.set_tripInstace(YUL_LAX2);
+		}
 		/*
 		 * TRIP GENERAL LAX-JFK
 		 */
@@ -632,7 +674,10 @@ public class SimulationData {
 			VehicleLayout vl = plane1._layoutSections.get(i);
 			LAX_JFK1.assignLayoutToClass(vl); 
 		}
-
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : LAX_JFK1.get_comfortClasses()){
+					section.set_tripInstace(LAX_JFK1);
+				}
 		Date dDepartInstLAX_JFK2 = new Date();
 		dDepartInstLAX_JFK2.setDate(11);
 		dDepartInstLAX_JFK2.setMonth(3);
@@ -653,7 +698,10 @@ public class SimulationData {
 			LAX_JFK2.assignLayoutToClass(vl); 
 		}
 
-		
+		//assign to all comfortclass the tripinstance
+				for(ComfortClass section : LAX_JFK2.get_comfortClasses()){
+					section.set_tripInstace(LAX_JFK2);
+				}
 		System.out.println("LAX-JFK: " + LAX_JFK.get_heureArriveStr() + "  " + LAX_JFK._hubArrival.get_name() + " " + LAX_JFK._hubDeparture.get_name());
 
 	}

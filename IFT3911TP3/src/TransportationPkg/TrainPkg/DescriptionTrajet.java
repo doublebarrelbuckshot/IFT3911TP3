@@ -1,6 +1,7 @@
 package TransportationPkg.TrainPkg;
 
 import AdminPkg.ITripVisitor;
+import CommonComponentsPkg.ComfortClassEnum;
 import TransportationPkg.ComfortClass;
 import TransportationPkg.TripInstance;
 import TransportationPkg.VehicleLayout;
@@ -29,7 +30,8 @@ public class DescriptionTrajet extends TripInstance {
 		if(vl instanceof TrainEtroit )
 		{
 			cc = new TrainPremiere();
-
+			ComfortClassEnum ccEnum = ComfortClassEnum.F;
+			cc.setComfortClassType(ccEnum);
 		}
 		cc.layout = vl;
 		this._comfortClasses.add(cc);

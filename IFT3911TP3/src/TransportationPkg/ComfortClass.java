@@ -48,7 +48,7 @@ public abstract class ComfortClass implements ISearchable, ITripVisitable {
 	public abstract double getPricePercentage();
 
 	public double getFullPrice() {
-		throw new UnsupportedOperationException();
+		return this.get_tripInstance().get_fullPrice();
 	}
 
 	public boolean hasAdjacentSeatingFor(int aNumTravellers) {
@@ -67,6 +67,13 @@ public abstract class ComfortClass implements ISearchable, ITripVisitable {
 		return layout;
 	}
 	
+	public TripInstance get_tripInstance(){
+		return _tripInstance;
+	}
+	
+	public void set_tripInstace(TripInstance trip){
+		this._tripInstance = trip;
+	}
 	public Vector<GenericSeat> get_seating(){
 		return _seating;
 	}

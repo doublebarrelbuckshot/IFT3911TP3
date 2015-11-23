@@ -1,6 +1,7 @@
 package TransportationPkg.AviationPkg;
 
 import AdminPkg.ITripVisitor;
+import CommonComponentsPkg.ComfortClassEnum;
 import TransportationPkg.ComfortClass;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.ITripVisitable;
@@ -27,22 +28,31 @@ public class DescriptionVol extends TripInstance {
 	}
 
 	public void assignLayoutToClass(VehicleLayout vl) {
+		 
 		ComfortClass cc = null;
 		if(vl instanceof AirLarge )
 		{
 			cc = new Premiere();
+			ComfortClassEnum ccEnum = ComfortClassEnum.F;
+			cc.setComfortClassType(ccEnum);
 		}
 		else if(vl instanceof AirConfort )
 		{
 			cc = new Affaire();
+			ComfortClassEnum ccEnum = ComfortClassEnum.A;
+			cc.setComfortClassType(ccEnum);
 		}
 		else if(vl instanceof AirMoyen )
 		{
 			cc = new EconomiquePremium();
+			ComfortClassEnum ccEnum = ComfortClassEnum.P;
+			cc.setComfortClassType(ccEnum);
 		}
 		else if(vl instanceof AirEtroit )
 		{
 			cc = new Economique();
+			ComfortClassEnum ccEnum = ComfortClassEnum.E;
+			cc.setComfortClassType(ccEnum);
 		}
 		
 		cc.layout = vl;
