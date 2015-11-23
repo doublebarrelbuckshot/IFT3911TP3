@@ -13,12 +13,12 @@ public class Famille extends ComfortClass {
 	}
 
 	public double getPricePercentage() {
-		throw new UnsupportedOperationException();
+		return this._prixPercent;
 	}
 
 	@Override
 	public void accept(ITripVisitor visitor) {
-		// TODO Auto-generated method stub
+		visitor.visit(this);
 		
 	}
 }

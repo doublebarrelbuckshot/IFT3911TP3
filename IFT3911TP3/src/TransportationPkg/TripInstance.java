@@ -134,11 +134,6 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 	public void hasOrders() {
 		throw new UnsupportedOperationException();
 	}
-
-	public double getFullPrice() {
-		return this._fullPrice;
-	}
-
 	
 	public abstract void accept(ITripVisitor visitor);
 

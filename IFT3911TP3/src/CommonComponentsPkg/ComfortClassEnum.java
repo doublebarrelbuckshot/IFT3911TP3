@@ -4,5 +4,9 @@ public enum ComfortClassEnum {
 F,
 A,
 P,
-E
+E,
+D,
+I,
+O,
+S
 }

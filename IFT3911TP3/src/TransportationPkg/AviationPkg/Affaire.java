@@ -18,7 +18,7 @@ public class Affaire extends ComfortClass {
 	}
 
 	public double getPricePercentage() {
-		throw new UnsupportedOperationException();
+		return _prixPercent;
 	}
 
 	@Override
