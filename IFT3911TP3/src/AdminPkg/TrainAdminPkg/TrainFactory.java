@@ -19,15 +19,17 @@ import AdminPkg.TransportationFactory;
 public class TrainFactory extends TransportationFactory {
 	private static TrainFactory _instance;
 
-	public TransportationHub createTransportationHub(String aName) {
+	public TransportationHub createTransportationHub(String aName, String id) {
 		Gare g = new Gare();
 		g.set_name(aName);
+		g.set_id(id);
 		return g;
 	}
 
-	public TransportationCompany createTransportCompany(String aName) {
+	public TransportationCompany createTransportCompany(String aName, String id) {
 		LigneTrain lt = new LigneTrain();
 		lt.set_name(aName);
+		lt.set_id(id);
 		return lt;
 	}
 

@@ -2,9 +2,10 @@ package TransportationPkg;
 
 import java.util.Date;
 
+import AdminPkg.ITripVisitor;
 import ReservationPkg.Reservation;
 
-public abstract class GenericSeat implements ISearchable {
+public abstract class GenericSeat implements ISearchable, ITripVisitable {
 	protected Date _reservationDate;
 	protected GenericSeatState _state;
 	public Reservation _unnamed_Reservation_;
@@ -31,4 +32,5 @@ public abstract class GenericSeat implements ISearchable {
 		return _state;
 	}
 	
+	public abstract void accept(ITripVisitor visitor);
 }

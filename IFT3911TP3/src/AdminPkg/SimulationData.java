@@ -1,10 +1,13 @@
 package AdminPkg;
 
 import java.util.Date;
+import java.util.Vector;
 
 import AdminPkg.AirAdminPkg.AirFactory;
 import AdminPkg.CruiseAdminPkg.CruiseFactory;
 import AdminPkg.TrainAdminPkg.TrainFactory;
+import CommonComponentsPkg.VehiculeLayoutEnum;
+import TransportationPkg.ITripVisitable;
 import TransportationPkg.TransportationCompany;
 import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationVehicle;
@@ -37,6 +40,15 @@ public class SimulationData {
 		initTrain();
 		initCruise();
 		
+		/*TransportationManager tm = TransportationManager.getInstance();
+		Vector<TripGeneral> list = tm.get_listTripGenerals();
+		AdminTripVisitor visitor = new AdminTripVisitor();
+		
+		for(TripGeneral item : list){
+			for(ITripVisitable instance :item.get_tripInstances()){
+				instance.accept(visitor);
+			}
+		}*/
 		
 	}
 	
@@ -45,17 +57,17 @@ public class SimulationData {
 		TransportationManager tptManager = TransportationManager.getInstance();
 
 		TransportationFactory cruiseFactory =  CruiseFactory.getInstance();
-		TransportationHub portNY = cruiseFactory.createTransportationHub("NY Port");
+		TransportationHub portNY = cruiseFactory.createTransportationHub("NY Port", "NYP");
 		//System.out.println("AIRPORT: " + airportYUL.get_name());
 		tptManager._listTptHubs.add(portNY);
 
-		TransportationHub portHavana = cruiseFactory.createTransportationHub("Havana Malecon");
+		TransportationHub portHavana = cruiseFactory.createTransportationHub("Havana Malecon", "HAP");
 		tptManager._listTptHubs.add(portHavana);
 
-		TransportationHub portRome = cruiseFactory.createTransportationHub("Rome Port");
+		TransportationHub portRome = cruiseFactory.createTransportationHub("Rome Port", "ROP");
 		tptManager._listTptHubs.add(portRome);
 		
-		TransportationCompany princess = cruiseFactory.createTransportCompany("Princess Cruises");
+		TransportationCompany princess = cruiseFactory.createTransportCompany("Princess Cruises", "PRINCE");
 		tptManager.addTransportCompany(princess);
 		
 		/*
@@ -69,7 +81,7 @@ public class SimulationData {
 			VehicleLayout lo = new LayoutOcean();
 			VehicleLayout ls = new LayoutSuite();
 			VehicleLayout lf = new LayoutFamille();
-		
+		//No layoutEnum for cruise ship
 			cruiseShip.addVehicleLayout(li);
 			li.configureSeating();
 			cruiseShip.addVehicleLayout(lo);
@@ -126,7 +138,7 @@ public class SimulationData {
 		TripInstance NY_HAVANA1 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA, dArriveInstNY_HAVANA, 1001, 110);
 		NY_HAVANA.addTripInstance(NY_HAVANA1);
 		NY_HAVANA1.setTptVehicle(cruiseShip);
-		
+		NY_HAVANA1.set_tripDescription(NY_HAVANA);
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
@@ -148,6 +160,7 @@ public class SimulationData {
 		TripInstance NY_HAVANA2 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA2, dArriveInstNY_HAVANA2, 1002, 107);
 		NY_HAVANA.addTripInstance(NY_HAVANA2);
 		NY_HAVANA2.setTptVehicle(cruiseShip);
+		NY_HAVANA2.set_tripDescription(NY_HAVANA);
 		
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
@@ -185,6 +198,7 @@ public class SimulationData {
 		TripInstance NY_ROME1 = cruiseFactory.createTripInstance(dDepartInstNY_ROME, dArriveInstNY_ROME, 1003, 220);
 		NY_ROME.addTripInstance(NY_ROME1);
 		NY_ROME1.setTptVehicle(cruiseShip);
+		NY_ROME1.set_tripDescription(NY_ROME);
 		
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
@@ -204,7 +218,8 @@ public class SimulationData {
 		TripInstance NY_ROME2 = cruiseFactory.createTripInstance(dDepartInstNY_ROME2, dArriveInstNY_ROME2, 1004, 240);
 		NY_ROME.addTripInstance(NY_ROME2);
 		NY_ROME2.setTptVehicle(cruiseShip);
-		
+		NY_ROME2.set_tripDescription(NY_ROME);
+
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
@@ -225,7 +240,7 @@ public class SimulationData {
 		TripGeneral HAVANA_ROME = cruiseFactory.createTripGeneral(dDepartHAVANA_ROME, dArriveHAVANA_ROME, "HAVANA_ROME415", portHavana, portRome);
 		tptManager.addTripGeneral(HAVANA_ROME);
 		princess.addTripGeneral(HAVANA_ROME);
-
+		
 
 		/*
 		 * Init of trip instances NY_ROME
@@ -242,6 +257,7 @@ public class SimulationData {
 		TripInstance HAVANA_ROME1 = cruiseFactory.createTripInstance(dDepartInstHAVANA_ROME, dArriveInstHAVANA_ROME, 1005, 170);
 		HAVANA_ROME.addTripInstance(HAVANA_ROME1);
 		HAVANA_ROME1.setTptVehicle(cruiseShip);
+		HAVANA_ROME1.set_tripDescription(HAVANA_ROME);
 		
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
@@ -259,17 +275,17 @@ public class SimulationData {
 		TransportationManager tptManager = TransportationManager.getInstance();
 
 		TransportationFactory trainFactory =  TrainFactory.getInstance();
-		TransportationHub trainStationNY = trainFactory.createTransportationHub("Grand Central Station");
+		TransportationHub trainStationNY = trainFactory.createTransportationHub("Grand Central Station", "GCS");
 		//System.out.println("AIRPORT: " + airportYUL.get_name());
 		tptManager._listTptHubs.add(trainStationNY);
 
-		TransportationHub trainStationFL = trainFactory.createTransportationHub("Miami Station");
+		TransportationHub trainStationFL = trainFactory.createTransportationHub("Miami Station", "MIS");
 		tptManager._listTptHubs.add(trainStationFL);
 
-		TransportationHub trainStationBoston = trainFactory.createTransportationHub("Boston Central Station");
+		TransportationHub trainStationBoston = trainFactory.createTransportationHub("Boston Central Station", "BCS");
 		tptManager._listTptHubs.add(trainStationBoston);
 		
-		TransportationCompany amtrak = trainFactory.createTransportCompany("Amtrak");
+		TransportationCompany amtrak = trainFactory.createTransportCompany("Amtrak", "AMTRAK");
 		tptManager.addTransportCompany(amtrak);
 		
 		
@@ -279,7 +295,8 @@ public class SimulationData {
 		for(int i = 0; i<400; i++)
 		{
 			VehicleLayout te = new TrainEtroit();
-		
+			VehiculeLayoutEnum s = VehiculeLayoutEnum.S;
+			te.setVehiculeLayoutType(s);
 			train1.addVehicleLayout(te);
 			te.configureSeating();
 		}
@@ -328,6 +345,7 @@ public class SimulationData {
 		TripInstance NY_FL1 = trainFactory.createTripInstance(dDepartInstNY_FL, dArriveInstNY_FL, 2001, 90);
 		NY_FL.addTripInstance(NY_FL1);
 		NY_FL1.setTptVehicle(train1);
+		NY_FL1.set_tripDescription(NY_FL);
 		
 		for(int i=0; i<train1._layoutSections.size(); i++)
 		{
@@ -347,6 +365,7 @@ public class SimulationData {
 		TripInstance NY_FL2 = trainFactory.createTripInstance(dDepartInstNY_FL2, dArriveInstNY_FL2, 2002, 95);
 		NY_FL.addTripInstance(NY_FL2);
 		NY_FL2.setTptVehicle(train1);
+		NY_FL2.set_tripDescription(NY_FL);
 		
 		for(int i=0; i<train1._layoutSections.size(); i++)
 		{
@@ -382,6 +401,7 @@ public class SimulationData {
 		TripInstance NY_BOSTON1 = trainFactory.createTripInstance(dDepartInstNY_BOSTON, dArriveInstNY_BOSTON, 2006, 75);
 		NY_BOSTON.addTripInstance(NY_BOSTON1);
 		NY_BOSTON1.setTptVehicle(train1);
+		NY_BOSTON1.set_tripDescription(NY_BOSTON);
 		
 		for(int i=0; i<train1._layoutSections.size(); i++)
 		{
@@ -419,6 +439,7 @@ public class SimulationData {
 		TripInstance BOSTON_FL1 = trainFactory.createTripInstance(dDepartInstBOSTON_FL, dArriveInstBOSTON_FL, 2007, 68);
 		BOSTON_FL.addTripInstance(BOSTON_FL1);
 		BOSTON_FL1.setTptVehicle(train1);
+		BOSTON_FL1.set_tripDescription(BOSTON_FL);
 		
 		for(int i=0; i<train1._layoutSections.size(); i++)
 		{
@@ -434,17 +455,17 @@ public class SimulationData {
 		TransportationManager tptManager = TransportationManager.getInstance();
 
 		TransportationFactory airFactory =  AirFactory.getInstance();
-		TransportationHub airportYUL = airFactory.createTransportationHub("Pierre Elliot Trudeau");
+		TransportationHub airportYUL = airFactory.createTransportationHub("Pierre Elliot Trudeau", "PET");
 		//System.out.println("AIRPORT: " + airportYUL.get_name());
 		tptManager._listTptHubs.add(airportYUL);
 
-		TransportationHub airportLAX = airFactory.createTransportationHub("Los Angeles International");
+		TransportationHub airportLAX = airFactory.createTransportationHub("Los Angeles International", "LAX");
 		tptManager._listTptHubs.add(airportLAX);
 
-		TransportationHub airportJFK = airFactory.createTransportationHub("John F. Kennedy International");
+		TransportationHub airportJFK = airFactory.createTransportationHub("John F. Kennedy International", "JFK");
 		tptManager._listTptHubs.add(airportJFK);
 		
-		TransportationCompany westJet = airFactory.createTransportCompany("WestJet");
+		TransportationCompany westJet = airFactory.createTransportCompany("WestJet", "WESJET");
 		tptManager.addTransportCompany(westJet);
 		
 		
@@ -456,23 +477,31 @@ public class SimulationData {
 		VehicleLayout ae = new AirEtroit();
 		ae.set_capacity(30);
 		ae.configureSeating();
+		VehiculeLayoutEnum s = VehiculeLayoutEnum.S;
+		ae.setVehiculeLayoutType(s);
 		plane1.addVehicleLayout(ae);
 
 
 		VehicleLayout ac = new AirConfort();
 		ac.set_capacity(25);
 		ac.configureSeating();
+		VehiculeLayoutEnum c = VehiculeLayoutEnum.C;
+		ae.setVehiculeLayoutType(c);
 		plane1.addVehicleLayout(ac);
 
 
 		VehicleLayout am = new AirMoyen();
 		am.set_capacity(25);
 		am.configureSeating();
+		VehiculeLayoutEnum m = VehiculeLayoutEnum.M;
+		ae.setVehiculeLayoutType(m);
 		plane1.addVehicleLayout(am);
 
 		VehicleLayout al = new AirLarge();
 		al.set_capacity(20);
 		al.configureSeating();
+		VehiculeLayoutEnum l = VehiculeLayoutEnum.L;
+		ae.setVehiculeLayoutType(l);
 		plane1.addVehicleLayout(al);
 
 		/*
@@ -518,6 +547,7 @@ public class SimulationData {
 		TripInstance YUL_JKF1 = airFactory.createTripInstance(dDepartInstYUL_JFK, dArriveInstYUL_JFK, 3001, 130);
 		YUL_JFK.addTripInstance(YUL_JKF1);
 		YUL_JKF1.setTptVehicle(plane1);
+		YUL_JKF1.set_tripDescription(YUL_JFK);
 		
 		for(int i=0; i<plane1._layoutSections.size(); i++)
 		{
@@ -555,6 +585,7 @@ public class SimulationData {
 		TripInstance YUL_LAX1 = airFactory.createTripInstance(dDepartInstYUL_LAX, dArriveInstYUL_LAX, 3003, 200);
 		YUL_LAX.addTripInstance(YUL_LAX1);
 		YUL_LAX1.setTptVehicle(plane1);
+		YUL_LAX1.set_tripDescription(YUL_LAX);
 		
 		for(int i=0; i<plane1._layoutSections.size(); i++)
 		{
@@ -574,6 +605,7 @@ public class SimulationData {
 		TripInstance YUL_LAX2 = airFactory.createTripInstance(dDepartInstYUL_LAX2, dArriveInstYUL_LAX2, 3004, 200);
 		YUL_LAX.addTripInstance(YUL_LAX2);
 		YUL_LAX2.setTptVehicle(plane1);
+		YUL_LAX2.set_tripDescription(YUL_LAX);
 		
 		for(int i=0; i<plane1._layoutSections.size(); i++)
 		{
@@ -610,6 +642,7 @@ public class SimulationData {
 		TripInstance LAX_JFK1 = airFactory.createTripInstance(dDepartInstLAX_JFK, dArriveInstLAX_JFK, 3005, 210);
 		LAX_JFK.addTripInstance(LAX_JFK1);
 		LAX_JFK1.setTptVehicle(plane1);
+		LAX_JFK1.set_tripDescription(LAX_JFK);
 		
 		for(int i=0; i<plane1._layoutSections.size(); i++)
 		{
@@ -629,6 +662,7 @@ public class SimulationData {
 		TripInstance LAX_JFK2 = airFactory.createTripInstance(dDepartInstLAX_JFK2, dArriveInstLAX_JFK2, 3006, 212);
 		LAX_JFK.addTripInstance(LAX_JFK2);
 		LAX_JFK2.setTptVehicle(plane1);
+		LAX_JFK2.set_tripDescription(LAX_JFK);
 		
 		for(int i=0; i<plane1._layoutSections.size(); i++)
 		{

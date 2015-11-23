@@ -1,5 +1,7 @@
 package AdminPkg;
 
+import TransportationPkg.GenericSeat;
+import TransportationPkg.InstanceSeat;
 import TransportationPkg.AviationPkg.Affaire;
 import TransportationPkg.AviationPkg.DescriptionVol;
 import TransportationPkg.CroisierePkg.DescriptionCroisiere;
@@ -11,5 +13,6 @@ public interface ITripVisitor {
 	public void visit(DescriptionTrajet trajet);
 	public void visit(DescriptionCroisiere croisiere);
 	public void visit(Affaire affaire);
+	public void visit(InstanceSeat seat);
 	
 }

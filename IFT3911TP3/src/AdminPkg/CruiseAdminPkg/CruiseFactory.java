@@ -19,15 +19,17 @@ import AdminPkg.TransportationFactory;
 public class CruiseFactory extends TransportationFactory {
 	private static CruiseFactory _instance;
 
-	public TransportationHub createTransportationHub(String aName) {
+	public TransportationHub createTransportationHub(String aName, String id) {
 		Port p = new Port();
 		p.set_name(aName);
+		p.set_id(id);
 		return p;
 	}
 
-	public TransportationCompany createTransportCompany(String aName) {
+	public TransportationCompany createTransportCompany(String aName, String id) {
 		CompagnieCroisiere c = new CompagnieCroisiere();
 		c.set_name(aName);
+		c.set_id(id);
 		return c;
 		
 	}

@@ -1,11 +1,15 @@
 package TransportationPkg;
 
 import java.util.Vector;
+
+import CommonComponentsPkg.ComfortClassEnum;
+import CommonComponentsPkg.VehiculeLayoutEnum;
 import TransportationPkg.PermanentSeat;
 
 public abstract class VehicleLayout {
 	private static int idGenerator = 0;
 	private int _capacity = 1;
+	private VehiculeLayoutEnum vehiculeLayoutType;
 	public TransportationVehicle tptVeh;
 	
 	public int get_capacity() {
@@ -49,6 +53,14 @@ public abstract class VehicleLayout {
 	protected abstract PermanentSeat addPhysSeat();
 
 	protected abstract void assignSeatingLocation(PermanentSeat ps, int i);
+
+	public VehiculeLayoutEnum getVehiculeLayoutType() {
+		return vehiculeLayoutType;
+	}
+
+	public void setVehiculeLayoutType(VehiculeLayoutEnum vehiculeLayoutType) {
+		this.vehiculeLayoutType = vehiculeLayoutType;
+	}
 	
 	
 }

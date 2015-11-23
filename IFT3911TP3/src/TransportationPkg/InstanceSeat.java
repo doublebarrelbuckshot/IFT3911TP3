@@ -1,6 +1,7 @@
 package TransportationPkg;
 
 import ReservationPkg.Passager;
+import AdminPkg.ITripVisitor;
 import CommonComponentsPkg.SearchCriteria;
 
 public class InstanceSeat extends GenericSeat {
@@ -10,5 +11,11 @@ public class InstanceSeat extends GenericSeat {
 
 	public boolean matchCriteria(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void accept(ITripVisitor visitor) {
+		visitor.visit(this);
+		
 	}
 }

@@ -3,12 +3,14 @@ package TransportationPkg;
 import CommonComponentsPkg.Adresse;
 import CommonComponentsPkg.SearchCriteria;
 import AdminPkg.TransportationManager;
+
 import java.util.Vector;
+
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TripGeneral;
 
 public abstract class TransportationCompany implements ISearchable {
-	protected int _id;
+	protected String _id;
 	protected Adresse _adresse;
 	protected String _name;
 	public TransportationManager tptManager;
@@ -36,12 +38,12 @@ public abstract class TransportationCompany implements ISearchable {
 		throw new UnsupportedOperationException();
 	}
 
-	public int get_id() {
+	public String get_id() {
 		return _id;
 	}
 
-	public void set_id(int _id) {
-		this._id = _id;
+	public void set_id(String id) {
+		this._id = id;
 	}
 
 	public Adresse get_adresse() {

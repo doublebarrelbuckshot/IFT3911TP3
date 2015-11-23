@@ -54,8 +54,5 @@ public class DescriptionVol extends TripInstance {
 
 	public void accept(ITripVisitor visitor){
 		visitor.visit(this);
-		for(ITripVisitable section : this.get_comfortClasses()){
-			section.accept(visitor);
-		}
 	}
 }

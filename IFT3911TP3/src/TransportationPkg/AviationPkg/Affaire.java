@@ -1,6 +1,11 @@
 package TransportationPkg.AviationPkg;
 
+import java.util.Vector;
+
+import TransportationPkg.GenericSeat;
 import TransportationPkg.ISearchable;
+import TransportationPkg.ITripVisitable;
+import TransportationPkg.ReservedState;
 import AdminPkg.ITripVisitor;
 import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.ComfortClass;
@@ -19,6 +24,5 @@ public class Affaire extends ComfortClass {
 	@Override
 	public void accept(ITripVisitor visitor) {
 		visitor.visit(this);
-		
 	}
 }

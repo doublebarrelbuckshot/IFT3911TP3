@@ -17,16 +17,18 @@ import AdminPkg.TransportationFactory;
 public class AirFactory extends TransportationFactory {
 	private static AirFactory _instance;
 
-	public TransportationHub createTransportationHub(String aName) {
+	public TransportationHub createTransportationHub(String aName, String id) {
 		Aeroport a = new Aeroport();
 		a.set_name(aName);
+		a.set_id(id);
 		return a;
 		
 	}
 
 	
-	public TransportationCompany createTransportCompany(String aName) {
+	public TransportationCompany createTransportCompany(String aName, String id) {
 		CompagnieAerienne ca = new CompagnieAerienne();
+		ca.set_id(id);
 		ca.set_name(aName);
 		return ca;
 	}
