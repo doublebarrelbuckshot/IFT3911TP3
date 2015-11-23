@@ -61,14 +61,6 @@ public class TransportationManager {
 		throw new UnsupportedOperationException();
 	}
 
-	public TransportationManager get_instance() {
-		return _instance;
-	}
-
-	public void set_instance(TransportationManager _instance) {
-		this._instance = _instance;
-	}
-
 	public ConfigValues get_config() {
 		return _config;
 	}
@@ -101,5 +93,9 @@ public class TransportationManager {
 		this._listSearchable = _listSearchable;
 	}
 	
+	public Vector<TripGeneral> get_listTripGenerals()
+	{
+		return _listTripGenerals;
+	}
 	
 }
