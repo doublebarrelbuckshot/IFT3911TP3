@@ -2,6 +2,7 @@ package AdminPkg;
 
 import java.util.Vector;
 
+import TransportationPkg.ComfortClass;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.ITripVisitable;
 import TransportationPkg.InstanceSeat;
