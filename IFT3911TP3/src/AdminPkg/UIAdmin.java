@@ -35,11 +35,11 @@ public class UIAdmin extends JFrame {
 	private UIAdmin()
 	{
 		super("AdminUI");
-		this.setSize(600,600);
+		this.setSize(600,650);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLayout(new BorderLayout());
-		
+		this.setLocation(600,0);
 		initWindow();
 		
 	}
@@ -49,10 +49,10 @@ public class UIAdmin extends JFrame {
 		/*
 		 * Init output JLabel
 		 */
-		taOutput = new JTextArea ("");
+		taOutput = new JTextArea (showMenu());
 		taOutput.setEditable(false);
 		taOutput.setBorder(new TitledBorder("Output"));
-		taOutput.setPreferredSize(new Dimension(550,450));
+		taOutput.setPreferredSize(new Dimension(540,450));
 		taOutput.setBackground(Color.WHITE);
 		taOutput.setOpaque(true);
 		JPanel jpCenter = new JPanel();
@@ -63,28 +63,61 @@ public class UIAdmin extends JFrame {
 		
 		taInput = new JTextArea("");
 		taInput.setBorder(new TitledBorder("Input"));
-		taInput.setPreferredSize(new Dimension(450,100));
+		taInput.setPreferredSize(new Dimension(410,100));
 		taInput.setBackground(Color.WHITE);
 		taInput.setOpaque(true);
-		JPanel jpInput = new JPanel();
+		JPanel jpInput = new JPanel();	
 		jpInput.add(taInput);
-		
 		bInput = new JButton("Apply Command");
 		bInput.addActionListener(new ActionListener() { 
-			  public void actionPerformed(ActionEvent e) { 
-			    processTest(taInput.getText());
-			  }
+			public void actionPerformed(ActionEvent e) { 
+				processInput(taInput.getText());
+				//updateOutput(taInput.getText());
+			}
 
-			private void processTest(String text) {
+			private void processInput(String input) {
+				boolean validInput = false;
+				int iInput = -1;
+				try{
+					iInput = Integer.parseInt(input);
+					validInput = true;
+				}
+				catch(Exception e)
+				{
+					updateOutput("***Invalid input, please try again***\n" + instance.showMenu());
+					taInput.setText("");
+				}
+
+				if(validInput)
+					processCommand(iInput);
+			
+
+			}
+			private void processCommand(int iInput) {
+				updateOutput("User Entered " + iInput);
+			}
+
+			private void updateOutput(String text) {
 				taOutput.setText(taOutput.getText() + "\n" + text);	
 			} 
 		} );
-		jpInput.add(bInput);	
+		jpInput.add(bInput);
+		jpCenter.add(jpOutput);
 		jpCenter.add(jpInput);
+		this.add(jpCenter);
+
 	}
 	
 	
+	public final String showMenu()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("*******MENU*******\n");
+		sb.append("1: Rename Transportation Hub \n");
+		sb.append("2: Rename Transportation Company \n");
+		return sb.toString();
 
+	}
 	public static UIAdmin getInstance()
 	{
 		if(instance == null)

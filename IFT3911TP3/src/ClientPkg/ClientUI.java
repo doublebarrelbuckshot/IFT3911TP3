@@ -45,13 +45,13 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 	private ClientUI()
 	{
 		super("ClientUI");
-		this.setSize(600,600);
+		this.setSize(600,650);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setVisible(true);
+		
 		this.setLayout(new BorderLayout());
 
 		initWindow();
-
+		this.setVisible(true);
 	}
 
 	private void initWindow() {
@@ -62,26 +62,24 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		taOutput = new JTextArea (showMenu());
 		taOutput.setEditable(false);
 		taOutput.setBorder(new TitledBorder("Output"));
-		taOutput.setPreferredSize(new Dimension(550,450));
+		taOutput.setPreferredSize(new Dimension(540,450));
 		taOutput.setBackground(Color.WHITE);
 		taOutput.setOpaque(true);
 		JPanel jpCenter = new JPanel();
 		JPanel jpOutput = new JPanel();
 		jpOutput.add(taOutput);
-		jpCenter.add(jpOutput);
-		this.add(jpCenter);
+
 
 		taInput = new JTextArea("");
 		taInput.setBorder(new TitledBorder("Input"));
-		taInput.setPreferredSize(new Dimension(450,100));
+		taInput.setPreferredSize(new Dimension(410,100));
 		taInput.setBackground(Color.WHITE);
 		taInput.setOpaque(true);
 		JPanel jpInput = new JPanel();
 		jpInput.add(taInput);
 
 		bInput = new JButton("Apply Command");
-		jpInput.add(bInput);	
-		jpCenter.add(jpInput);
+
 
 		bInput.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -98,24 +96,27 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				}
 				catch(Exception e)
 				{
-					updateOutput("***Invalid input, please try again**" + instance.showMenu());
+					updateOutput("***Invalid input, please try again***\n" + instance.showMenu());
+					taInput.setText("");
 				}
 
 				if(validInput)
 					processCommand(iInput);
-			}
+			
 
+			}
 			private void processCommand(int iInput) {
 				updateOutput("User Entered " + iInput);
-
 			}
 
 			private void updateOutput(String text) {
 				taOutput.setText(taOutput.getText() + "\n" + text);	
 			} 
-
-
 		} );
+		jpInput.add(bInput);
+		jpCenter.add(jpOutput);
+		jpCenter.add(jpInput);
+		this.add(jpCenter);
 
 	}
 
