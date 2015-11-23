@@ -24,8 +24,8 @@ public class AdminTripVisitor implements ITripVisitor{
 		System.out.println(vol.get_tripDescription().get_hubDeparture().get_id()+"-"+vol.get_tripDescription().get_hubArrival().get_id());
 		System.out.print(":["+vol.get_tripDescription().getTptCompany().get_id()+"]");
 		System.out.print(vol.get_tripInstanceID());
-		System.out.print("("+vol.get_dateDepart()+":"+vol.get_tripDescription().get_heureDepartStr());
-		System.out.print("-"+vol.get_dateArrive()+":"+vol.get_tripDescription().get_heureArriveStr()+")");
+		System.out.print("("+vol.get_dateDepartStr()+":"+vol.get_tripDescription().get_heureDepartStr());
+		System.out.print("-"+vol.get_dateArriveStr()+":"+vol.get_tripDescription().get_heureArriveStr()+")");
 		for(ITripVisitable section : vol.get_comfortClasses()){
 			section.accept(this);
 		}
