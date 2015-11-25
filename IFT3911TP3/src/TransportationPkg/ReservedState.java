@@ -3,14 +3,17 @@ package TransportationPkg;
 public class ReservedState implements GenericSeatState {
 
 	public void reserved(GenericSeat aS) {
-		throw new UnsupportedOperationException();
+		//deja reserved
 	}
 
 	public void available(GenericSeat aS) {
-		throw new UnsupportedOperationException();
+		//annulation
+		//desasigner le seat du client
+		aS.set_state( new AvailableState());
 	}
 
 	public void confirmed(GenericSeat aS) {
-		throw new UnsupportedOperationException();
+		//effectuer un paiement
+		aS.set_state( new ConfirmedState());
 	}
 }
