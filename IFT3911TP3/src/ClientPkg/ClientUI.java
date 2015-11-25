@@ -128,7 +128,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
 					criteria.set_tripDepartureDate(dateDepart);
 					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique");
-					criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType));
+					criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
 					
 					updateOutput(originAirport);
 					updateOutput(destinationAirport);
