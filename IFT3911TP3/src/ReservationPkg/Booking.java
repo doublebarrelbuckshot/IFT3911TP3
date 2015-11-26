@@ -34,7 +34,7 @@ public class Booking extends Order {
 	}
 
 	public void addPmt(Paiement aPmt) {
-		throw new UnsupportedOperationException();
+		this._accountBalance += aPmt.get_montant();
 	}
 
 	public boolean pay(double montant, int digit, Date exp) {

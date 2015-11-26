@@ -22,7 +22,7 @@ public class Paiement {
 		
 		return value;
 	}
-	
+	public double get_montant(){return _montant;}
 	public CreditCard get_creditcard(){return this._creditCard;}
 	public Confirmation get_confirmationNumber(){return this._confirmationNumber;}
 }
