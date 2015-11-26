@@ -1,6 +1,8 @@
 package ReservationPkg;
 
+import java.util.Date;
 import java.util.Vector;
+
 import ReservationPkg.Passager;
 import FinancePkg.Paiement;
 import TransportationPkg.InstanceSeat;
@@ -9,7 +11,7 @@ import TransportationPkg.TripInstance;
 public class Booking extends Order {
 	private double _accountBalance;
 	public Vector<Passager> _listPassagers = new Vector<Passager>();
-	public Paiement _unnamed_Paiement_;
+	public Paiement paiement;
 
 	public void cancelOrder() {
 		throw new UnsupportedOperationException();
@@ -35,8 +37,14 @@ public class Booking extends Order {
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean pay() {
-		throw new UnsupportedOperationException();
+	public boolean pay(double montant, int digit, Date exp) {
+		Paiement p = new Paiement(montant,digit,exp);
+		p._booking = this;
+		boolean value = p.conductPayment();
+		
+		if(value) addPmt(p);
+		
+		return value;
 	}
 
 	public Passager getPassengers() {
