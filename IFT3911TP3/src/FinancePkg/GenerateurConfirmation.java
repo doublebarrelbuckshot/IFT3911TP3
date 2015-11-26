@@ -2,9 +2,9 @@ package FinancePkg;
 
 import AdminPkg.AdminManagement;
 
-	public class GenerateurConfirmation {
-		int numeroConfirmation=1000;
-	private static GenerateurConfirmation instance;
+public class GenerateurConfirmation {
+		private int numeroConfirmation=1000;
+		private static GenerateurConfirmation instance;
 	
 	public static GenerateurConfirmation getInstance()
 	{

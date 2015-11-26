@@ -7,8 +7,8 @@ import ReservationPkg.Booking;
 public class Paiement {
 	private double _montant;
 	public Booking _booking;
-	public Confirmation _confirmationNumber;
-	public CreditCard _creditCard;
+	private Confirmation _confirmationNumber;
+	private CreditCard _creditCard;
 
 	public Paiement (double montant, int digit, Date exp){
 		this._montant = montant;
@@ -16,9 +16,13 @@ public class Paiement {
 	}
 	public boolean conductPayment() {
 		Transaction transaction =new Transaction();
-		this._confirmationNumber = transaction.pay(this._montant);
+		this._confirmationNumber =  transaction.get_confirmationNumber();
 		this._confirmationNumber.set_paiement_(this);
+		boolean value =transaction.pay(this._montant);
 		
-		return true;
+		return value;
 	}
+	
+	public CreditCard get_creditcard(){return this._creditCard;}
+	public Confirmation get_confirmationNumber(){return this._confirmationNumber;}
 }

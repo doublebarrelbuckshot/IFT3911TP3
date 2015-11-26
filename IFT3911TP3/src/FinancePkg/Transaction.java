@@ -1,19 +1,24 @@
 package FinancePkg;
 
 public class Transaction {
-	public Confirmation _confirmationNumber;
+	private Confirmation _confirmationNumber;
 
-	public Confirmation pay(double aMontant) {
+	public Transaction(){
 		_confirmationNumber = new Confirmation();
 		_confirmationNumber.setTransaction(this);
+	}
+	
+	public boolean pay(double aMontant) {
 		
 		GenerateurConfirmation generateur = new GenerateurConfirmation();
 		_confirmationNumber.set_numero(generateur.get_numeroConfirmation());
 		
-		return _confirmationNumber;
+		return true;
 	}
 
 	public void refund(double aMontant) {
 		throw new UnsupportedOperationException();
 	}
+	
+	public Confirmation get_confirmationNumber(){return _confirmationNumber;}
 }
