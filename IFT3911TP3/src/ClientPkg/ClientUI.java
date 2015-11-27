@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,8 +17,8 @@ import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
 import AdminPkg.Observer;
+import AdminPkg.Searcher;
 import AdminPkg.SimulationData;
-import AdminPkg.Subject;
 import AdminPkg.UIAdmin;
 import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
@@ -114,22 +115,36 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				updateOutput("User Entered " + iInput);
 				JFrame frame = new JFrame("FrameDemo");
 				if(iInput == 2){
+					Searcher searcher = Searcher.getInstance();
 					SearchCriteria criteria = new SearchCriteria();
 					String originAirport = JOptionPane.showInputDialog("Please input origin airport ID");
-					criteria.set__transportationHubNameDeparture(originAirport);
 					String destinationAirport = JOptionPane.showInputDialog("Please input destination airport ID");
-					criteria.set_transportationHubNameArrival(destinationAirport);
+					
 					
 					String dateDepartStr = JOptionPane.showInputDialog("Please enter departure date with the format: dd/mm/yyyy");
-					String[] dateArray = dateDepartStr.split("/");
-					Date dateDepart = new Date();
-					dateDepart.setDate(Integer.parseInt(dateArray[0]));
-					dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
-					dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
-					criteria.set_tripDepartureDate(dateDepart);
-					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique");
-					criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
 					
+					
+					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique");
+					
+					if(!originAirport.isEmpty()){
+						criteria.set__transportationHubNameDeparture(originAirport);
+					}
+					if(!destinationAirport.isEmpty()){
+						criteria.set_transportationHubNameArrival(destinationAirport);
+					}
+					if(!dateDepartStr.isEmpty()){
+						String[] dateArray = dateDepartStr.split("/");
+						Date dateDepart = new Date();
+						dateDepart.setDate(Integer.parseInt(dateArray[0]));
+						dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
+						dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
+						criteria.set_tripDepartureDate(dateDepart);
+					}
+					if(!sectionType.isEmpty()){
+						criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
+					}
+					
+					Vector<TripInstance> tripList = searcher.findTripInstances(criteria);
 					updateOutput(originAirport);
 					updateOutput(destinationAirport);
 					updateOutput(dateDepartStr);

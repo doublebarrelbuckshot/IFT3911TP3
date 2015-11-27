@@ -8,7 +8,7 @@ import TransportationPkg.TripGeneral;
 public class Vol extends TripGeneral {
 
 	public boolean matchCriteria(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
+		return super.matchCriteria(aSc);
 	}
 
 }

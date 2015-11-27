@@ -22,6 +22,7 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 	public IOrder _listOrders;
 	public Vector<ComfortClass> _comfortClasses = new Vector<ComfortClass>();
 	public TransportationVehicle _tptVehicle;
+	static String DATE_FORMAT = "dd/MM/yyyy";
 
 	public abstract void assignLayoutToClass(VehicleLayout vl);
 
@@ -29,7 +30,7 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 		return _dateDepart;
 	}
 	public String get_dateDepartStr(){
-		DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+		DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 		return df.format(_dateDepart);
 	}
 
@@ -138,7 +139,11 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 	public abstract void accept(ITripVisitor visitor);
 
 	public boolean matchCriteria(SearchCriteria aSc){
-		if (aSc.get_tripDepartureDate().equals(this.get_dateDepart())){
+		DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+		
+		String parsedDepartureDateCriteria = df.format(aSc.get_tripDepartureDate());
+		String parsedDepartureDate = this.get_dateDepartStr();
+		if (parsedDepartureDateCriteria.equals(parsedDepartureDate)){
 			ComfortClassEnum criteriaComfortClass = aSc.get_sectionType();
 			for (ComfortClass comfortClass:this.get_comfortClasses()){
 				if(criteriaComfortClass.equals(comfortClass.getComfortClassType())){
