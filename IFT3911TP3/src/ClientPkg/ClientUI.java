@@ -255,6 +255,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					panel.add(new JLabel("Departure date with the format: dd/mm/yyyy"));
 					panel.add(dateD);
 					panel.add(new JLabel("LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique:"));
+					panel.add(section);
 					int result = JOptionPane.showConfirmDialog(null, panel, 
 				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
 				      if (result == JOptionPane.OK_OPTION) {
@@ -274,10 +275,11 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 								sc.set_sectionType(ComfortClassEnum.valueOf(section.getText().toUpperCase()));
 							}
 							
-							InstanceSeat seat = SystemeClient.getInstance().findSeat(sc);
+							GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
 							
-							SystemeClient.getInstance().makeReservation(seat, client);
+							String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
 				    	  
+							update(confirmation+ "\n");
 				      }
 				      
 				      
