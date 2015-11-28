@@ -123,41 +123,48 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				JFrame frame = new JFrame("FrameDemo");
 				Searcher searcher = Searcher.getInstance();
 				if(iInput == 2){
+					JPanel panel = new JPanel();
+					JTextField depart = new JTextField();
+					JTextField arrive = new JTextField();
+					JTextField departDate = new JTextField();
+					JTextField section = new JTextField();
+					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 					
-					SearchCriteria criteria = new SearchCriteria();
-					String originAirport = JOptionPane.showInputDialog("Please input origin airport ID");
-					String destinationAirport = JOptionPane.showInputDialog("Please input destination airport ID");
+					panel.add(new JLabel("Origin airport ID:"));
+					panel.add(depart);
+					panel.add(new JLabel("Destination airport ID:"));
+					panel.add(arrive);
+					panel.add(new JLabel("Departure date with the format: dd/mm/yyyy"));
+					panel.add(departDate);
+					panel.add(new JLabel("LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique:"));
+					panel.add(section);
 					
-					
-					String dateDepartStr = JOptionPane.showInputDialog("Please enter departure date with the format: dd/mm/yyyy");
-					
-					
-					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique");
-					
-					if(!originAirport.isEmpty()){
-						criteria.set__transportationHubNameDeparture(originAirport);
-					}
-					if(!destinationAirport.isEmpty()){
-						criteria.set_transportationHubNameArrival(destinationAirport);
-					}
-					if(!dateDepartStr.isEmpty()){
-						String[] dateArray = dateDepartStr.split("/");
-						Date dateDepart = new Date();
-						dateDepart.setDate(Integer.parseInt(dateArray[0]));
-						dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
-						dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
-						criteria.set_tripDepartureDate(dateDepart);
-					}
-					if(!sectionType.isEmpty()){
-						criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
-					}
-					
-					Vector<TripInstance> tripList = searcher.findTripInstances(criteria);
-					for (TripInstance trip: tripList){
-						TripGeneral descriptionVol = trip.get_tripDescription();
-						updateOutput("Vol: "+ descriptionVol.get_tripID() + " Date de depart: " + trip.get_dateDepartStr() 
-						+ " Heure de depart: " + descriptionVol.get_heureDepartStr() + " Heure d'arrivee: " + descriptionVol.get_heureArriveStr());
-					}
+					int result = JOptionPane.showConfirmDialog(null, panel, 
+				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
+				      if (result == JOptionPane.OK_OPTION) {
+						SearchCriteria criteria = new SearchCriteria();
+												
+						if(!depart.getText().isEmpty()){
+							criteria.set__transportationHubNameDeparture(depart.getText());
+						}
+						if(!arrive.getText().isEmpty()){
+							criteria.set_transportationHubNameArrival(arrive.getText());
+						}
+						if(!departDate.getText().isEmpty()){
+							String[] dateArray = departDate.getText().split("/");
+							Date dateDepart = new Date();
+							dateDepart.setDate(Integer.parseInt(dateArray[0]));
+							dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
+							dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
+							criteria.set_tripDepartureDate(dateDepart);
+						}
+						if(!section.getText().isEmpty()){
+							criteria.set_sectionType(ComfortClassEnum.valueOf(section.getText().toUpperCase()));
+						}
+						
+						String resultText= SystemeClient.getInstance().findTripInstance(criteria);
+						updateOutput(resultText + "\n");
+				      }
 				} else if(iInput == 3){
 					SearchCriteria criteria = new SearchCriteria();
 					String originPort = JOptionPane.showInputDialog("Please input port ID");
@@ -249,7 +256,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				    	  sc.set_transportationHubNameArrival(arrive.getText());
 				      }
 				      Vector<TripInstance> tripList = searcher.findTripInstances(sc);
-					
+				      
 				}
 			}
 
@@ -286,30 +293,40 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		return instance;
 	}
 
-
-	public SystemeClient _interacts;
-
-	public TripInstance findTripInstance(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
-	}
-
-	public InstanceSeat findSeat(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
-	}
-
-	public GenericSeat findGenericSeat(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
-	}
-
-	public int getOrderChangeDeadline(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void showAlert(String aAlert) {
-		throw new UnsupportedOperationException();
-	}
-
+	@Override
 	public void update(String message) {
-		updateOutput(message);
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public TripInstance findTripInstance(SearchCriteria aSc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InstanceSeat findSeat(SearchCriteria aSc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GenericSeat findGenericSeat(SearchCriteria aSc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getOrderChangeDeadline(SearchCriteria aSc) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void showAlert(String aAlert) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
