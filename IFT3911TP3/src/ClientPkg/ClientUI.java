@@ -281,7 +281,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							
 							String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
 				    	  
-							update(confirmation+ "\n");
+							update("Votre numero de confirmation est:"+confirmation+ "\n");
 				      }
 				      
 				      

@@ -78,11 +78,12 @@ public class SystemeClient {
 	public String makeReservation(GenericSeat seat, Client client){
 		seat.get_state().reserved(seat);
 		seat.set_reservationDate(new Date());
-		//Reservation r = new Reservation(seat.get_comfortClass().get_tripInstance());
-		//client.addOrder(r);
-		//r.addSeat(seat);
+		Reservation r = new Reservation();
+		r.set_client_(client);
+		r.set_tripInstance(seat.get_comfortClass().get_tripInstance());
+		client.addOrder(r);
+		r.addSeat(seat);
 		
-		//return r.get_numeroReservation()+"";
-		return null;
+		return r.get_number()+"";
 	}
 }

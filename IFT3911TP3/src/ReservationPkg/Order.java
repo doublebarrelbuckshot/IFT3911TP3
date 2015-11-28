@@ -5,20 +5,27 @@ import TransportationPkg.IOrder;
 
 public class Order implements IOrder {
 	private boolean _isActive;
+	private static int orderNumber = 0;
 	private int _number;
 	private Client client;
 	private TripInstance _tripInstance;
 
 
-	public Order(boolean isActive, int number, Client client, TripInstance tripInstance){
+	public Order(boolean isActive, Client client, TripInstance tripInstance){
 		_isActive = isActive;
-		_number = number;
+		_number = getOrderNumber();
 		client = client;
 		_tripInstance = tripInstance;
 	}
 	
 	public Order(){
 		
+	}
+	
+	public int getOrderNumber()
+	{
+		orderNumber++;
+		return orderNumber;
 	}
 	public void cancelOrder() {
 		throw new UnsupportedOperationException();
@@ -52,12 +59,12 @@ public class Order implements IOrder {
 		this._number = _number;
 	}
 
-	public Client get_unnamed_Client_() {
+	public Client get_client() {
 		return client;
 	}
 
-	public void set_unnamed_Client_(Client _unnamed_Client_) {
-		this.client = _unnamed_Client_;
+	public void set_client_(Client cient) {
+		this.client = client;
 	}
 
 	public TripInstance get_tripInstance() {
