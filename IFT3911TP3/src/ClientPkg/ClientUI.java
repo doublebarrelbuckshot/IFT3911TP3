@@ -347,11 +347,6 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		return instance;
 	}
 
-	@Override
-	public void update(String message) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public TripInstance findTripInstance(SearchCriteria aSc) {
