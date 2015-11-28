@@ -1,5 +1,7 @@
 package AdminPkg;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import ClientPkg.SystemeClient;
@@ -79,17 +81,23 @@ public class Searcher {
 		if (aSc.get_tripDepartureDate().equals(null)){
 			throw new Exception("La date de depart ne peut etre nul pour la recherche.");
 		}
-		Vector<TripGeneral> listTripGeneral = findTripGeneral(aSc);
-		if (listTripGeneral.isEmpty()){
+		//Vector<TripGeneral> listTripGeneral = findTripGeneral(aSc);
+		TripGeneral tripGeneral = findTripGeneralId(aSc.get_tripIDNumber());
+		
+		/*if (listTripGeneral.isEmpty()){
 			return null;
 		}
 		if(listTripGeneral.size() > 1){
 			throw new Exception("Ne peut pas contenir plusieurs trip generals avec le meme id");
 		}
-		TripGeneral tripGeneral = listTripGeneral.firstElement();
+		
+		TripGeneral tripGeneral = listTripGeneral.firstElement();*/
+		
 		Vector<TripInstance> listMatchedTripInstances = new Vector<TripInstance>();
+		
 		for (TripInstance tripInstance : tripGeneral.get_tripInstances()){
-			if(tripInstance.get_dateDepart().equals(aSc.get_tripDepartureDate())){
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			if(tripInstance.get_dateDepartStr().equals(df.format(aSc.get_tripDepartureDate()))){
 				listMatchedTripInstances.addElement(tripInstance);
 			}
 		}
@@ -154,5 +162,19 @@ public class Searcher {
 			}
 		}
 		return null;
+	}
+	
+	public TripGeneral findTripGeneralId(String id){
+		Vector<TripGeneral> list = TransportationManager.getInstance().get_listTripGenerals();
+		TripGeneral tripG=null;
+		
+		for(TripGeneral trip :list){
+			if(trip.get_tripID().equals(id)){
+				tripG=trip;
+				break;
+			}
+		}
+		
+		return tripG;
 	}
 }

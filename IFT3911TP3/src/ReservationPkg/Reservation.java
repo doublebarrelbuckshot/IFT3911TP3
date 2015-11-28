@@ -8,11 +8,12 @@ import TransportationPkg.TripInstance;
 
 public class Reservation extends Order implements IReservation {
 	public Vector<GenericSeat> _reservedSeats = new Vector<GenericSeat>();
-
+	private int numeroReservation=5;
+	
 	public void cancelOrder() {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	public void addSeat(GenericSeat aGs) {
 		throw new UnsupportedOperationException();
 	}
@@ -23,5 +24,9 @@ public class Reservation extends Order implements IReservation {
 
 	public IReservation getReservation() {
 		throw new UnsupportedOperationException();
+	}
+	
+	public int get_numeroReservation(){
+		return numeroReservation;
 	}
 }
