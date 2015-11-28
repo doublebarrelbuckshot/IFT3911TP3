@@ -14,7 +14,12 @@ public class Client {
 	}
 
 	public Order findOrder(int aOrderNum) {
-		return _listOrders.get(aOrderNum);
+		for(Order o: _listOrders)
+		{
+			if(o.get_number() == aOrderNum)
+				return o;
+		}
+		return null;
 	}
 	
 	public Reservation findReservation(int reservationNumber){

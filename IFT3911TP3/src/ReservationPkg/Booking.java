@@ -13,6 +13,10 @@ public class Booking extends Order {
 	public Vector<Passager> _listPassagers = new Vector<Passager>();
 	public Paiement paiement;
 
+	public Booking(boolean isActive, Client client, TripInstance tripInstance) {
+		super(isActive, client, tripInstance);
+	}
+	
 	public Booking() {
 		super();
 	}

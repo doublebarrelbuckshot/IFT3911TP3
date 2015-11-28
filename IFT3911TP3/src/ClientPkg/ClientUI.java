@@ -305,6 +305,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							reservation.set_number(1050);
 							reservation.set_client_(client);
 							reservation.set_tripInstance(tripInstance);
+
 							if (reservation != null){
 								TripInstance tripInstanceReservation = reservation.get_tripInstance();
 								JPanel panelReservation = new JPanel();
