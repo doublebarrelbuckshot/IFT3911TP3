@@ -14,7 +14,7 @@ public class Booking extends Order {
 	public Paiement paiement;
 
 	public Booking(boolean isActive, int number, Client client, TripInstance tripInstance) {
-		super(isActive, number, client, tripInstance);
+		super(isActive, client, tripInstance);
 	}
 	
 	public void cancelOrder() {

@@ -299,7 +299,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							//Reservation reservation = client.findReservation(reservationIdInt);
 							TransportationManager tpt = TransportationManager.getInstance();
 							TripInstance tripInstance = tpt.get_listTripGenerals().get(0).get_tripInstances().get(0);
-							Reservation reservation = new Reservation(true, 1050, client, tripInstance);
+							Reservation reservation = new Reservation(true, client, tripInstance);
 							if (reservation != null){
 								JPanel panelReservation = new JPanel();
 								panelReservation.add(new JLabel("RESERVATION!!!" + reservation.get_number()));

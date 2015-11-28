@@ -4,6 +4,7 @@ import AdminPkg.AdminManagement;
 import AdminPkg.Searcher;
 import CommonComponentsPkg.SearchCriteria;
 import ReservationPkg.Client;
+import ReservationPkg.Entity;
 import ReservationPkg.Order;
 import ReservationPkg.Reservation;
 import TransportationPkg.TripGeneral;
@@ -24,9 +25,13 @@ public class ClientSimulationData {
 		Searcher searcher = Searcher.getInstance();
 		TripGeneral tripGeneral = searcher.findOneTripGeneral(criteria);
 		TripInstance ti = tripGeneral.get_tripInstances().get(0);
+		Entity entity = new Person();
 		
 		Order res1 = new Reservation(true, client, ti);
+		client.addOrder(res1);
 		
+		
+
 		
 	}
 }
