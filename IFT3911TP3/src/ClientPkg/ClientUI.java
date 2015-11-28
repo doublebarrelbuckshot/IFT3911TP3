@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -25,12 +27,13 @@ import CommonComponentsPkg.SearchCriteria;
 import ReservationPkg.IClientUI;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.InstanceSeat;
+import TransportationPkg.TripGeneral;
 import TransportationPkg.TripInstance;
 
 public class ClientUI extends JFrame implements IClientUI, Observer {
 
 
-
+	static DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 	public static void main(String[] args)
 	{
 		SimulationData.initAir();
@@ -114,8 +117,9 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 			private void processCommand(int iInput) {
 				updateOutput("User Entered " + iInput);
 				JFrame frame = new JFrame("FrameDemo");
+				Searcher searcher = Searcher.getInstance();
 				if(iInput == 2){
-					Searcher searcher = Searcher.getInstance();
+					
 					SearchCriteria criteria = new SearchCriteria();
 					String originAirport = JOptionPane.showInputDialog("Please input origin airport ID");
 					String destinationAirport = JOptionPane.showInputDialog("Please input destination airport ID");
@@ -145,10 +149,77 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					}
 					
 					Vector<TripInstance> tripList = searcher.findTripInstances(criteria);
-					updateOutput(originAirport);
-					updateOutput(destinationAirport);
-					updateOutput(dateDepartStr);
-					updateOutput(sectionType);
+					for (TripInstance trip: tripList){
+						TripGeneral descriptionVol = trip.get_tripDescription();
+						updateOutput("Vol: "+ descriptionVol.get_tripID() + " Date de depart: " + trip.get_dateDepartStr() 
+						+ " Heure de depart: " + descriptionVol.get_heureDepartStr() + " Heure d'arrivee: " + descriptionVol.get_heureArriveStr());
+					}
+				} else if(iInput == 3){
+					SearchCriteria criteria = new SearchCriteria();
+					String originPort = JOptionPane.showInputDialog("Please input port ID");
+					String destinationPort = originPort;
+					
+					
+					String dateDepartStr = JOptionPane.showInputDialog("Please enter departure date with the format: dd/mm/yyyy");
+					
+					
+					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. I: Interieure, O: Vue sur Ocean, S: Suite, F: Famille, D: Famille Deluxe");
+					
+					if(!originPort.isEmpty()){
+						criteria.set__transportationHubNameDeparture(originPort);
+						criteria.set_transportationHubNameArrival(destinationPort);
+					}
+					if(!dateDepartStr.isEmpty()){
+						String[] dateArray = dateDepartStr.split("/");
+						Date dateDepart = new Date();
+						dateDepart.setDate(Integer.parseInt(dateArray[0]));
+						dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
+						dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
+						criteria.set_tripDepartureDate(dateDepart);
+					}
+					if(!sectionType.isEmpty()){
+						criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
+					}
+					
+					Vector<TripInstance> tripList = searcher.findTripInstances(criteria);
+					for (TripInstance trip: tripList){
+						TripGeneral descriptionCroisiere = trip.get_tripDescription();
+						updateOutput("Croisiere: "+ descriptionCroisiere.get_tripID() + " Date de depart: " + trip.get_dateDepartStr() 
+						+ " Heure de depart: " + descriptionCroisiere.get_heureDepartStr() + " Heure d'arrivee: " + descriptionCroisiere.get_heureArriveStr());
+					}
+				}else if(iInput == 4){
+					SearchCriteria criteria = new SearchCriteria();
+					String originPort = JOptionPane.showInputDialog("Please input departure train station ID");
+					String destinationPort = JOptionPane.showInputDialog("Please input arrival train station ID");;
+					
+					
+					String dateDepartStr = JOptionPane.showInputDialog("Please enter departure date with the format: dd/mm/yyyy");
+					
+					
+					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. F: Premiere, E: Economique");
+					
+					if(!originPort.isEmpty()){
+						criteria.set__transportationHubNameDeparture(originPort);
+						criteria.set_transportationHubNameArrival(destinationPort);
+					}
+					if(!dateDepartStr.isEmpty()){
+						String[] dateArray = dateDepartStr.split("/");
+						Date dateDepart = new Date();
+						dateDepart.setDate(Integer.parseInt(dateArray[0]));
+						dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
+						dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
+						criteria.set_tripDepartureDate(dateDepart);
+					}
+					if(!sectionType.isEmpty()){
+						criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
+					}
+					
+					Vector<TripInstance> tripList = searcher.findTripInstances(criteria);
+					for (TripInstance trip: tripList){
+						TripGeneral descriptionCroisiere = trip.get_tripDescription();
+						updateOutput("Voyage: "+ descriptionCroisiere.get_tripID() + " Date de depart: " + trip.get_dateDepartStr() 
+						+ " Heure de depart: " + descriptionCroisiere.get_heureDepartStr() + " Heure d'arrivee: " + descriptionCroisiere.get_heureArriveStr());
+					}
 				}
 			}
 
