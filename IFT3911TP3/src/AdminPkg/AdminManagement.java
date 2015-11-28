@@ -61,17 +61,20 @@ public class AdminManagement extends Subject {
 		
 	}
 	public String findTripGeneral(SearchCriteria aSc) {
-		AdminTripVisitor visitor = new AdminTripVisitor();
+		
+		String result="";
 		TransportationManager tm = TransportationManager.getInstance();
 		Vector<TripGeneral> listTrip = tm.get_listTripGenerals();
 		
 		for(TripGeneral trip : listTrip){
 			for(ITripVisitable instance : trip.get_tripInstances()){
+				AdminTripVisitor visitor = new AdminTripVisitor();
 				instance.accept(visitor);
+				result += visitor.getResult();
 			}
 		}
 		
-		return visitor.getResult();
+		return result;
 	}
 
 	public GenericSeat findGenericSeat(SearchCriteria aSc) {

@@ -8,7 +8,7 @@ import ReservationPkg.Reservation;
 public abstract class GenericSeat implements ISearchable, ITripVisitable {
 	protected Date _reservationDate;
 	protected GenericSeatState _state;
-	public Reservation _reservation;
+	protected IPassenger _Ipassenger;
 	private ComfortClass _section;
 	public IReservation _IReservation;
 
@@ -37,4 +37,10 @@ public abstract class GenericSeat implements ISearchable, ITripVisitable {
 	}
 	
 	public abstract void accept(ITripVisitor visitor);
+	public IPassenger get_Ipassenger() {
+		return _Ipassenger;
+	}
+	public void set_Ipassenger(IPassenger _Ipassenger) {
+		this._Ipassenger = _Ipassenger;
+	}
 }

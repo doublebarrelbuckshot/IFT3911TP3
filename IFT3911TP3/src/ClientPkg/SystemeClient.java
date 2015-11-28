@@ -9,6 +9,7 @@ import AdminPkg.AdminTripVisitor;
 import AdminPkg.Searcher;
 import AdminPkg.TransportationManager;
 import ReservationPkg.Client;
+import ReservationPkg.PassagerReal;
 import ReservationPkg.Reservation;
 import TransportationPkg.TripInstance;
 import CommonComponentsPkg.ComfortClassEnum;
@@ -83,7 +84,7 @@ public class SystemeClient {
 		r.set_tripInstance(seat.get_comfortClass().get_tripInstance());
 		client.addOrder(r);
 		r.addSeat(seat);
-		
+		seat.set_Ipassenger(new PassagerReal());
 
 		return r.get_number()+"";
 	}

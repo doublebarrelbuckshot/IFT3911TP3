@@ -83,7 +83,7 @@ public class Searcher {
 		}
 		//Vector<TripGeneral> listTripGeneral = findTripGeneral(aSc);
 		TripGeneral tripGeneral = findTripGeneralId(aSc.get_tripIDNumber());
-		
+		Vector<GenericSeat> genericAvailableSeatList = new Vector<GenericSeat>();  
 		/*if (listTripGeneral.isEmpty()){
 			return null;
 		}
@@ -94,30 +94,31 @@ public class Searcher {
 		TripGeneral tripGeneral = listTripGeneral.firstElement();*/
 		
 		Vector<TripInstance> listMatchedTripInstances = new Vector<TripInstance>();
-		
-		for (TripInstance tripInstance : tripGeneral.get_tripInstances()){
-			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-			if(tripInstance.get_dateDepartStr().equals(df.format(aSc.get_tripDepartureDate()))){
-				listMatchedTripInstances.addElement(tripInstance);
+		if(tripGeneral.get_tripInstances() != null){
+			for (TripInstance tripInstance : tripGeneral.get_tripInstances()){
+				DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+				if(tripInstance.get_dateDepartStr().equals(df.format(aSc.get_tripDepartureDate()))){
+					listMatchedTripInstances.addElement(tripInstance);
+				}
 			}
-		}
-		if (listMatchedTripInstances.isEmpty()){
-			return null;
-		}
-		if (listMatchedTripInstances.size() > 1){
-			throw new Exception("Ne peut avoir plusieurs trip instances avec une meme date pour un trip general donne");
-		}
-		
-		TripInstance tripInstance = listMatchedTripInstances.firstElement();
-		Vector<GenericSeat> genericAvailableSeatList = new Vector<GenericSeat>();  
-		for(ComfortClass comfortClass : tripInstance.get_comfortClasses()){
-			for (GenericSeat genericSeat : comfortClass.get_seating()){
-				if(genericSeat.get_state() instanceof AvailableState){
-					genericAvailableSeatList.addElement(genericSeat);
+			if (listMatchedTripInstances.isEmpty()){
+				return null;
+			}
+			if (listMatchedTripInstances.size() > 1){
+				throw new Exception("Ne peut avoir plusieurs trip instances avec une meme date pour un trip general donne");
+			}
+			
+			TripInstance tripInstance = listMatchedTripInstances.firstElement();
+			
+			for(ComfortClass comfortClass : tripInstance.get_comfortClasses()){
+				for (GenericSeat genericSeat : comfortClass.get_seating()){
+					if(genericSeat.get_state() instanceof AvailableState){
+						genericAvailableSeatList.addElement(genericSeat);
+					}
 				}
 			}
 		}
-		return genericAvailableSeatList;
+			return genericAvailableSeatList;
 		
 	}
 

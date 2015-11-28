@@ -45,6 +45,7 @@ public class AdminTripVisitor implements ITripVisitor{
 		result +="("+vol.get_dateDepartStr()+":"+vol.get_tripDescription().get_heureDepartStr();
 		result +="-"+vol.get_dateArriveStr()+":"+vol.get_tripDescription().get_heureArriveStr()+")";
 		for(ITripVisitable section : vol.get_comfortClasses()){
+			count=0;
 			section.accept(this);
 		}
 	}

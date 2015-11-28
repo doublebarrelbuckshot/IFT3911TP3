@@ -6,7 +6,6 @@ import CommonComponentsPkg.SearchCriteria;
 
 public class InstanceSeat extends GenericSeat {
 	private PermanentSeat _physicalSeat;
-	private IPassenger _Ipassenger;
 	
 	public InstanceSeat(){
 		this._state= new AvailableState();
@@ -28,14 +27,6 @@ public class InstanceSeat extends GenericSeat {
 
 	public void set_physicalSeat(PermanentSeat _physicalSeat) {
 		this._physicalSeat = _physicalSeat;
-	}
-
-	public IPassenger get_Ipassenger() {
-		return _Ipassenger;
-	}
-
-	public void set_Ipassenger(IPassenger _Ipassenger) {
-		this._Ipassenger = _Ipassenger;
 	}
 
 }
