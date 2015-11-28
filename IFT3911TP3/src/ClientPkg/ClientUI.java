@@ -321,7 +321,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 
 	@Override
 	public void update(String message) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

@@ -1,6 +1,7 @@
 package ClientPkg;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 import AdminPkg.AdminManagement;
@@ -59,17 +60,28 @@ public class SystemeClient {
 	}
 
 	public GenericSeat findGenericSeat(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
+		Vector<GenericSeat> seat = new Vector<GenericSeat>();
+		try {
+			seat = Searcher.getInstance().findGenericSeat(aSc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return seat.firstElement();
+	
 	}
 
 	public int getOrderChangeDeadline(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
 	}
 	
-	public void makeReservation(InstanceSeat seat, Client client){
+	public String makeReservation(GenericSeat seat, Client client){
 		seat.get_state().reserved(seat);
+		seat.set_reservationDate(new Date());
+		Reservation r = new Reservation(seat.get_comfortClass().get_tripInstance());
+		client.addOrder(r);
+		r.addSeat(seat);
 		
-		//client.addOrder(order);
-		
+		return r.get_numeroReservation()+"";
 	}
 }
