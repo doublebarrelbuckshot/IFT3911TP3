@@ -18,13 +18,22 @@ import AdminPkg.TransportationFactory;
 
 public class CruiseFactory extends TransportationFactory {
 	private static CruiseFactory _instance;
+	public static int idGenerator = 3000;
+	
 
+	public int getNewId()
+	{
+		idGenerator++;
+		return idGenerator;
+	}
+	
 	public TransportationHub createTransportationHub(String aName, String id) {
 		Port p = new Port();
 		p.set_name(aName);
 		p.set_id(id);
 		return p;
 	}
+	
 
 	public TransportationCompany createTransportCompany(String aName, String id) {
 		CompagnieCroisiere c = new CompagnieCroisiere();
@@ -41,11 +50,11 @@ public class CruiseFactory extends TransportationFactory {
 		p.setTptCompany(company);
 		return p;
 	}
-	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, String tripID, TransportationHub depart, TransportationHub arrive ){
+	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationHub depart, TransportationHub arrive ){
 		Croisiere c = new Croisiere();
 		c.set_heureArrive(dateArrival);
 		c.set_heureDepart(dateDepart);
-		c.set_tripID(tripID);
+		c.set_tripID(depart.get_id() + arrive.get_id() + dateDepart.getHours()+ dateDepart.getMinutes());
 		c.set_hubArrival(arrive);
 		c.set_hubDeparture(depart);
 		return c;	
@@ -57,12 +66,12 @@ public class CruiseFactory extends TransportationFactory {
 		return _instance;	
 		}
 
-	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, int tripInstanceID, double price )
+	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, double price )
 	{
 		DescriptionCroisiere dv = new DescriptionCroisiere();
 		dv.set_dateDepart(dateDepart);
 		dv.set_dateArrive(dateArrival);
-		dv.set_tripInstanceID(tripInstanceID);
+		dv.set_tripInstanceID(getNewId());
 		dv.set_fullPrice(price);
 		return dv;	}
 	private CruiseFactory() {

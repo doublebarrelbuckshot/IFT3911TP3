@@ -18,7 +18,15 @@ import AdminPkg.TransportationFactory;
 
 public class TrainFactory extends TransportationFactory {
 	private static TrainFactory _instance;
+	public static int idGenerator = 5000;
+	
 
+	public int getNewId()
+	{
+		idGenerator++;
+		return idGenerator;
+	}
+	
 	public TransportationHub createTransportationHub(String aName, String id) {
 		Gare g = new Gare();
 		g.set_name(aName);
@@ -42,12 +50,12 @@ public class TrainFactory extends TransportationFactory {
 		
 	}
 
-	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, int tripInstanceID, double price )
+	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, double price )
 	{
 		DescriptionTrajet dv = new DescriptionTrajet();
 		dv.set_dateDepart(dateDepart);
 		dv.set_dateArrive(dateArrival);
-		dv.set_tripInstanceID(tripInstanceID);
+		dv.set_tripInstanceID(getNewId());
 		dv.set_fullPrice(price);
 		return dv;
 	}
@@ -56,11 +64,12 @@ public class TrainFactory extends TransportationFactory {
 			_instance = new TrainFactory();
 		return _instance;
 	}
-	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, String tripID, TransportationHub depart, TransportationHub arrive ){
+	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationHub depart, TransportationHub arrive ){
 		Trajet t = new Trajet();
 		t.set_heureArrive(dateArrival);
 		t.set_heureDepart(dateDepart);
-		t.set_tripID(tripID);
+		t.set_tripID(depart.get_id() + arrive.get_id() + dateDepart.getHours()+ dateDepart.getMinutes());
+
 		t.set_hubArrival(arrive);
 		t.set_hubDeparture(depart);
 		return t;	

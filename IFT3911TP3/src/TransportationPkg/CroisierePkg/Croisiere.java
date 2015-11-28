@@ -16,5 +16,14 @@ public class Croisiere extends TripGeneral {
 		throw new UnsupportedOperationException();
 	}
 
+	public void addItineraryItem(ItineraryItem ii)
+	{
+		_itineraryItem.add(ii);
+	}
+	public void removeItinaryItem(ItineraryItem ii)
+	{
+		_itineraryItem.remove(ii);
+		
+	}
 
 }
