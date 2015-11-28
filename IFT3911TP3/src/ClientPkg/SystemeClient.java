@@ -1,5 +1,6 @@
 package ClientPkg;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import AdminPkg.AdminManagement;
@@ -32,12 +33,11 @@ public class SystemeClient {
 	}
 
 	public String findTripInstance(SearchCriteria aSc) {
+		Vector<TripInstance> list =Searcher.getInstance().findTripInstances(aSc);
 		ClientTripVisitor visitor = new ClientTripVisitor();
-	/*	TransportationManager tm = TransportationManager.getInstance();
-		Vector<TripGeneral> listTrip = tm.get_listTripGenerals();
 		
-		for(TripGeneral tripG : listTrip){
-			for(TripInstance instance : tripG.get_tripInstances()){
+		
+			for(TripInstance instance : list){
 				
 				for(ComfortClass cc : instance.get_comfortClasses()){
 					if(cc.getComfortClassType() == aSc.get_sectionType()){
@@ -46,8 +46,7 @@ public class SystemeClient {
 					}
 				}
 			}
-		}
-		System.out.println(visitor.getResult());*/
+		
 		return visitor.getResult();
 	}
 

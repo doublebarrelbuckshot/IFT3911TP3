@@ -1,5 +1,7 @@
 package ClientPkg;
 
+import java.util.ArrayList;
+
 import TransportationPkg.AvailableState;
 import TransportationPkg.ITripVisitable;
 import TransportationPkg.InstanceSeat;
@@ -30,6 +32,7 @@ public class ClientTripVisitor implements ITripVisitor{
 		return result;
 	}
 	
+	
 	public int get_count(){return count;}
 	
 	@Override
@@ -37,10 +40,10 @@ public class ClientTripVisitor implements ITripVisitor{
 		result +="\n";
 		result += vol.get_tripDescription().get_hubDeparture().get_id()+"-"+vol.get_tripDescription().get_hubArrival().get_id();
 		result +=":["+vol.get_tripDescription().getTptCompany().get_id()+"]";
-		result +=vol.get_tripInstanceID();
+		result +=vol.get_tripDescription().get_tripID();
 		result +="("+vol.get_dateDepartStr()+":"+vol.get_tripDescription().get_heureDepartStr();
 		result +="-"+vol.get_dateArriveStr()+":"+vol.get_tripDescription().get_heureArriveStr()+")";
-		
+	
 	}
 
 	@Override
