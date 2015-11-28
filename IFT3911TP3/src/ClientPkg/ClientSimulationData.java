@@ -15,7 +15,7 @@ public class ClientSimulationData {
 	
 	public static void initClientSimulationData()
 	{
-		Order res1 = new Reservation();
+		
 		
 		AdminManagement am = AdminManagement.getInstance();
 
@@ -24,6 +24,8 @@ public class ClientSimulationData {
 		Searcher searcher = Searcher.getInstance();
 		TripGeneral tripGeneral = searcher.findOneTripGeneral(criteria);
 		TripInstance ti = tripGeneral.get_tripInstances().get(0);
+		
+		Order res1 = new Reservation(true, client, ti);
 		
 		
 	}
