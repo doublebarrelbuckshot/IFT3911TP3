@@ -59,6 +59,7 @@ public class AdminTripVisitor implements ITripVisitor{
 		result += "("+trajet.get_dateDepartStr()+":"+trajet.get_tripDescription().get_heureDepartStr();
 		result += "-"+trajet.get_dateArriveStr()+":"+trajet.get_tripDescription().get_heureArriveStr()+")";
 		for(ITripVisitable section : trajet.get_comfortClasses()){
+			count=0;
 			section.accept(this);
 		}
 	}
@@ -72,6 +73,7 @@ public class AdminTripVisitor implements ITripVisitor{
 		result += "("+croisiere.get_dateDepartStr()+":"+croisiere.get_tripDescription().get_heureDepartStr();
 		result += "-"+croisiere.get_dateArriveStr()+":"+croisiere.get_tripDescription().get_heureArriveStr()+")";
 		for(ITripVisitable section : croisiere.get_comfortClasses()){
+			count=0;
 			section.accept(this);
 		}
 	}
