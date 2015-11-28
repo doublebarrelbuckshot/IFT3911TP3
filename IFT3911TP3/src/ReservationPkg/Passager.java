@@ -5,30 +5,13 @@ import java.util.Date;
 import TransportationPkg.InstanceSeat;
 import TransportationPkg.IPassenger;
 
-public class Passager extends Person implements IPassenger {
-	private Date dateNaissance;
-	private String numPassport;
+public abstract class Passager extends Person implements IPassenger {
+	
 	private Booking booking;
 	private InstanceSeat assignedSeat;
 
 	public IPassenger getPassenger() {
 		throw new UnsupportedOperationException();
-	}
-
-	public Date getDateNaissance() {
-		return dateNaissance;
-	}
-
-	public void setDateNaissance(Date dateNaissance) {
-		this.dateNaissance = dateNaissance;
-	}
-
-	public String getNumPassport() {
-		return numPassport;
-	}
-
-	public void setNumPassport(String numPassport) {
-		this.numPassport = numPassport;
 	}
 
 	public Booking getBooking() {
@@ -47,5 +30,6 @@ public class Passager extends Person implements IPassenger {
 		this.assignedSeat = assignedSeat;
 	}
 	
+	public abstract int count();
 	
 }

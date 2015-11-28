@@ -17,7 +17,7 @@ public class Reservation extends Order implements IReservation {
 	}
 	
 	public void addSeat(GenericSeat aGs) {
-		throw new UnsupportedOperationException();
+		_reservedSeats.add(aGs);
 	}
 
 	public Reservation(boolean isActive, Client client, TripInstance tripInstance) {

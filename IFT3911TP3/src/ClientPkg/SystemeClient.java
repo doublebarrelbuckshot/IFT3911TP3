@@ -84,6 +84,7 @@ public class SystemeClient {
 		client.addOrder(r);
 		r.addSeat(seat);
 		
-		return r.getOrderNumber()+"";
+
+		return r.get_number()+"";
 	}
 }

@@ -3,6 +3,7 @@ package ClientPkg;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -280,7 +281,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							
 							String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
 				    	  
-							update(confirmation+ "\n");
+							update("Votre numero de confirmation est:"+confirmation+ "\n");
 				      }
 				      
 				      
@@ -299,13 +300,41 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							//Reservation reservation = client.findReservation(reservationIdInt);
 							TransportationManager tpt = TransportationManager.getInstance();
 							TripInstance tripInstance = tpt.get_listTripGenerals().get(0).get_tripInstances().get(0);
-							Reservation reservation = new Reservation(true, client, tripInstance);
+							Reservation reservation = new Reservation();
+							reservation.set_isActive(true);
+							reservation.set_number(1050);
+							reservation.set_client_(client);
+							reservation.set_tripInstance(tripInstance);
+
 							if (reservation != null){
+								TripInstance tripInstanceReservation = reservation.get_tripInstance();
 								JPanel panelReservation = new JPanel();
-								panelReservation.add(new JLabel("RESERVATION!!!" + reservation.get_number()));
-								panelReservation.setLayout(new BoxLayout(panelReservation, BoxLayout.PAGE_AXIS));
+								panelReservation.setLayout(new GridLayout(8,2));
+								JTextField creditCardNumber = new JTextField();
+								JTextField creditCardExpiration = new JTextField();
+								panelReservation.add(new JLabel("Reservation number: "));
+								panelReservation.add(new JLabel(reservation.get_number()+""));
+								panelReservation.add(new JLabel("Trip number: "));
+								panelReservation.add(new JLabel(tripInstanceReservation.get_tripDescription().get_tripID()));
+								panelReservation.add(new JLabel("Origin: "));
+								panelReservation.add(new JLabel(tripInstanceReservation.get_tripDescription().get_hubDeparture().get_name()));
+								panelReservation.add(new JLabel("Destination: "));
+								panelReservation.add(new JLabel(tripInstanceReservation.get_tripDescription().get_hubArrival().get_name()));
+								panelReservation.add(new JLabel("Departure Date: "));
+								panelReservation.add(new JLabel(tripInstanceReservation.get_dateDepartStr()));
+								panelReservation.add(new JLabel("Arrival Date: "));
+								panelReservation.add(new JLabel(tripInstanceReservation.get_dateArriveStr()));
+								
+								panelReservation.add(new JLabel("Credit card number:"));
+								panelReservation.add(creditCardNumber);
+								panelReservation.add(new JLabel("Credit card expiration:"));
+								panelReservation.add(creditCardExpiration);
+//								panelReservation.add(new JLabel("Active:"));
+//								panelReservation.add(new JLabel(Boolean.toString(reservation.is_isActive())));
+								
+								
 								int resultPanelReservation = JOptionPane.showConfirmDialog(panel, panelReservation, 
-							               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
+							               "Pay reservation", JOptionPane.OK_CANCEL_OPTION);
 							} else{
 								updateOutput("Aucune reservation avec le id:" + reservationID.getText());
 							}

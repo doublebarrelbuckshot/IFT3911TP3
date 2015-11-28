@@ -26,6 +26,7 @@ public abstract class ComfortClass implements ISearchable, ITripVisitable {
 		{
 			InstanceSeat inSeat = new InstanceSeat();
 			this._seating.add(inSeat);
+			inSeat.set_comfortClass(this);
 			inSeat._physicalSeat = vl._seating.get(i);
 		}
 	}
