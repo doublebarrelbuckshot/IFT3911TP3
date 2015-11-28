@@ -1,9 +1,10 @@
 package ReservationPkg;
 
 import java.util.Vector;
+
 import TransportationPkg.GenericSeat;
-import TransportationPkg.TripInstance;
 import TransportationPkg.IReservation;
+import TransportationPkg.TripInstance;
 
 public class Reservation extends Order implements IReservation {
 	public Vector<GenericSeat> _reservedSeats = new Vector<GenericSeat>();
@@ -16,8 +17,8 @@ public class Reservation extends Order implements IReservation {
 		throw new UnsupportedOperationException();
 	}
 
-	public Reservation(TripInstance aTi) {
-		throw new UnsupportedOperationException();
+	public Reservation(boolean isActive, int number, Client client, TripInstance tripInstance) {
+		super(isActive, number, client, tripInstance);
 	}
 
 	public IReservation getReservation() {
