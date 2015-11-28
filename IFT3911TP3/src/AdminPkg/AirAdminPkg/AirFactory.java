@@ -16,7 +16,14 @@ import AdminPkg.TransportationFactory;
 
 public class AirFactory extends TransportationFactory {
 	private static AirFactory _instance;
+	public static int idGenerator = 1000;
+	
 
+	public int getNewId()
+	{
+		idGenerator++;
+		return idGenerator;
+	}
 	public TransportationHub createTransportationHub(String aName, String id) {
 		Aeroport a = new Aeroport();
 		a.set_name(aName);
@@ -41,22 +48,23 @@ public class AirFactory extends TransportationFactory {
 		return a;
 	}
 
-	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, String tripID, TransportationHub depart, TransportationHub arrive ){
+	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationHub depart, TransportationHub arrive ){
 		Vol v = new Vol();
 		v.set_heureArrive(dateArrival);
 		v.set_heureDepart(dateDepart);
-		v.set_tripID(tripID);
+		v.set_tripID(depart.get_id() + arrive.get_id() + dateDepart.getHours()+ dateDepart.getMinutes());
 		v.set_hubArrival(arrive);
 		v.set_hubDeparture(depart);
+		System.out.println("NEW ID: " + depart.get_id() + arrive.get_id() + dateDepart.getHours()+ dateDepart.getMinutes());
 		return v;
 	}
 	
-	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, int tripInstanceID, double price )
+	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, double price )
 	{
 		DescriptionVol dv = new DescriptionVol();
 		dv.set_dateDepart(dateDepart);
 		dv.set_dateArrive(dateArrival);
-		dv.set_tripInstanceID(tripInstanceID);
+		dv.set_tripInstanceID(getNewId());
 		dv.set_fullPrice(price);
 		return dv;
 	}
