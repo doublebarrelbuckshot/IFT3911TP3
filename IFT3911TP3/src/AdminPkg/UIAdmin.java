@@ -3,8 +3,10 @@ package AdminPkg;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -16,6 +18,9 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+
+
+
 import AdminPkg.Administrator;
 import AdminPkg.AirAdminPkg.AirFactory;
 import TransportationPkg.TripGeneral;
@@ -25,6 +30,7 @@ import TransportationPkg.GenericSeat;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationCompany;
+import TransportationPkg.TripInstance;
 
 public class UIAdmin extends JFrame {
 	public Vector<Administrator> _systemeAdmin = new Vector<Administrator>();
@@ -33,18 +39,18 @@ public class UIAdmin extends JFrame {
 	private static UIAdmin instance;
 	public static JTextArea  taOutput;
 	public static JTextArea taInput;
-	public static JButton bInput;
 
 	private UIAdmin()
 	{
 		super("AdminUI");
-		this.setSize(600,650);
+		//this.setSize(700,600);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLayout(new BorderLayout());
-		this.setLocation(600,0);
-		initWindow();
+		this.setLocation(500,0);
 
+		initWindow();
+		this.pack();
 	}
 
 	private void initWindow() {
@@ -52,7 +58,11 @@ public class UIAdmin extends JFrame {
 		/*
 		 * Init output JLabel
 		 */
-
+		JPanel jpButtons = new JPanel();
+		jpButtons.setBorder(new TitledBorder("Commands"));
+		//taInput.setPreferredSize(new Dimension(540,100));
+		GridLayout buttonsGridLayout = new GridLayout(10,0);
+		jpButtons.setLayout(buttonsGridLayout);
 
 		taOutput = new JTextArea (showMenu());
 		taOutput.setEditable(false);
@@ -64,7 +74,7 @@ public class UIAdmin extends JFrame {
 		JPanel jpCenter = new JPanel();
 		JPanel jpOutput = new JPanel();
 		JScrollPane sp = new JScrollPane(taOutput); 
-		sp.setPreferredSize(new Dimension(540,450));
+		sp.setPreferredSize(new Dimension(500,450));
 		sp.setBounds(23, 40, 394, 191);
 
 		sp.setViewportView(taOutput);
@@ -73,122 +83,236 @@ public class UIAdmin extends JFrame {
 		this.add(jpCenter);
 
 		taInput = new JTextArea("");
-		taInput.setBorder(new TitledBorder("Input"));
-		taInput.setPreferredSize(new Dimension(410,100));
-		taInput.setBackground(Color.WHITE);
-		taInput.setOpaque(true);
-		JPanel jpInput = new JPanel();	
-		jpInput.add(taInput);
-		bInput = new JButton("Apply Command");
-		bInput.addActionListener(new ActionListener() { 
-			public void actionPerformed(ActionEvent e) { 
-				processInput(taInput.getText());
-				//updateOutput(taInput.getText());
+		//taInput.setBorder(new TitledBorder("Input"));
+		//taInput.setPreferredSize(new Dimension(410,100));
+		//taInput.setBackground(Color.WHITE);
+		//taInput.setOpaque(true);
+		//JPanel jpInput = new JPanel();	
+		//jpInput.add(taInput);
+
+		JButton btnRenameAirport = new JButton("Rename Airport");
+		JButton btnPrintAllTripGeneral = new JButton("Print all Trip Instances");
+		JButton btnUndo = new JButton("Undo");
+		JButton btnAddAirport = new JButton("AddAirport");
+		JButton btnAddGeneralFlight = new JButton("Add General Flight");
+		JButton btnAddInstanceFlight = new JButton("Add Instance Flight");
+
+		btnAddInstanceFlight.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					while(true){
+						AdminManagement am = AdminManagement.getInstance();
+						String tripGeneralID = JOptionPane.showInputDialog("Enter Flight General ID related to this Flight Instance");
+						if(tripGeneralID == null)
+							break;
+						SearchCriteria criteria = new SearchCriteria();
+						criteria.set_tripIDNumber(tripGeneralID);
+						Searcher searcher = Searcher.getInstance();
+						TripGeneral tripGeneral = searcher.findOneTripGeneral(criteria);
+					
+						String hhmmDepart = JOptionPane.showInputDialog("Enter dd:mm:yyyy for departure");
+						if(hhmmDepart == null)
+							break;
+						String[] hhmmArray = hhmmDepart.split(":");
+						Date departhhmm  = new Date();
+						departhhmm.setDate(Integer.parseInt(hhmmArray[0]));
+						departhhmm.setMonth(Integer.parseInt(hhmmArray[1]));
+						departhhmm.setYear(Integer.parseInt(hhmmArray[2]));
+
+
+						String hhmmArrive = JOptionPane.showInputDialog("Enter dd:mm:yyyy for arrival");
+						if(hhmmArrive == null)
+							break;
+						String[] hhmmArrayArrive = hhmmDepart.split(":");
+						Date arrivehhmm  = new Date();
+						arrivehhmm.setDate(Integer.parseInt(hhmmArrayArrive[0]));
+						arrivehhmm.setMonth(Integer.parseInt(hhmmArrayArrive[1]));
+						arrivehhmm.setYear(Integer.parseInt(hhmmArrayArrive[2]));
+
+						String fullPrice = JOptionPane.showInputDialog("Enter full price");
+						if(hhmmArrive == null)
+							break;
+						double dFullPrice = Double.parseDouble(fullPrice);
+						
+						TripInstance ti = AirFactory.getInstance().createTripInstance(departhhmm, arrivehhmm, 9999,dFullPrice);
+						ti.set_tripDescription(tripGeneral);
+						AddTripInstance ati = new AddTripInstance(ti);
+						am.addICommand(ati);
+						break;
+
+					}
+				} 
+				catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 
-			private void processInput(String input) {
-				String[] cliCommand = input.split(" ");
+		});
+		btnAddGeneralFlight.addActionListener(new ActionListener(){
 
-				boolean validInput = false;
-				int iInput = -1;
-				try{
-					iInput = Integer.parseInt(cliCommand[0]);
-					validInput = true;
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					while(true){
+						AdminManagement am = AdminManagement.getInstance();
+						String sCompanyID = JOptionPane.showInputDialog("Enter Company ID that will service flight: ");
+						if(sCompanyID == null)
+							break;
+						SearchCriteria criteria = new SearchCriteria();
+						criteria.set_transportationCompanyName(sCompanyID);
+						Searcher searcher = Searcher.getInstance();
+						TransportationCompany company = searcher.findTransportationCompany(criteria);
+						
+						String sDepartAirport = JOptionPane.showInputDialog("Enter AirportID for the departure");
+						if(sCompanyID == null)
+							break;
+						criteria = new SearchCriteria();
+						criteria.set_transportationHubName(sDepartAirport);
+						searcher = Searcher.getInstance();
+						TransportationHub departAirport = searcher.findOneTransportationHub(criteria);
+						if(departAirport == null)
+							break;
+						
+						
+						String sArriveAirport = JOptionPane.showInputDialog("Enter AirportID for the arrival");
+						if(sCompanyID == null)
+							break;
+						criteria = new SearchCriteria();
+						criteria.set_transportationHubName(sArriveAirport);
+						searcher = Searcher.getInstance();
+						TransportationHub arriveAirport = searcher.findOneTransportationHub(criteria);
+						if(arriveAirport == null)
+							break;
+
+						String hhmmDepart = JOptionPane.showInputDialog("Enter hh:mm for departure");
+						if(hhmmDepart == null)
+							break;
+						String[] hhmmArray = hhmmDepart.split(":");
+						Date departhhmm  = new Date();
+						departhhmm.setHours(Integer.parseInt(hhmmArray[0]));
+						departhhmm.setMinutes(Integer.parseInt(hhmmArray[1]));
+
+
+						String hhmmArrive = JOptionPane.showInputDialog("Enter hh:mm for departure");
+						if(hhmmArrive == null)
+							break;
+						String[] hhmmArrayArrive = hhmmDepart.split(":");
+						Date arrivehhmm  = new Date();
+						arrivehhmm.setHours(Integer.parseInt(hhmmArrayArrive[0]));
+						arrivehhmm.setMinutes(Integer.parseInt(hhmmArrayArrive[1]));
+						
+						
+						TripGeneral tg = AirFactory.getInstance().createTripGeneral(departhhmm, arrivehhmm, "TEST", departAirport, arriveAirport);
+						AddTripGeneral atg = new AddTripGeneral(tg);
+						am.addICommand(atg);
+						break;
+
+					}
+				} 
+				catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				catch(Exception e)
-				{
-					updateOutput("***Invalid input, please try again***\n" + instance.showMenu());
-					taInput.setText("");
-				}
-
-				if(validInput)
-					processCommand(iInput, cliCommand);
-
 
 			}
-			private void processCommand(int iInput, String[] cliCommand) {
-				updateOutput("User Entered " + iInput);
+
+		});
+		btnAddAirport.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
 				AdminManagement am = AdminManagement.getInstance();
 
-				if(iInput == 1)
+				String airportName = JOptionPane.showInputDialog("Enter AirportName: ");
+				String airportID = JOptionPane.showInputDialog("Enter AirportID: ");
+				TransportationHub airport = AirFactory.getInstance().createTransportationHub(airportName, airportID);
+				ICommand addTransportationCommand = new AddTransportationHub(airport);
+				am.addICommand(addTransportationCommand);
+
+			}
+
+		});
+		btnUndo.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				AdminManagement am = AdminManagement.getInstance();
+				am.undo();
+			}
+
+		});
+
+		btnPrintAllTripGeneral.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				AdminManagement am = AdminManagement.getInstance();
+
+
+				boolean companyFound = false;
+				try{
+
+					updateOutput("All Trip General's in System:");
+					String toPrint = am.findTripGeneral(new SearchCriteria());
+					updateOutput(toPrint + "\n");
+				}
+
+				catch(Exception e)
 				{
-					boolean companyFound = false;
-					try{
-						while(!companyFound)
-						{
-							String sCompanyName = JOptionPane.showInputDialog("Enter ID of company that you wish to rename.");
-							SearchCriteria criteria = new SearchCriteria();
-							criteria.set_transportationCompanyName(sCompanyName);
-							Searcher searcher = Searcher.getInstance();
-							TransportationCompany company = searcher.findTransportationCompany(criteria);
-							if(company != null)
-							{
-								companyFound = true;
-								String newCompanyName = JOptionPane.showInputDialog("Enter new company Name");
-								updateOutput("Found: "+ company.get_name());
-								updateOutput("Renaming to: " + newCompanyName);
-								ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
-								am.addICommand(renameCoyCommand);
-							}
-						}
-					}
-					catch(Exception e)
+					System.out.println(e);
+					updateOutput("NONE FOUND");
+				}
+			}
+
+		});
+
+		btnRenameAirport.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
+				AdminManagement am = AdminManagement.getInstance();
+				boolean companyFound = false;
+				try{
+					while(!companyFound)
 					{
-						//System.out.println(e);
-						updateOutput("NO COMPANY FOUND FOUND");
-					}
-				}	
-				if(iInput == 2)
-				{
-					boolean companyFound = false;
-					try{
-
-						updateOutput("All Trip General's in System:");
-						String toPrint = am.findTripGeneral(new SearchCriteria());
-						updateOutput(toPrint + "\n");
-
-						/*
-							String sHubID = JOptionPane.showInputDialog("Enter ID of TransportationHub that you wish to rename.");
-							SearchCriteria criteria = new SearchCriteria();
-							criteria.set_transportationHubName(sHubID);
-							Searcher searcher = Searcher.getInstance();
-							TransportationCompany company = searcher.findTransportationCompany(criteria);
+						String sCompanyName = JOptionPane.showInputDialog("Enter ID of company that you wish to rename.");
+						if(sCompanyName == null)
+							break;
+						SearchCriteria criteria = new SearchCriteria();
+						criteria.set_transportationCompanyName(sCompanyName);
+						Searcher searcher = Searcher.getInstance();
+						TransportationCompany company = searcher.findTransportationCompany(criteria);
+						if(company != null)
+						{
 							companyFound = true;
 							String newCompanyName = JOptionPane.showInputDialog("Enter new company Name");
+							if(newCompanyName == null)
+								break;
 							updateOutput("Found: "+ company.get_name());
 							updateOutput("Renaming to: " + newCompanyName);
 							ICommand renameCoyCommand = renameTptCompany(company, newCompanyName);
-							AdminManagement am = AdminManagement.getInstance();
 							am.addICommand(renameCoyCommand);
-						 */
+						}
 					}
-
-					catch(Exception e)
-					{
-						System.out.println(e);
-						updateOutput("NONE FOUND");
-					}
-
 				}
-				if(iInput == 3)
+				catch(Exception e)
 				{
-					am.undo();
+					//System.out.println(e);
+					updateOutput("NO COMPANY FOUND");
 				}
-				if(iInput == 4)
-				{
-					String airportName = JOptionPane.showInputDialog("Enter AirportName: ");
-					String airportID = JOptionPane.showInputDialog("Enter AirportID: ");
-					TransportationHub airport = AirFactory.getInstance().createTransportationHub(airportName, airportID);
-					ICommand addTransportationCommand = new AddTransportationHub(airport);
-					am.addICommand(addTransportationCommand);
-				}
+
 			}
 
+		});
 
-		} );
-		jpInput.add(bInput);
-		jpCenter.add(jpOutput);
-		jpCenter.add(jpInput);
+		jpButtons.add(btnAddInstanceFlight);
+		jpButtons.add(btnAddGeneralFlight);
+		jpButtons.add(btnRenameAirport);
+		jpButtons.add(btnPrintAllTripGeneral);
+		jpButtons.add(btnUndo);
+		jpButtons.add(btnAddAirport);
+		jpCenter.add(jpOutput, BorderLayout.CENTER);
+		jpCenter.add(jpButtons, BorderLayout.EAST);
 		this.add(jpCenter);
 
 	}
@@ -211,7 +335,7 @@ public class UIAdmin extends JFrame {
 		sb.append("2: Print all TripGeneral\n");
 		sb.append("3: Undo Last\n");
 		sb.append("4. Add Airport");
-		
+
 		return sb.toString();
 
 	}

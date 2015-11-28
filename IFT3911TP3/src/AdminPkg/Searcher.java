@@ -123,6 +123,15 @@ public class Searcher {
 		throw new UnsupportedOperationException();
 	}
 
+	public TripGeneral findOneTripGeneral(SearchCriteria aSc)
+	{
+		for(TripGeneral tg : transportationManager.get_listTripGenerals())
+		{
+			if(tg.get_tripID().equals(aSc.get_tripIDNumber()))
+				return tg;
+		}
+		return null;
+	}
 	public TransportationCompany findTransportationCompany(SearchCriteria aSc) throws Exception {
 		if(aSc.get_transportationCompanyName().isEmpty()){
 			throw new Exception("Le nom de compagnie ne peut etre nul pour la recherche de compagnie.");
@@ -130,6 +139,18 @@ public class Searcher {
 		for(TransportationCompany tptCompany : transportationManager.get_listTptCompanies()){
 			if (tptCompany.get_id().equals(aSc.get_transportationCompanyName())){
 				return tptCompany;
+			}
+		}
+		return null;
+	}
+	
+	public TransportationHub findOneTransportationHub(SearchCriteria aSc) throws Exception{
+		if(aSc.get_transportationHubName().isEmpty()){
+			throw new Exception("Le nom de compagnie ne peut etre nul pour la recherche de compagnie.");
+		}
+		for(TransportationHub tptHub : transportationManager.get_listTptHubs()){
+			if (tptHub.get_id().equals(aSc.get_transportationHubName())){
+				return tptHub;
 			}
 		}
 		return null;

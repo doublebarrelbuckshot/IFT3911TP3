@@ -1,8 +1,11 @@
 package TransportationPkg;
 
 import CommonComponentsPkg.Adresse;
+import CommonComponentsPkg.SearchCriteria;
 import AdminPkg.TransportationManager;
+
 import java.util.Vector;
+
 import TransportationPkg.TripGeneral;
 
 public abstract class TransportationHub implements ISearchable {
@@ -74,6 +77,16 @@ public abstract class TransportationHub implements ISearchable {
 		this.departureHub = departureHub;
 	}
 	
+	
+	public boolean matchCriteria(SearchCriteria aSc){
+		if(aSc.get__transportationHubNameArrival().equals(this.get_id())){
+			return true;
+		} 
+		if(aSc.get__transportationHubNameDeparture().equals(this.get_id())){
+			return true;
+		}
+		return false;
+	}
 	
 	
 }

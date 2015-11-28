@@ -90,6 +90,9 @@ public abstract class TripGeneral implements ISearchable {
 	public void addTripInstance(TripInstance ti) {
 		this._tripInstances.add(ti);
 	}
+	public void removeTripInstance(TripInstance ti){
+		this._tripInstances.remove(ti);
+	}
 
 	public boolean referencesTptHub(TransportationHub aA) {
 		throw new UnsupportedOperationException();
