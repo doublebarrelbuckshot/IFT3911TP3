@@ -321,7 +321,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 
 	@Override
 	public void update(String message) {
-		
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -353,6 +353,10 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 	public void showAlert(String aAlert) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void update(String message) {
+		updateOutput(message);
 	}
 
 }

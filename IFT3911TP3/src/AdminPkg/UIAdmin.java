@@ -9,14 +9,19 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
+
+
 
 
 
@@ -25,12 +30,15 @@ import AdminPkg.Administrator;
 import AdminPkg.AirAdminPkg.AirFactory;
 import TransportationPkg.TripGeneral;
 import ClientPkg.ClientUI;
+import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
+import TransportationPkg.ComfortClass;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.TransportationVehicle;
 import TransportationPkg.TransportationHub;
 import TransportationPkg.TransportationCompany;
 import TransportationPkg.TripInstance;
+import TransportationPkg.VehicleLayout;
 
 public class UIAdmin extends JFrame {
 	public Vector<Administrator> _systemeAdmin = new Vector<Administrator>();
@@ -43,7 +51,6 @@ public class UIAdmin extends JFrame {
 	private UIAdmin()
 	{
 		super("AdminUI");
-		//this.setSize(700,600);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLayout(new BorderLayout());
@@ -60,17 +67,14 @@ public class UIAdmin extends JFrame {
 		 */
 		JPanel jpButtons = new JPanel();
 		jpButtons.setBorder(new TitledBorder("Commands"));
-		//taInput.setPreferredSize(new Dimension(540,100));
 		GridLayout buttonsGridLayout = new GridLayout(10,0);
 		jpButtons.setLayout(buttonsGridLayout);
 
 		taOutput = new JTextArea (showMenu());
 		taOutput.setEditable(false);
 		taOutput.setBorder(new TitledBorder("Output"));
-		//taOutput.setPreferredSize(new Dimension(540,450));
 		taOutput.setBackground(Color.WHITE);
 		taOutput.setOpaque(true);
-		//taOutput.setLineWrap(true);
 		JPanel jpCenter = new JPanel();
 		JPanel jpOutput = new JPanel();
 		JScrollPane sp = new JScrollPane(taOutput); 
@@ -79,18 +83,13 @@ public class UIAdmin extends JFrame {
 
 		sp.setViewportView(taOutput);
 		jpOutput.add(sp);
-		//jpCenter.add(jpOutput);
+
 		this.add(jpCenter);
 
 		taInput = new JTextArea("");
-		//taInput.setBorder(new TitledBorder("Input"));
-		//taInput.setPreferredSize(new Dimension(410,100));
-		//taInput.setBackground(Color.WHITE);
-		//taInput.setOpaque(true);
-		//JPanel jpInput = new JPanel();	
-		//jpInput.add(taInput);
 
-		JButton btnRenameAirport = new JButton("Rename Airport");
+
+		JButton btnRenameAirport = new JButton("Rename Air Company");
 		JButton btnPrintAllTripGeneral = new JButton("Print all Trip Instances");
 		JButton btnUndo = new JButton("Undo");
 		JButton btnAddAirport = new JButton("AddAirport");
@@ -100,48 +99,77 @@ public class UIAdmin extends JFrame {
 		btnAddInstanceFlight.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					while(true){
+					JPanel panel = new JPanel();
+					JTextField taFlightGeneralID = new JTextField();
+					JTextField taFullPrice = new JTextField();
+					JTextField taDateDepart = new JTextField();
+					JTextField taDateArrive = new JTextField();
+					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
+					panel.add(new JLabel("Enter Flight General ID related to this Flight Instance"));
+					panel.add(taFlightGeneralID);
+					panel.add(new JLabel("Enter dd:mm:yyyy for departure"));
+					panel.add(taDateDepart);
+					panel.add(new JLabel("Enter dd:mm:yyyy for arrival"));
+					panel.add(taDateArrive);
+					panel.add(new JLabel("Enter full price"));
+					panel.add(taFullPrice);
+
+					int result = JOptionPane.showConfirmDialog(null, panel, 
+							"Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
+
+					if (result == JOptionPane.OK_OPTION) {	
+
 						AdminManagement am = AdminManagement.getInstance();
-						String tripGeneralID = JOptionPane.showInputDialog("Enter Flight General ID related to this Flight Instance");
-						if(tripGeneralID == null)
-							break;
+
 						SearchCriteria criteria = new SearchCriteria();
-						criteria.set_tripIDNumber(tripGeneralID);
+						criteria.set_tripIDNumber(taFlightGeneralID.getText());
 						Searcher searcher = Searcher.getInstance();
 						TripGeneral tripGeneral = searcher.findOneTripGeneral(criteria);
-					
-						String hhmmDepart = JOptionPane.showInputDialog("Enter dd:mm:yyyy for departure");
-						if(hhmmDepart == null)
-							break;
-						String[] hhmmArray = hhmmDepart.split(":");
+
+						String[] hhmmArray = taDateDepart.getText().split(":");
 						Date departhhmm  = new Date();
 						departhhmm.setDate(Integer.parseInt(hhmmArray[0]));
-						departhhmm.setMonth(Integer.parseInt(hhmmArray[1]));
-						departhhmm.setYear(Integer.parseInt(hhmmArray[2]));
+						departhhmm.setMonth(Integer.parseInt(hhmmArray[1])-1);
+						departhhmm.setYear(Integer.parseInt(hhmmArray[2]) - 1900);
 
-
-						String hhmmArrive = JOptionPane.showInputDialog("Enter dd:mm:yyyy for arrival");
-						if(hhmmArrive == null)
-							break;
-						String[] hhmmArrayArrive = hhmmDepart.split(":");
+						String[] hhmmArrayArrive = taDateArrive.getText().split(":");
 						Date arrivehhmm  = new Date();
 						arrivehhmm.setDate(Integer.parseInt(hhmmArrayArrive[0]));
-						arrivehhmm.setMonth(Integer.parseInt(hhmmArrayArrive[1]));
-						arrivehhmm.setYear(Integer.parseInt(hhmmArrayArrive[2]));
+						arrivehhmm.setMonth(Integer.parseInt(hhmmArrayArrive[1])-1);
+						arrivehhmm.setYear(Integer.parseInt(hhmmArrayArrive[2])-1900);
 
-						String fullPrice = JOptionPane.showInputDialog("Enter full price");
-						if(hhmmArrive == null)
-							break;
+						String fullPrice = taFullPrice.getText();
+
 						double dFullPrice = Double.parseDouble(fullPrice);
-						
-						TripInstance ti = AirFactory.getInstance().createTripInstance(departhhmm, arrivehhmm, 9999,dFullPrice);
+
+						TripInstance ti = AirFactory.getInstance().createTripInstance(departhhmm, arrivehhmm,dFullPrice);
 						ti.set_tripDescription(tripGeneral);
+
+
+						//Add plane (first plane in companys fleet) and comfort classes and layout
+						if (!tripGeneral.getTptCompany()._tptVehicles.isEmpty())
+						{
+
+							TransportationVehicle tv = tripGeneral.getTptCompany()._tptVehicles.firstElement();
+							for(int i=0; i<tv._layoutSections.size(); i++)
+							{
+								VehicleLayout vl = tv._layoutSections.get(i);
+								ti.assignLayoutToClass(vl); 
+							}
+							//assign to all comfortclass the tripinstance
+							for(ComfortClass section : ti.get_comfortClasses()){
+								section.set_tripInstace(ti);
+							}
+							ti._tptVehicle = tv;
+						}
 						AddTripInstance ati = new AddTripInstance(ti);
+
 						am.addICommand(ati);
-						break;
 
 					}
-				} 
+				}
+
 				catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -155,64 +183,73 @@ public class UIAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					while(true){
+					JPanel panel = new JPanel();
+					JTextField taCompanyID = new JTextField();
+					JTextField taArrive = new JTextField();
+					JTextField taDeparture = new JTextField();
+					JTextField taDateDepart = new JTextField();
+					JTextField taDateArrive = new JTextField();
+					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
+					panel.add(new JLabel("Company ID that will service flight:"));
+					panel.add(taCompanyID);
+					panel.add(new JLabel("Enter AirportID for the departure:"));
+					panel.add(taDeparture);
+					panel.add(new JLabel("Enter AirportID for the arrival"));
+					panel.add(taArrive);
+					panel.add(new JLabel("Enter hh:mm for departure"));
+					panel.add(taDateDepart);
+					panel.add(new JLabel("Enter hh:mm for arrival"));
+					panel.add(taDateArrive);
+
+					int result = JOptionPane.showConfirmDialog(null, panel, 
+							"Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
+
+					if (result == JOptionPane.OK_OPTION) {	
 						AdminManagement am = AdminManagement.getInstance();
-						String sCompanyID = JOptionPane.showInputDialog("Enter Company ID that will service flight: ");
-						if(sCompanyID == null)
-							break;
+
 						SearchCriteria criteria = new SearchCriteria();
-						criteria.set_transportationCompanyName(sCompanyID);
+						criteria.set_transportationCompanyName(taCompanyID.getText());
 						Searcher searcher = Searcher.getInstance();
 						TransportationCompany company = searcher.findTransportationCompany(criteria);
-						
-						String sDepartAirport = JOptionPane.showInputDialog("Enter AirportID for the departure");
-						if(sCompanyID == null)
-							break;
+
 						criteria = new SearchCriteria();
-						criteria.set_transportationHubName(sDepartAirport);
+						criteria.set_transportationHubName(taDeparture.getText());
 						searcher = Searcher.getInstance();
 						TransportationHub departAirport = searcher.findOneTransportationHub(criteria);
-						if(departAirport == null)
-							break;
-						
-						
-						String sArriveAirport = JOptionPane.showInputDialog("Enter AirportID for the arrival");
-						if(sCompanyID == null)
-							break;
+
+
 						criteria = new SearchCriteria();
-						criteria.set_transportationHubName(sArriveAirport);
+						criteria.set_transportationHubName(taArrive.getText());
 						searcher = Searcher.getInstance();
 						TransportationHub arriveAirport = searcher.findOneTransportationHub(criteria);
-						if(arriveAirport == null)
-							break;
 
-						String hhmmDepart = JOptionPane.showInputDialog("Enter hh:mm for departure");
-						if(hhmmDepart == null)
-							break;
-						String[] hhmmArray = hhmmDepart.split(":");
+						String[] hhmmArray = taDateDepart.getText().split(":");
 						Date departhhmm  = new Date();
 						departhhmm.setHours(Integer.parseInt(hhmmArray[0]));
 						departhhmm.setMinutes(Integer.parseInt(hhmmArray[1]));
 
 
-						String hhmmArrive = JOptionPane.showInputDialog("Enter hh:mm for departure");
-						if(hhmmArrive == null)
-							break;
-						String[] hhmmArrayArrive = hhmmDepart.split(":");
+						String[] hhmmArrayArrive = taDateArrive.getText().split(":");
 						Date arrivehhmm  = new Date();
 						arrivehhmm.setHours(Integer.parseInt(hhmmArrayArrive[0]));
 						arrivehhmm.setMinutes(Integer.parseInt(hhmmArrayArrive[1]));
-						
-						
-						TripGeneral tg = AirFactory.getInstance().createTripGeneral(departhhmm, arrivehhmm, "TEST", departAirport, arriveAirport);
+
+
+						TripGeneral tg = AirFactory.getInstance().createTripGeneral(departhhmm, arrivehhmm, departAirport, arriveAirport);
+						tg.setTptCompany(company);
 						AddTripGeneral atg = new AddTripGeneral(tg);
 						am.addICommand(atg);
-						break;
+
+
+
 
 					}
-				} 
+
+				}
+
 				catch (Exception e) {
-					// TODO Auto-generated catch block
+					updateOutput("**** ERROR WITH AN INPUT FIELD, PLEASE MAKE SURE ALL INPUT DATA IS VALID AND PROPERLY FORMATTED ****");
 					e.printStackTrace();
 				}
 
