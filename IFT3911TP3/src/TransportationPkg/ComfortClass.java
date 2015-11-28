@@ -14,7 +14,7 @@ public abstract class ComfortClass implements ISearchable, ITripVisitable {
 	
 	public boolean hasAvailableSeats(){
 		for (GenericSeat seat: this.get_seating()){
-			if(seat.get_state() instanceof AvailableSeat){
+			if(seat.get_state() instanceof AvailableState){
 				return true;
 			}
 		}

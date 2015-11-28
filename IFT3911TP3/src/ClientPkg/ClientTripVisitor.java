@@ -1,6 +1,6 @@
 package ClientPkg;
 
-import TransportationPkg.AvailableSeat;
+import TransportationPkg.AvailableState;
 import TransportationPkg.ITripVisitable;
 import TransportationPkg.InstanceSeat;
 import TransportationPkg.ReservedState;
@@ -66,7 +66,7 @@ public class ClientTripVisitor implements ITripVisitor{
 	}
 	@Override
 	public void visit(InstanceSeat seat) {
-		if(seat.get_state() instanceof AvailableSeat)
+		if(seat.get_state() instanceof AvailableState)
 			count++;
 	}
 	

@@ -2,15 +2,15 @@ package FinancePkg;
 
 public class Confirmation {
 	private int _numero;
-	public Paiement _unnamed_Paiement_;
+	public Paiement paiement;
 	public Transaction _transaction;
 
-	public void setUnnamed_Paiement_(Paiement aUnnamed_Paiement_) {
-		this._unnamed_Paiement_ = aUnnamed_Paiement_;
+	public void set_paiement_(Paiement paiement) {
+		this.paiement = paiement;
 	}
 
-	public Paiement getUnnamed_Paiement_() {
-		return this._unnamed_Paiement_;
+	public Paiement get_paiement() {
+		return this.paiement;
 	}
 
 	public void setTransaction(Transaction aTransaction) {
@@ -20,4 +20,6 @@ public class Confirmation {
 	public Transaction getTransaction() {
 		return this._transaction;
 	}
+	public int get_numero(){return _numero;}
+	public void set_numero(int num){_numero = num;}
 }

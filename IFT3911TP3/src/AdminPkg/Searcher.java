@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import ClientPkg.SystemeClient;
 import CommonComponentsPkg.SearchCriteria;
-import TransportationPkg.AvailableSeat;
+import TransportationPkg.AvailableState;
 import TransportationPkg.ComfortClass;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.InstanceSeat;
@@ -104,7 +104,7 @@ public class Searcher {
 		Vector<GenericSeat> genericAvailableSeatList = new Vector<GenericSeat>();  
 		for(ComfortClass comfortClass : tripInstance.get_comfortClasses()){
 			for (GenericSeat genericSeat : comfortClass.get_seating()){
-				if(genericSeat.get_state() instanceof AvailableSeat){
+				if(genericSeat.get_state() instanceof AvailableState){
 					genericAvailableSeatList.addElement(genericSeat);
 				}
 			}

@@ -90,64 +90,64 @@ public class SimulationData {
 		
 		princess.addTransportationVehicle(cruiseShip);
 		/*
-		 * TRIP GENERAL NY_HAVANA
+		 * TRIP GENERAL HAVANA
 		 */
-		Date dDepartNY_HAVANA = new Date();
-		dDepartNY_HAVANA.setHours(10);
-		dDepartNY_HAVANA.setMinutes(30);
+		Date dDepartHAVANA = new Date();
+		dDepartHAVANA.setHours(10);
+		dDepartHAVANA.setMinutes(30);
 		
-		Date dArriveNY_HAVANA = new Date();
-		dArriveNY_HAVANA.setHours(12);
-		dArriveNY_HAVANA.setMinutes(30);
-		TripGeneral NY_HAVANA = cruiseFactory.createTripGeneral(dDepartNY_HAVANA, dArriveNY_HAVANA, "NY_HAVANA1030", portNY, portHavana);
-		tptManager.addTripGeneral(NY_HAVANA);
-		princess.addTripGeneral(NY_HAVANA);
-		NY_HAVANA.setTptCompany(princess);
+		Date dArriveHAVANA = new Date();
+		dArriveHAVANA.setHours(12);
+		dArriveHAVANA.setMinutes(30);
+		TripGeneral HAVANA = cruiseFactory.createTripGeneral(dDepartHAVANA, dArriveHAVANA, "HAVANA1030", portHavana, portHavana);
+		tptManager.addTripGeneral(HAVANA);
+		princess.addTripGeneral(HAVANA);
+		HAVANA.setTptCompany(princess);
 		
 		/*
-		 * Init of trip instances NY_HAVANA
+		 * Init of trip instances HAVANA
 		 */
-		Date dDepartInstNY_HAVANA = new Date();
-		dDepartInstNY_HAVANA.setDate(25);
-		dDepartInstNY_HAVANA.setMonth(1);
-		dDepartInstNY_HAVANA.setYear(116);
+		Date dDepartInst_HAVANA = new Date();
+		dDepartInst_HAVANA.setDate(25);
+		dDepartInst_HAVANA.setMonth(1);
+		dDepartInst_HAVANA.setYear(116);
 		
-		Date dArriveInstNY_HAVANA = new Date();
-		dArriveInstNY_HAVANA.setDate(27);
-		dArriveInstNY_HAVANA.setMonth(1);
-		dArriveInstNY_HAVANA.setYear(116);
-		TripInstance NY_HAVANA1 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA, dArriveInstNY_HAVANA, 1001, 110);
-		NY_HAVANA.addTripInstance(NY_HAVANA1);
+		Date dArriveInstHAVANA = new Date();
+		dArriveInstHAVANA.setDate(27);
+		dArriveInstHAVANA.setMonth(1);
+		dArriveInstHAVANA.setYear(116);
+		TripInstance HAVANA1 = cruiseFactory.createTripInstance(dDepartInst_HAVANA, dArriveInstHAVANA, 1001, 110);
+		HAVANA.addTripInstance(HAVANA1);
 		
-		NY_HAVANA1.setTptVehicle(cruiseShip);
-		NY_HAVANA1.set_tripDescription(NY_HAVANA);
+		HAVANA1.setTptVehicle(cruiseShip);
+		HAVANA1.set_tripDescription(HAVANA);
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
 			if(vl == null)
 				System.out.println("BEFORE");
 			
-			NY_HAVANA1.assignLayoutToClass(vl);
+			HAVANA1.assignLayoutToClass(vl);
 			
 		}
 		//assign to all comfortclass the tripinstance
-		for(ComfortClass section : NY_HAVANA1.get_comfortClasses()){
-			section.set_tripInstace(NY_HAVANA1);
+		for(ComfortClass section : HAVANA1.get_comfortClasses()){
+			section.set_tripInstace(HAVANA1);
 		}
 	
 		Date dDepartInstNY_HAVANA2 = new Date();
-		dDepartInstNY_HAVANA2.setDate(25);
+		dDepartInstNY_HAVANA2.setDate(27);
 		dDepartInstNY_HAVANA2.setMonth(1);
 		dDepartInstNY_HAVANA2.setYear(116);
 		
 		Date dArriveInstNY_HAVANA2 = new Date();
-		dArriveInstNY_HAVANA2.setDate(27);
+		dArriveInstNY_HAVANA2.setDate(28);
 		dArriveInstNY_HAVANA2.setMonth(1);
 		dArriveInstNY_HAVANA2.setYear(116);
 		TripInstance NY_HAVANA2 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA2, dArriveInstNY_HAVANA2, 1002, 107);
-		NY_HAVANA.addTripInstance(NY_HAVANA2);
+		HAVANA.addTripInstance(NY_HAVANA2);
 		NY_HAVANA2.setTptVehicle(cruiseShip);
-		NY_HAVANA2.set_tripDescription(NY_HAVANA);
+		NY_HAVANA2.set_tripDescription(HAVANA);
 	
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{

@@ -11,8 +11,5 @@ import TransportationPkg.TripGeneral;
 public class Trajet extends TripGeneral {
 	public Vector<ItineraryItem> _itineraryItems = new Vector<ItineraryItem>();
 
-	public boolean matchCriteria(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
-	}
 
 }

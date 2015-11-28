@@ -11,25 +11,25 @@ public abstract class GenericSeat implements ISearchable, ITripVisitable {
 	public Reservation _unnamed_Reservation_;
 	public ComfortClass _section;
 	public IReservation _reservation;
-	public GenericSeatState _unnamed_GenericSeatState_;
 
 	public double getPrice() {
 		throw new UnsupportedOperationException();
 	}
 
-	public void reserved() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void available() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void confirmed() {
-		throw new UnsupportedOperationException();
-	}
 	public GenericSeatState get_state(){
 		return _state;
+	}
+	public void set_state(GenericSeatState s){
+		this._state= s;
+	}
+	public void available(){
+		this._state.available(this);
+	}
+	public void reserved(){
+		this._state.reserved(this);
+	}
+	public void confirmed(){
+		this._state.confirmed(this);
 	}
 	
 	public abstract void accept(ITripVisitor visitor);

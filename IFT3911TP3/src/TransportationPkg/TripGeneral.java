@@ -116,8 +116,8 @@ public abstract class TripGeneral implements ISearchable {
 		String transportationHubName = aSc.get_transportationHubName();
 		String transportationCompanyName = aSc.get_transportationCompanyName();
 		if (!departureHubName.isEmpty() && !arrivalHubName.isEmpty()){
-			if(this.get_hubDeparture().get_name().equals(departureHubName) && 
-			   this.get_hubArrival().get_name().equals(arrivalHubName)){
+			if(this.get_hubDeparture().get_id().equals(departureHubName) && 
+			   this.get_hubArrival().get_id().equals(arrivalHubName)){
 				return true;
 			}
 		}else{

@@ -16,8 +16,5 @@ public class Croisiere extends TripGeneral {
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean matchCriteria(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
-	}
 
 }
