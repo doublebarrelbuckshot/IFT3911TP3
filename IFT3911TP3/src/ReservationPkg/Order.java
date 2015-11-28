@@ -59,12 +59,12 @@ public class Order implements IOrder {
 		this._number = _number;
 	}
 
-	public Client get_unnamed_Client_() {
+	public Client get_client() {
 		return client;
 	}
 
-	public void set_unnamed_Client_(Client _unnamed_Client_) {
-		this.client = _unnamed_Client_;
+	public void set_client_(Client cient) {
+		this.client = client;
 	}
 
 	public TripInstance get_tripInstance() {
