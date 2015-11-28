@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import AdminPkg.ITripVisitor;
 import CommonComponentsPkg.ComfortClassEnum;
+import ReservationPkg.PassagerNull;
 
 public abstract class ComfortClass implements ISearchable, ITripVisitable {
 	protected double _prixPercent;
@@ -28,6 +29,7 @@ public abstract class ComfortClass implements ISearchable, ITripVisitable {
 			this._seating.add(inSeat);
 			inSeat.set_comfortClass(this);
 			inSeat.set_physicalSeat(vl._seating.get(i));
+			inSeat.set_passager(PassagerNull.getInstance());
 		}
 	}
 	public void addGS() {

@@ -180,8 +180,8 @@ public class AdminTripVisitor implements ITripVisitor{
 	
 	@Override
 	public void visit(InstanceSeat seat) {
-		if(seat.get_state() instanceof ReservedState)
-			count++;
+
+		count += seat.get_passager().count(); 
 	}
 
 	
