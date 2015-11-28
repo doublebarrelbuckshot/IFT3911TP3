@@ -181,7 +181,7 @@ public class AdminTripVisitor implements ITripVisitor{
 	@Override
 	public void visit(InstanceSeat seat) {
 
-		count += seat.get_passager().count(); 
+		count += seat.get_Ipassenger().count(); 
 	}
 
 	

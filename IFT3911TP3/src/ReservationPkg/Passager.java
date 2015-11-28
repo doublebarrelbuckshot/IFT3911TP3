@@ -10,9 +10,7 @@ public abstract class Passager extends Person implements IPassenger {
 	private Booking booking;
 	private InstanceSeat assignedSeat;
 
-	public IPassenger getPassenger() {
-		throw new UnsupportedOperationException();
-	}
+
 
 	public Booking getBooking() {
 		return booking;

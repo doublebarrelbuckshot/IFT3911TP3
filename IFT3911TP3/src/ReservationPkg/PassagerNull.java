@@ -1,5 +1,7 @@
 package ReservationPkg;
 
+import TransportationPkg.IPassenger;
+
 public class PassagerNull extends Passager {
 private static PassagerNull instance;
 
@@ -14,5 +16,6 @@ private PassagerNull()
 	
 }
 	public int count(){return 0;}
+	
 	
 }

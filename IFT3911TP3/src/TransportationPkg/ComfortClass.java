@@ -29,7 +29,7 @@ public abstract class ComfortClass implements ISearchable, ITripVisitable {
 			this._seating.add(inSeat);
 			inSeat.set_comfortClass(this);
 			inSeat.set_physicalSeat(vl._seating.get(i));
-			inSeat.set_passager(PassagerNull.getInstance());
+			inSeat.set_Ipassenger(PassagerNull.getInstance());
 		}
 	}
 	public void addGS() {

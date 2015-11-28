@@ -2,6 +2,8 @@ package ReservationPkg;
 
 import java.util.Date;
 
+import TransportationPkg.IPassenger;
+
 public class PassagerReal extends Passager {
 	private Date dateNaissance;
 	private String numPassport;
@@ -22,4 +24,5 @@ public class PassagerReal extends Passager {
 	public int count(){
 		return 1;
 	}
+	
 }

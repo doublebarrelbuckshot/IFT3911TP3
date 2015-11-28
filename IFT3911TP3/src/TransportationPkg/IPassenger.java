@@ -2,5 +2,5 @@ package TransportationPkg;
 
 public interface IPassenger {
 
-	public IPassenger getPassenger();
+	public int count();
 }
