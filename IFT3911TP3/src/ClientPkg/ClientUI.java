@@ -10,11 +10,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
@@ -220,6 +224,32 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 						updateOutput("Voyage: "+ descriptionCroisiere.get_tripID() + " Date de depart: " + trip.get_dateDepartStr() 
 						+ " Heure de depart: " + descriptionCroisiere.get_heureDepartStr() + " Heure d'arrivee: " + descriptionCroisiere.get_heureArriveStr());
 					}
+				}else if(iInput == 5){
+					SearchCriteria sc = new SearchCriteria();
+					
+					JPanel panel = new JPanel();
+					JTextField depart = new JTextField();
+					JTextField arrive = new JTextField();
+					JTextField section = new JTextField();
+					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+					
+					panel.add(new JLabel("Orgine:"));
+					panel.add(depart);
+					panel.add(new JLabel("Destination:"));
+					panel.add(arrive);
+					panel.add(new JLabel("Section:"));
+					panel.add(section);
+					
+					int result = JOptionPane.showConfirmDialog(null, panel, 
+				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
+				      if (result == JOptionPane.OK_OPTION) {
+				    	  sc.set__transportationHubNameDeparture(depart.getText());
+				    	  ComfortClassEnum e = ComfortClassEnum.A;
+				    	  sc.set_sectionType(e);
+				    	  sc.set_transportationHubNameArrival(arrive.getText());
+				      }
+				      Vector<TripInstance> tripList = searcher.findTripInstances(sc);
+					
 				}
 			}
 
@@ -244,6 +274,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		sb.append("2: Find Flight \n");
 		sb.append("3: Find Cruise \n");
 		sb.append("4: Find Train Ride \n");
+		sb.append("5: Make reservation \n");
 		return sb.toString();
 
 	}
