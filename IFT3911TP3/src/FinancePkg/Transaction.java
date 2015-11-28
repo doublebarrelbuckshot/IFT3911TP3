@@ -10,7 +10,7 @@ public class Transaction {
 	
 	public boolean pay(double aMontant) {
 		
-		GenerateurConfirmation generateur = new GenerateurConfirmation();
+		GenerateurConfirmation generateur = GenerateurConfirmation.getInstance();
 		_confirmationNumber.set_numero(generateur.get_numeroConfirmation());
 		
 		return true;

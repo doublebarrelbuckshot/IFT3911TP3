@@ -7,6 +7,8 @@ import AdminPkg.AdminManagement;
 import AdminPkg.AdminTripVisitor;
 import AdminPkg.Searcher;
 import AdminPkg.TransportationManager;
+import ReservationPkg.Client;
+import ReservationPkg.Reservation;
 import TransportationPkg.TripInstance;
 import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
@@ -64,7 +66,10 @@ public class SystemeClient {
 		throw new UnsupportedOperationException();
 	}
 	
-	public void makeReservation(InstanceSeat seat){
+	public void makeReservation(InstanceSeat seat, Client client){
+		seat.get_state().reserved(seat);
+		
+		//client.addOrder(order);
 		
 	}
 }

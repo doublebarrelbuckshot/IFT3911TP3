@@ -26,7 +26,7 @@ public class Booking extends Order {
 	}
 
 	public void assignSeat(Passager aP, InstanceSeat aS) {
-		throw new UnsupportedOperationException();
+		aP.setAssignedSeat(aS);
 	}
 
 	public void addPass(Passager aP) {

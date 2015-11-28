@@ -10,18 +10,18 @@ public class Client {
 	public IClientUI _clientSystem;
 
 	public void addOrder(Order aOrder) {
-		throw new UnsupportedOperationException();
+		_listOrders.add(aOrder);
 	}
 
 	public Order findOrder(int aOrderNum) {
-		throw new UnsupportedOperationException();
+		return _listOrders.get(aOrderNum);
 	}
 
 	public void deleteOrder(Order aOrder) {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void removeOrder(Order aR) {
-		throw new UnsupportedOperationException();
+		_listOrders.remove(aR);
 	}
 }

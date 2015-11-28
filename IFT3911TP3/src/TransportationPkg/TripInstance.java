@@ -17,7 +17,7 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 	protected double _fullPrice;
 	protected int _tripInstanceID;
 	protected Date _dateArrive;
-	public Order _unnamed_Order_;
+	public Order order;
 	public TripGeneral _tripDescription;
 	public IOrder _listOrders;
 	public Vector<ComfortClass> _comfortClasses = new Vector<ComfortClass>();
@@ -67,12 +67,12 @@ public abstract class TripInstance implements ITripVisitable,ISearchable {
 		this._dateArrive = _dateArrive;
 	}
 
-	public Order get_unnamed_Order_() {
-		return _unnamed_Order_;
+	public Order get_order() {
+		return order;
 	}
 
-	public void set_unnamed_Order_(Order _unnamed_Order_) {
-		this._unnamed_Order_ = _unnamed_Order_;
+	public void set_order(Order order) {
+		this.order = order;
 	}
 
 	public TripGeneral get_tripDescription() {

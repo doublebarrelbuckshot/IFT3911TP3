@@ -28,6 +28,7 @@ import AdminPkg.SimulationData;
 import AdminPkg.UIAdmin;
 import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
+import ReservationPkg.Client;
 import ReservationPkg.IClientUI;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.InstanceSeat;
@@ -51,13 +52,16 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 	}
 
 	private static ClientUI instance;
+	private Client client;
 	public static JTextArea  taOutput;
 	public static JTextArea taInput;
 	public static JButton bInput;
 	
 	private ClientUI()
 	{
+		
 		super("ClientUI");
+		this.client = new Client();
 		this.setSize(600,650);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
@@ -272,7 +276,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							
 							InstanceSeat seat = SystemeClient.getInstance().findSeat(sc);
 							
-							SystemeClient.getInstance().makeReservation(seat);
+							SystemeClient.getInstance().makeReservation(seat, client);
 				    	  
 				      }
 				      

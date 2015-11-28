@@ -8,9 +8,9 @@ import ReservationPkg.Reservation;
 public abstract class GenericSeat implements ISearchable, ITripVisitable {
 	protected Date _reservationDate;
 	protected GenericSeatState _state;
-	public Reservation _unnamed_Reservation_;
+	public Reservation _reservation;
 	public ComfortClass _section;
-	public IReservation _reservation;
+	public IReservation _IReservation;
 
 	public double getPrice() {
 		throw new UnsupportedOperationException();
