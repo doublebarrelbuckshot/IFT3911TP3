@@ -20,7 +20,9 @@ import TransportationPkg.AviationPkg.AirMoyen;
 import TransportationPkg.AviationPkg.AirPhysicalSeat;
 import TransportationPkg.CroisierePkg.Famille;
 import TransportationPkg.CroisierePkg.FamilyDeluxe;
+import TransportationPkg.CroisierePkg.Croisiere;
 import TransportationPkg.CroisierePkg.Interieur;
+import TransportationPkg.CroisierePkg.ItineraryItem;
 import TransportationPkg.CroisierePkg.LayoutDeluxe;
 import TransportationPkg.CroisierePkg.LayoutFamille;
 import TransportationPkg.CroisierePkg.LayoutInterior;
@@ -99,7 +101,7 @@ public class SimulationData {
 		Date dArriveHAVANA = new Date();
 		dArriveHAVANA.setHours(12);
 		dArriveHAVANA.setMinutes(30);
-		TripGeneral HAVANA = cruiseFactory.createTripGeneral(dDepartHAVANA, dArriveHAVANA, "HAVANA1030", portHavana, portHavana);
+		TripGeneral HAVANA = cruiseFactory.createTripGeneral(dDepartHAVANA, dArriveHAVANA, portHavana, portHavana);
 		tptManager.addTripGeneral(HAVANA);
 		princess.addTripGeneral(HAVANA);
 		HAVANA.setTptCompany(princess);
@@ -116,7 +118,7 @@ public class SimulationData {
 		dArriveInstHAVANA.setDate(27);
 		dArriveInstHAVANA.setMonth(1);
 		dArriveInstHAVANA.setYear(116);
-		TripInstance HAVANA1 = cruiseFactory.createTripInstance(dDepartInst_HAVANA, dArriveInstHAVANA, 1001, 110);
+		TripInstance HAVANA1 = cruiseFactory.createTripInstance(dDepartInst_HAVANA, dArriveInstHAVANA,  110);
 		HAVANA.addTripInstance(HAVANA1);
 		
 		HAVANA1.setTptVehicle(cruiseShip);
@@ -144,7 +146,7 @@ public class SimulationData {
 		dArriveInstNY_HAVANA2.setDate(28);
 		dArriveInstNY_HAVANA2.setMonth(1);
 		dArriveInstNY_HAVANA2.setYear(116);
-		TripInstance NY_HAVANA2 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA2, dArriveInstNY_HAVANA2, 1002, 107);
+		TripInstance NY_HAVANA2 = cruiseFactory.createTripInstance(dDepartInstNY_HAVANA2, dArriveInstNY_HAVANA2, 107);
 		HAVANA.addTripInstance(NY_HAVANA2);
 		NY_HAVANA2.setTptVehicle(cruiseShip);
 		NY_HAVANA2.set_tripDescription(HAVANA);
@@ -166,9 +168,25 @@ public class SimulationData {
 		dDepartNY_ROME.setMinutes(45);
 		
 		Date dArriveNY_ROME = new Date();
-		dArriveNY_ROME.setHours(11);
-		dArriveNY_ROME.setMinutes(55);
-		TripGeneral NY_ROME = cruiseFactory.createTripGeneral(dDepartNY_ROME, dArriveNY_ROME, "NY_ROME845", portNY, portRome);
+		dArriveNY_ROME.setHours(8);
+		dArriveNY_ROME.setMinutes(45);
+		
+
+		TripGeneral NY_ROME = cruiseFactory.createTripGeneral(dDepartNY_ROME, dArriveNY_ROME, portNY, portNY);
+		ItineraryItem i1 = new ItineraryItem();
+
+		Date dArrivei1 = new Date();
+		dArrivei1.setHours(11);
+		dArrivei1.setMinutes(55);
+		Date dDeparti1 = new Date();
+		dDeparti1.setHours(3);
+		dDeparti1.setMinutes(45);
+		i1.set_dateArrive(dArrivei1);
+		i1.set_dateLeave(dDeparti1);
+		i1.set_port(portRome);
+		
+		((Croisiere)NY_ROME).addItineraryItem(i1);
+
 		tptManager.addTripGeneral(NY_ROME);
 		princess.addTripGeneral(NY_ROME);
 		NY_ROME.setTptCompany(princess);
@@ -185,7 +203,7 @@ public class SimulationData {
 		dArriveInstNY_ROME.setDate(27);
 		dArriveInstNY_ROME.setMonth(2);
 		dArriveInstNY_ROME.setYear(116);
-		TripInstance NY_ROME1 = cruiseFactory.createTripInstance(dDepartInstNY_ROME, dArriveInstNY_ROME, 1003, 220);
+		TripInstance NY_ROME1 = cruiseFactory.createTripInstance(dDepartInstNY_ROME, dArriveInstNY_ROME, 220);
 		NY_ROME.addTripInstance(NY_ROME1);
 		NY_ROME1.setTptVehicle(cruiseShip);
 		NY_ROME1.set_tripDescription(NY_ROME);
@@ -208,7 +226,7 @@ public class SimulationData {
 		dArriveInstNY_ROME2.setDate(8);
 		dArriveInstNY_ROME2.setMonth(2);
 		dArriveInstNY_ROME2.setYear(116);
-		TripInstance NY_ROME2 = cruiseFactory.createTripInstance(dDepartInstNY_ROME2, dArriveInstNY_ROME2, 1004, 240);
+		TripInstance NY_ROME2 = cruiseFactory.createTripInstance(dDepartInstNY_ROME2, dArriveInstNY_ROME2, 240);
 		NY_ROME.addTripInstance(NY_ROME2);
 		NY_ROME2.setTptVehicle(cruiseShip);
 		NY_ROME2.set_tripDescription(NY_ROME);
@@ -233,7 +251,23 @@ public class SimulationData {
 		Date dArriveHAVANA_ROME = new Date();
 		dArriveHAVANA_ROME.setHours(9);
 		dArriveHAVANA_ROME.setMinutes(45);
-		TripGeneral HAVANA_ROME = cruiseFactory.createTripGeneral(dDepartHAVANA_ROME, dArriveHAVANA_ROME, "HAVANA_ROME415", portHavana, portRome);
+		TripGeneral HAVANA_ROME = cruiseFactory.createTripGeneral(dDepartHAVANA_ROME, dArriveHAVANA_ROME, portHavana, portHavana);
+		
+		
+		ItineraryItem i2 = new ItineraryItem();
+
+		Date dArrivei2 = new Date();
+		dArrivei2.setHours(11);
+		dArrivei2.setMinutes(55);
+		Date dDeparti2 = new Date();
+		dDeparti2.setHours(3);
+		dDeparti2.setMinutes(45);
+		i2.set_dateArrive(dArrivei2);
+		i2.set_dateLeave(dDeparti2);
+		i2.set_port(portRome);
+		
+		((Croisiere)NY_ROME).addItineraryItem(i1);
+		
 		tptManager.addTripGeneral(HAVANA_ROME);
 		princess.addTripGeneral(HAVANA_ROME);
 		HAVANA_ROME.setTptCompany(princess);
@@ -250,7 +284,7 @@ public class SimulationData {
 		dArriveInstHAVANA_ROME.setDate(18);
 		dArriveInstHAVANA_ROME.setMonth(3);
 		dArriveInstHAVANA_ROME.setYear(116);
-		TripInstance HAVANA_ROME1 = cruiseFactory.createTripInstance(dDepartInstHAVANA_ROME, dArriveInstHAVANA_ROME, 1005, 170);
+		TripInstance HAVANA_ROME1 = cruiseFactory.createTripInstance(dDepartInstHAVANA_ROME, dArriveInstHAVANA_ROME, 170);
 		HAVANA_ROME.addTripInstance(HAVANA_ROME1);
 		HAVANA_ROME1.setTptVehicle(cruiseShip);
 		HAVANA_ROME1.set_tripDescription(HAVANA_ROME);
@@ -323,7 +357,7 @@ public class SimulationData {
 		Date dArriveNY_FL = new Date();
 		dArriveNY_FL.setHours(12);
 		dArriveNY_FL.setMinutes(30);
-		TripGeneral NY_FL = trainFactory.createTripGeneral(dDepartNY_FL, dArriveNY_FL, "NYFL1030", trainStationNY, trainStationFL);
+		TripGeneral NY_FL = trainFactory.createTripGeneral(dDepartNY_FL, dArriveNY_FL, trainStationNY, trainStationFL);
 		tptManager.addTripGeneral(NY_FL);
 		amtrak.addTripGeneral(NY_FL);
 		NY_FL.setTptCompany(amtrak);
@@ -339,7 +373,7 @@ public class SimulationData {
 		dArriveInstNY_FL.setDate(14);
 		dArriveInstNY_FL.setMonth(2);
 		dArriveInstNY_FL.setYear(116);
-		TripInstance NY_FL1 = trainFactory.createTripInstance(dDepartInstNY_FL, dArriveInstNY_FL, 2001, 90);
+		TripInstance NY_FL1 = trainFactory.createTripInstance(dDepartInstNY_FL, dArriveInstNY_FL, 90);
 		NY_FL.addTripInstance(NY_FL1);
 		NY_FL1.setTptVehicle(train1);
 		NY_FL1.set_tripDescription(NY_FL);
@@ -363,7 +397,7 @@ public class SimulationData {
 		dArriveInstNY_FL2.setDate(6);
 		dArriveInstNY_FL2.setMonth(2);
 		dArriveInstNY_FL2.setYear(116);
-		TripInstance NY_FL2 = trainFactory.createTripInstance(dDepartInstNY_FL2, dArriveInstNY_FL2, 2002, 95);
+		TripInstance NY_FL2 = trainFactory.createTripInstance(dDepartInstNY_FL2, dArriveInstNY_FL2, 95);
 		NY_FL.addTripInstance(NY_FL2);
 		NY_FL2.setTptVehicle(train1);
 		NY_FL2.set_tripDescription(NY_FL);
@@ -389,7 +423,7 @@ public class SimulationData {
 		Date dArriveNY_BOSTON = new Date();
 		dArriveNY_BOSTON.setHours(11);
 		dArriveNY_BOSTON.setMinutes(55);
-		TripGeneral NY_BOSTON = trainFactory.createTripGeneral(dDepartNY_BOSTON, dArriveNY_BOSTON, "NYBOSTON845", trainStationNY, trainStationBoston);
+		TripGeneral NY_BOSTON = trainFactory.createTripGeneral(dDepartNY_BOSTON, dArriveNY_BOSTON, trainStationNY, trainStationBoston);
 		tptManager.addTripGeneral(NY_BOSTON);
 		amtrak.addTripGeneral(NY_BOSTON);
 		NY_BOSTON.setTptCompany(amtrak);
@@ -403,7 +437,7 @@ public class SimulationData {
 		dArriveInstNY_BOSTON.setDate(3);
 		dArriveInstNY_BOSTON.setMonth(3);
 		dArriveInstNY_BOSTON.setYear(116);
-		TripInstance NY_BOSTON1 = trainFactory.createTripInstance(dDepartInstNY_BOSTON, dArriveInstNY_BOSTON, 2006, 75);
+		TripInstance NY_BOSTON1 = trainFactory.createTripInstance(dDepartInstNY_BOSTON, dArriveInstNY_BOSTON, 75);
 		NY_BOSTON.addTripInstance(NY_BOSTON1);
 		NY_BOSTON1.setTptVehicle(train1);
 		NY_BOSTON1.set_tripDescription(NY_BOSTON);
@@ -428,7 +462,7 @@ public class SimulationData {
 		Date dArriveBOSTON_FL = new Date();
 		dArriveBOSTON_FL.setHours(9);
 		dArriveBOSTON_FL.setMinutes(45);
-		TripGeneral BOSTON_FL = trainFactory.createTripGeneral(dDepartBOSTON_FL, dArriveBOSTON_FL, "BOSTON_FL415", trainStationBoston, trainStationFL);
+		TripGeneral BOSTON_FL = trainFactory.createTripGeneral(dDepartBOSTON_FL, dArriveBOSTON_FL, trainStationBoston, trainStationFL);
 		tptManager.addTripGeneral(BOSTON_FL);
 		amtrak.addTripGeneral(BOSTON_FL);
 		BOSTON_FL.setTptCompany(amtrak);
@@ -444,7 +478,7 @@ public class SimulationData {
 		dArriveInstBOSTON_FL.setDate(8);
 		dArriveInstBOSTON_FL.setMonth(3);
 		dArriveInstBOSTON_FL.setYear(116);
-		TripInstance BOSTON_FL1 = trainFactory.createTripInstance(dDepartInstBOSTON_FL, dArriveInstBOSTON_FL, 2007, 68);
+		TripInstance BOSTON_FL1 = trainFactory.createTripInstance(dDepartInstBOSTON_FL, dArriveInstBOSTON_FL, 68);
 		BOSTON_FL.addTripInstance(BOSTON_FL1);
 		BOSTON_FL1.setTptVehicle(train1);
 		BOSTON_FL1.set_tripDescription(BOSTON_FL);
@@ -539,7 +573,7 @@ public class SimulationData {
 		Date dArriveYUL_JFK = new Date();
 		dArriveYUL_JFK.setHours(12);
 		dArriveYUL_JFK.setMinutes(30);
-		TripGeneral YUL_JFK = airFactory.createTripGeneral(dDepartYUL_JFK, dArriveYUL_JFK, "YULJKF1030", airportYUL, airportJFK);
+		TripGeneral YUL_JFK = airFactory.createTripGeneral(dDepartYUL_JFK, dArriveYUL_JFK, airportYUL, airportJFK);
 		tptManager.addTripGeneral(YUL_JFK);
 		westJet.addTripGeneral(YUL_JFK);
 		YUL_JFK.setTptCompany(westJet);
@@ -556,7 +590,7 @@ public class SimulationData {
 		dArriveInstYUL_JFK.setDate(6);
 		dArriveInstYUL_JFK.setMonth(3);
 		dArriveInstYUL_JFK.setYear(116);
-		TripInstance YUL_JKF1 = airFactory.createTripInstance(dDepartInstYUL_JFK, dArriveInstYUL_JFK, 3001, 130);
+		TripInstance YUL_JKF1 = airFactory.createTripInstance(dDepartInstYUL_JFK, dArriveInstYUL_JFK, 130);
 		YUL_JFK.addTripInstance(YUL_JKF1);
 		YUL_JKF1.setTptVehicle(plane1);
 		YUL_JKF1.set_tripDescription(YUL_JFK);
@@ -582,7 +616,7 @@ public class SimulationData {
 		Date dArriveYUL_LAX = new Date();
 		dArriveYUL_LAX.setHours(11);
 		dArriveYUL_LAX.setMinutes(55);
-		TripGeneral YUL_LAX = airFactory.createTripGeneral(dDepartYUL_LAX, dArriveYUL_LAX, "YULLAX845", airportYUL, airportLAX);
+		TripGeneral YUL_LAX = airFactory.createTripGeneral(dDepartYUL_LAX, dArriveYUL_LAX, airportYUL, airportLAX);
 		tptManager.addTripGeneral(YUL_LAX);
 		westJet.addTripGeneral(YUL_LAX);
 		YUL_LAX.setTptCompany(westJet);
@@ -598,7 +632,7 @@ public class SimulationData {
 		dArriveInstYUL_LAX.setDate(7);
 		dArriveInstYUL_LAX.setMonth(3);
 		dArriveInstYUL_LAX.setYear(116);
-		TripInstance YUL_LAX1 = airFactory.createTripInstance(dDepartInstYUL_LAX, dArriveInstYUL_LAX, 3003, 200);
+		TripInstance YUL_LAX1 = airFactory.createTripInstance(dDepartInstYUL_LAX, dArriveInstYUL_LAX, 200);
 		YUL_LAX.addTripInstance(YUL_LAX1);
 		YUL_LAX1.setTptVehicle(plane1);
 		YUL_LAX1.set_tripDescription(YUL_LAX);
@@ -622,7 +656,7 @@ public class SimulationData {
 		dArriveInstYUL_LAX2.setDate(8);
 		dArriveInstYUL_LAX2.setMonth(3);
 		dArriveInstYUL_LAX2.setYear(116);
-		TripInstance YUL_LAX2 = airFactory.createTripInstance(dDepartInstYUL_LAX2, dArriveInstYUL_LAX2, 3004, 200);
+		TripInstance YUL_LAX2 = airFactory.createTripInstance(dDepartInstYUL_LAX2, dArriveInstYUL_LAX2, 200);
 		YUL_LAX.addTripInstance(YUL_LAX2);
 		YUL_LAX2.setTptVehicle(plane1);
 		YUL_LAX2.set_tripDescription(YUL_LAX);
@@ -646,7 +680,7 @@ public class SimulationData {
 		Date dArriveLAX_JFK = new Date();
 		dArriveLAX_JFK.setHours(9);
 		dArriveLAX_JFK.setMinutes(45);
-		TripGeneral LAX_JFK = airFactory.createTripGeneral(dDepartLAX_JFK, dArriveLAX_JFK, "LAXJKF415", airportLAX, airportJFK);
+		TripGeneral LAX_JFK = airFactory.createTripGeneral(dDepartLAX_JFK, dArriveLAX_JFK, airportLAX, airportJFK);
 		tptManager.addTripGeneral(LAX_JFK);
 		westJet.addTripGeneral(LAX_JFK);
 		LAX_JFK.setTptCompany(westJet);
@@ -663,7 +697,7 @@ public class SimulationData {
 		dArriveInstLAX_JFK.setDate(10);
 		dArriveInstLAX_JFK.setMonth(3);
 		dArriveInstLAX_JFK.setYear(116);
-		TripInstance LAX_JFK1 = airFactory.createTripInstance(dDepartInstLAX_JFK, dArriveInstLAX_JFK, 3005, 210);
+		TripInstance LAX_JFK1 = airFactory.createTripInstance(dDepartInstLAX_JFK, dArriveInstLAX_JFK, 210);
 		LAX_JFK.addTripInstance(LAX_JFK1);
 		LAX_JFK1.setTptVehicle(plane1);
 		LAX_JFK1.set_tripDescription(LAX_JFK);
@@ -686,7 +720,7 @@ public class SimulationData {
 		dArriveInstLAX_JFK2.setDate(11);
 		dArriveInstLAX_JFK2.setMonth(3);
 		dArriveInstLAX_JFK2.setYear(116);
-		TripInstance LAX_JFK2 = airFactory.createTripInstance(dDepartInstLAX_JFK2, dArriveInstLAX_JFK2, 3006, 212);
+		TripInstance LAX_JFK2 = airFactory.createTripInstance(dDepartInstLAX_JFK2, dArriveInstLAX_JFK2, 212);
 		LAX_JFK.addTripInstance(LAX_JFK2);
 		LAX_JFK2.setTptVehicle(plane1);
 		LAX_JFK2.set_tripDescription(LAX_JFK);

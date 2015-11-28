@@ -36,11 +36,16 @@ public class AddTripInstance  implements ICommand {
 		
 	}
 	public String getMessage(boolean isExecute) {
-		if(isExecute)
+		System.out.println("Printing msg add trip instance");
+		if(isExecute){
+			System.out.println("ISEXECUTE TRUE");
 			return "TripInstance: " + _ti.get_tripDescription().get_hubDeparture().get_name() + " to " + _ti.get_tripDescription().get_hubArrival().get_name() + " added!";
-		else{
+		}
+			else{
+			System.out.println("ISEXECUTE FALSE");
+
 			return "TripInstance: " +  _ti.get_tripDescription().get_hubDeparture().get_name() + " to " + _ti.get_tripDescription().get_hubArrival().get_name() + " removed from system!";
 		}
-		
+
 	}
 }

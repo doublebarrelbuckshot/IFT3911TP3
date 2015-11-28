@@ -10,7 +10,7 @@ import TransportationPkg.TripInstance;
 
 public abstract class TransportationFactory {
 	public AdminManagement _unnamed_AdminManagement_;
-
+	
 	public TransportationHub createTransportationHub(String aName, String id) {
 		throw new UnsupportedOperationException();
 	}
@@ -23,11 +23,11 @@ public abstract class TransportationFactory {
 		throw new UnsupportedOperationException();
 	}
 	
-	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, String tripID, TransportationHub depart, TransportationHub arrive ){
+	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival,  TransportationHub depart, TransportationHub arrive ){
 		throw new UnsupportedOperationException();
 	}
 	
-	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, int tripInstanceID, double price )
+	public TripInstance createTripInstance(Date dateDepart, Date dateArrival, double price )
 	{
 		throw new UnsupportedOperationException();
 	}

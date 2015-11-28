@@ -42,7 +42,7 @@ public class AddTripGeneral  implements ICommand {
 	}
 	public String getMessage(boolean isExecute) {
 		if(isExecute)
-			return "TripGeneral: " + _tg.get_hubDeparture().get_name() + " to " + _tg.get_hubArrival().get_name() + " added!";
+			return "TripGeneral from" + _tg.get_hubDeparture().get_name() + " to " + _tg.get_hubArrival().get_name() + "     TripGeneralID:" +  _tg.get_tripID() + " + added!";
 		else{
 			return "TripGeneral: " +  _tg.get_hubDeparture().get_name() + " to " + _tg.get_hubArrival().get_name() + " removed from system!";
 		}
