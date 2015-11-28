@@ -9,13 +9,16 @@ public abstract class GenericSeat implements ISearchable, ITripVisitable {
 	protected Date _reservationDate;
 	protected GenericSeatState _state;
 	public Reservation _reservation;
-	public ComfortClass _section;
+	private ComfortClass _section;
 	public IReservation _IReservation;
 
 	public double getPrice() {
 		throw new UnsupportedOperationException();
 	}
-
+	public ComfortClass get_comfortClass(){return _section;}
+	public void set_reservationDate(Date date){
+		_reservationDate = date;
+	}
 	public GenericSeatState get_state(){
 		return _state;
 	}

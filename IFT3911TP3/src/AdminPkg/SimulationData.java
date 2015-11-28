@@ -163,82 +163,66 @@ public class SimulationData {
 		/*
 		 * TRIP GENERAL NY_ROME
 		 */
-		Date dDepartNY_ROME = new Date();
-		dDepartNY_ROME.setHours(8);
-		dDepartNY_ROME.setMinutes(45);
+		Date dDepartROME = new Date();
+		dDepartROME.setHours(8);
+		dDepartROME.setMinutes(45);
 		
-		Date dArriveNY_ROME = new Date();
-		dArriveNY_ROME.setHours(8);
-		dArriveNY_ROME.setMinutes(45);
-		
-
-		TripGeneral NY_ROME = cruiseFactory.createTripGeneral(dDepartNY_ROME, dArriveNY_ROME, portNY, portNY);
-		ItineraryItem i1 = new ItineraryItem();
-
-		Date dArrivei1 = new Date();
-		dArrivei1.setHours(11);
-		dArrivei1.setMinutes(55);
-		Date dDeparti1 = new Date();
-		dDeparti1.setHours(3);
-		dDeparti1.setMinutes(45);
-		i1.set_dateArrive(dArrivei1);
-		i1.set_dateLeave(dDeparti1);
-		i1.set_port(portRome);
-		
-		((Croisiere)NY_ROME).addItineraryItem(i1);
-
-		tptManager.addTripGeneral(NY_ROME);
-		princess.addTripGeneral(NY_ROME);
-		NY_ROME.setTptCompany(princess);
+		Date dArriveROME = new Date();
+		dArriveROME.setHours(11);
+		dArriveROME.setMinutes(55);
+		TripGeneral ROME = cruiseFactory.createTripGeneral(dDepartROME, dArriveROME, "ROME845", portRome, portRome);
+		tptManager.addTripGeneral(ROME);
+		princess.addTripGeneral(ROME);
+		ROME.setTptCompany(princess);
 		
 		/*
 		 * Init of trip instances NY_ROME
 		 */
-		Date dDepartInstNY_ROME = new Date();
-		dDepartInstNY_ROME.setDate(20);
-		dDepartInstNY_ROME.setMonth(2);
-		dDepartInstNY_ROME.setYear(116);
+		Date dDepartInstROME = new Date();
+		dDepartInstROME.setDate(20);
+		dDepartInstROME.setMonth(2);
+		dDepartInstROME.setYear(116);
 		
-		Date dArriveInstNY_ROME = new Date();
-		dArriveInstNY_ROME.setDate(27);
-		dArriveInstNY_ROME.setMonth(2);
-		dArriveInstNY_ROME.setYear(116);
-		TripInstance NY_ROME1 = cruiseFactory.createTripInstance(dDepartInstNY_ROME, dArriveInstNY_ROME, 220);
-		NY_ROME.addTripInstance(NY_ROME1);
-		NY_ROME1.setTptVehicle(cruiseShip);
-		NY_ROME1.set_tripDescription(NY_ROME);
+		Date dArriveInstROME = new Date();
+		dArriveInstROME.setDate(27);
+		dArriveInstROME.setMonth(2);
+		dArriveInstROME.setYear(116);
+		TripInstance ROME1 = cruiseFactory.createTripInstance(dDepartInstROME, dArriveInstROME, 1003, 220);
+		ROME.addTripInstance(ROME1);
+		ROME1.setTptVehicle(cruiseShip);
+		ROME1.set_tripDescription(ROME);
 		
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
-			NY_ROME1.assignLayoutToClass(vl); 
+			ROME1.assignLayoutToClass(vl); 
 		}
 		//assign to all comfortclass the tripinstance
-				for(ComfortClass section : NY_ROME1.get_comfortClasses()){
-					section.set_tripInstace(NY_ROME1);
+				for(ComfortClass section : ROME1.get_comfortClasses()){
+					section.set_tripInstace(ROME1);
 				}
-		Date dDepartInstNY_ROME2 = new Date();
-		dDepartInstNY_ROME2.setDate(1);
-		dDepartInstNY_ROME2.setMonth(2);
-		dDepartInstNY_ROME2.setYear(116);
+		Date dDepartInstROME2 = new Date();
+		dDepartInstROME2.setDate(1);
+		dDepartInstROME2.setMonth(2);
+		dDepartInstROME2.setYear(116);
 		
-		Date dArriveInstNY_ROME2 = new Date();
-		dArriveInstNY_ROME2.setDate(8);
-		dArriveInstNY_ROME2.setMonth(2);
-		dArriveInstNY_ROME2.setYear(116);
-		TripInstance NY_ROME2 = cruiseFactory.createTripInstance(dDepartInstNY_ROME2, dArriveInstNY_ROME2, 240);
-		NY_ROME.addTripInstance(NY_ROME2);
-		NY_ROME2.setTptVehicle(cruiseShip);
-		NY_ROME2.set_tripDescription(NY_ROME);
+		Date dArriveInstROME2 = new Date();
+		dArriveInstROME2.setDate(8);
+		dArriveInstROME2.setMonth(2);
+		dArriveInstROME2.setYear(116);
+		TripInstance ROME2 = cruiseFactory.createTripInstance(dDepartInstROME2, dArriveInstROME2, 1004, 240);
+		ROME.addTripInstance(ROME2);
+		ROME2.setTptVehicle(cruiseShip);
+		ROME2.set_tripDescription(ROME);
 
 		for(int i=0; i<cruiseShip._layoutSections.size(); i++)
 		{
 			VehicleLayout vl = cruiseShip._layoutSections.get(i);
-			NY_ROME2.assignLayoutToClass(vl);
+			ROME2.assignLayoutToClass(vl);
 		}
 		//assign to all comfortclass the tripinstance
-				for(ComfortClass section : NY_ROME2.get_comfortClasses()){
-					section.set_tripInstace(NY_ROME2);
+				for(ComfortClass section : ROME2.get_comfortClasses()){
+					section.set_tripInstace(ROME2);
 				}
 		
 		/*
@@ -251,23 +235,7 @@ public class SimulationData {
 		Date dArriveHAVANA_ROME = new Date();
 		dArriveHAVANA_ROME.setHours(9);
 		dArriveHAVANA_ROME.setMinutes(45);
-		TripGeneral HAVANA_ROME = cruiseFactory.createTripGeneral(dDepartHAVANA_ROME, dArriveHAVANA_ROME, portHavana, portHavana);
-		
-		
-		ItineraryItem i2 = new ItineraryItem();
-
-		Date dArrivei2 = new Date();
-		dArrivei2.setHours(11);
-		dArrivei2.setMinutes(55);
-		Date dDeparti2 = new Date();
-		dDeparti2.setHours(3);
-		dDeparti2.setMinutes(45);
-		i2.set_dateArrive(dArrivei2);
-		i2.set_dateLeave(dDeparti2);
-		i2.set_port(portRome);
-		
-		((Croisiere)NY_ROME).addItineraryItem(i1);
-		
+		TripGeneral HAVANA_ROME = cruiseFactory.createTripGeneral(dDepartHAVANA_ROME, dArriveHAVANA_ROME, "HAVANA_ROME415", portRome, portRome);
 		tptManager.addTripGeneral(HAVANA_ROME);
 		princess.addTripGeneral(HAVANA_ROME);
 		HAVANA_ROME.setTptCompany(princess);

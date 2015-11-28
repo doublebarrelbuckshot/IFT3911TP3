@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,11 +24,13 @@ import javax.swing.border.TitledBorder;
 import AdminPkg.Observer;
 import AdminPkg.Searcher;
 import AdminPkg.SimulationData;
+import AdminPkg.TransportationManager;
 import AdminPkg.UIAdmin;
 import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
 import ReservationPkg.Client;
 import ReservationPkg.IClientUI;
+import ReservationPkg.Reservation;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.InstanceSeat;
 import TransportationPkg.TripGeneral;
@@ -255,6 +256,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					panel.add(new JLabel("Departure date with the format: dd/mm/yyyy"));
 					panel.add(dateD);
 					panel.add(new JLabel("LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique:"));
+					panel.add(section);
 					int result = JOptionPane.showConfirmDialog(null, panel, 
 				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
 				      if (result == JOptionPane.OK_OPTION) {
@@ -274,17 +276,44 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 								sc.set_sectionType(ComfortClassEnum.valueOf(section.getText().toUpperCase()));
 							}
 							
-							InstanceSeat seat = SystemeClient.getInstance().findSeat(sc);
+							GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
 							
-							SystemeClient.getInstance().makeReservation(seat, client);
+							String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
 				    	  
+							update(confirmation+ "\n");
 				      }
 				      
 				      
+				}else if(iInput == 6){
+					JPanel panel = new JPanel();
+					JTextField reservationID = new JTextField();
+					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+					
+					panel.add(new JLabel("Please enter the reservation ID you wish to pay:"));
+					panel.add(reservationID);
+					int result = JOptionPane.showConfirmDialog(null, panel, 
+				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
+					if (result == JOptionPane.OK_OPTION) {
+						if(!reservationID.getText().equals(null)){
+							int reservationIdInt = Integer.parseInt(reservationID.getText());
+							//Reservation reservation = client.findReservation(reservationIdInt);
+							TransportationManager tpt = TransportationManager.getInstance();
+							TripInstance tripInstance = tpt.get_listTripGenerals().get(0).get_tripInstances().get(0);
+							Reservation reservation = new Reservation(true, 1050, client, tripInstance);
+							if (reservation != null){
+								JPanel panelReservation = new JPanel();
+								panelReservation.add(new JLabel("RESERVATION!!!" + reservation.get_number()));
+								panelReservation.setLayout(new BoxLayout(panelReservation, BoxLayout.PAGE_AXIS));
+								int resultPanelReservation = JOptionPane.showConfirmDialog(panel, panelReservation, 
+							               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
+							} else{
+								updateOutput("Aucune reservation avec le id:" + reservationID.getText());
+							}
+						} 
+						
+					}
 				}
-			}
-
-
+			}				
 		} );
 		jpInput.add(bInput);
 		jpCenter.add(jpOutput);
@@ -306,6 +335,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		sb.append("3: Find Cruise \n");
 		sb.append("4: Find Train Ride \n");
 		sb.append("5: Make reservation \n");
+		sb.append("6: Pay reservation \n");
 		return sb.toString();
 
 	}
@@ -317,7 +347,11 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		return instance;
 	}
 
-
+	@Override
+	public void update(String message) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public TripInstance findTripInstance(SearchCriteria aSc) {
