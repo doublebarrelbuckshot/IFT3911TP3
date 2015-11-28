@@ -77,6 +77,7 @@ public class SystemeClient {
 	}
 	
 	public String makeReservation(GenericSeat seat, Client client){
+		//essayer de reserver pour plusieurs sieges
 		seat.get_state().reserved(seat);
 		seat.set_reservationDate(new Date());
 		Reservation r = new Reservation();

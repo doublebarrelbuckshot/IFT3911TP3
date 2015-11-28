@@ -51,7 +51,7 @@ public class ClientTripVisitor implements ITripVisitor{
 		result +="\n";
 		result += trajet.get_tripDescription().get_hubDeparture().get_id()+"-"+trajet.get_tripDescription().get_hubArrival().get_id();
 		result += ":["+trajet.get_tripDescription().getTptCompany().get_id()+"]";
-		result += trajet.get_tripInstanceID();
+		result += trajet.get_tripDescription().get_tripID();
 		result += "("+trajet.get_dateDepartStr()+":"+trajet.get_tripDescription().get_heureDepartStr();
 		result += "-"+trajet.get_dateArriveStr()+":"+trajet.get_tripDescription().get_heureArriveStr()+")";
 		
@@ -62,7 +62,7 @@ public class ClientTripVisitor implements ITripVisitor{
 		result += "\n";
 		result += croisiere.get_tripDescription().get_hubDeparture().get_id()+"-"+croisiere.get_tripDescription().get_hubArrival().get_id();
 		result += ":["+croisiere.get_tripDescription().getTptCompany().get_id()+"]";
-		result += croisiere.get_tripInstanceID();
+		result += croisiere.get_tripDescription().get_tripID();
 		result += "("+croisiere.get_dateDepartStr()+":"+croisiere.get_tripDescription().get_heureDepartStr();
 		result += "-"+croisiere.get_dateArriveStr()+":"+croisiere.get_tripDescription().get_heureArriveStr()+")";
 	
