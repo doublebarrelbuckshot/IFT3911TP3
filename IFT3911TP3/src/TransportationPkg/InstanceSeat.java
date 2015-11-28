@@ -5,9 +5,9 @@ import AdminPkg.ITripVisitor;
 import CommonComponentsPkg.SearchCriteria;
 
 public class InstanceSeat extends GenericSeat {
-	public PermanentSeat _physicalSeat;
-	public IPassenger _Ipassenger;
-	public Passager _passager;
+	private PermanentSeat _physicalSeat;
+	private IPassenger _Ipassenger;
+	private Passager _passager;
 	
 	public InstanceSeat(){
 		this._state= new AvailableState();
@@ -21,5 +21,29 @@ public class InstanceSeat extends GenericSeat {
 	public void accept(ITripVisitor visitor) {
 		visitor.visit(this);
 		
+	}
+
+	public PermanentSeat get_physicalSeat() {
+		return _physicalSeat;
+	}
+
+	public void set_physicalSeat(PermanentSeat _physicalSeat) {
+		this._physicalSeat = _physicalSeat;
+	}
+
+	public IPassenger get_Ipassenger() {
+		return _Ipassenger;
+	}
+
+	public void set_Ipassenger(IPassenger _Ipassenger) {
+		this._Ipassenger = _Ipassenger;
+	}
+
+	public Passager get_passager() {
+		return _passager;
+	}
+
+	public void set_passager(Passager _passager) {
+		this._passager = _passager;
 	}
 }
