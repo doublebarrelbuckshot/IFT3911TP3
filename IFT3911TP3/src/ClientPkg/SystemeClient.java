@@ -51,7 +51,9 @@ public class SystemeClient {
 	}
 
 	public InstanceSeat findSeat(SearchCriteria aSc) {
-		throw new UnsupportedOperationException();
+		Searcher.getInstance().findSeat(aSc);
+		
+		return new InstanceSeat();
 	}
 
 	public GenericSeat findGenericSeat(SearchCriteria aSc) {
@@ -60,5 +62,9 @@ public class SystemeClient {
 
 	public int getOrderChangeDeadline(SearchCriteria aSc) {
 		throw new UnsupportedOperationException();
+	}
+	
+	public void makeReservation(InstanceSeat seat){
+		
 	}
 }

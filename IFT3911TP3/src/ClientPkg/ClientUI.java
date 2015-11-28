@@ -145,10 +145,10 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 						SearchCriteria criteria = new SearchCriteria();
 												
 						if(!depart.getText().isEmpty()){
-							criteria.set__transportationHubNameDeparture(depart.getText());
+							criteria.set__transportationHubNameDeparture(depart.getText().toUpperCase());
 						}
 						if(!arrive.getText().isEmpty()){
-							criteria.set_transportationHubNameArrival(arrive.getText());
+							criteria.set_transportationHubNameArrival(arrive.getText().toUpperCase());
 						}
 						if(!departDate.getText().isEmpty()){
 							String[] dateArray = departDate.getText().split("/");
@@ -166,38 +166,44 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 						updateOutput(resultText + "\n");
 				      }
 				} else if(iInput == 3){
-					SearchCriteria criteria = new SearchCriteria();
-					String originPort = JOptionPane.showInputDialog("Please input port ID");
-					String destinationPort = originPort;
+					JPanel panel = new JPanel();
+					JTextField depart = new JTextField();
+					JTextField arrive = new JTextField();
+					JTextField departDate = new JTextField();
+					JTextField section = new JTextField();
+					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 					
+					panel.add(new JLabel("Port ID:"));
+					panel.add(depart);
+					panel.add(new JLabel("Departure date with the format: dd/mm/yyyy"));
+					panel.add(departDate);
+					panel.add(new JLabel("LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique:"));
+					panel.add(section);
 					
-					String dateDepartStr = JOptionPane.showInputDialog("Please enter departure date with the format: dd/mm/yyyy");
-					
-					
-					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. I: Interieure, O: Vue sur Ocean, S: Suite, F: Famille, D: Famille Deluxe");
-					
-					if(!originPort.isEmpty()){
-						criteria.set__transportationHubNameDeparture(originPort);
-						criteria.set_transportationHubNameArrival(destinationPort);
-					}
-					if(!dateDepartStr.isEmpty()){
-						String[] dateArray = dateDepartStr.split("/");
-						Date dateDepart = new Date();
-						dateDepart.setDate(Integer.parseInt(dateArray[0]));
-						dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
-						dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
-						criteria.set_tripDepartureDate(dateDepart);
-					}
-					if(!sectionType.isEmpty()){
-						criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
-					}
-					
-					Vector<TripInstance> tripList = searcher.findTripInstances(criteria);
-					for (TripInstance trip: tripList){
-						TripGeneral descriptionCroisiere = trip.get_tripDescription();
-						updateOutput("Croisiere: "+ descriptionCroisiere.get_tripID() + " Date de depart: " + trip.get_dateDepartStr() 
-						+ " Heure de depart: " + descriptionCroisiere.get_heureDepartStr() + " Heure d'arrivee: " + descriptionCroisiere.get_heureArriveStr());
-					}
+					int result = JOptionPane.showConfirmDialog(null, panel, 
+				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
+				      if (result == JOptionPane.OK_OPTION) {
+						SearchCriteria criteria = new SearchCriteria();
+						
+						if(!depart.getText().isEmpty()){
+							criteria.set__transportationHubNameDeparture(depart.getText());
+							criteria.set_transportationHubNameArrival(depart.getText());
+						}
+						if(!departDate.getText().isEmpty()){
+							String[] dateArray = departDate.getText().split("/");
+							Date dateDepart = new Date();
+							dateDepart.setDate(Integer.parseInt(dateArray[0]));
+							dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
+							dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
+							criteria.set_tripDepartureDate(dateDepart);
+						}
+						if(!section.getText().isEmpty()){
+							criteria.set_sectionType(ComfortClassEnum.valueOf(section.getText().toUpperCase()));
+						}
+						
+						String resultText = SystemeClient.getInstance().findTripInstance(criteria);
+						updateOutput(resultText + "\n");
+				      }
 				}else if(iInput == 4){
 					SearchCriteria criteria = new SearchCriteria();
 					String originPort = JOptionPane.showInputDialog("Please input departure train station ID");
@@ -210,8 +216,8 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. F: Premiere, E: Economique");
 					
 					if(!originPort.isEmpty()){
-						criteria.set__transportationHubNameDeparture(originPort);
-						criteria.set_transportationHubNameArrival(destinationPort);
+						criteria.set__transportationHubNameDeparture(originPort.toUpperCase());
+						criteria.set_transportationHubNameArrival(destinationPort.toUpperCase());
 					}
 					if(!dateDepartStr.isEmpty()){
 						String[] dateArray = dateDepartStr.split("/");
@@ -235,27 +241,41 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					SearchCriteria sc = new SearchCriteria();
 					
 					JPanel panel = new JPanel();
-					JTextField depart = new JTextField();
-					JTextField arrive = new JTextField();
+					JTextField generalID = new JTextField();
+					JTextField dateD = new JTextField();
 					JTextField section = new JTextField();
 					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 					
-					panel.add(new JLabel("Orgine:"));
-					panel.add(depart);
-					panel.add(new JLabel("Destination:"));
-					panel.add(arrive);
-					panel.add(new JLabel("Section:"));
-					panel.add(section);
-					
+					panel.add(new JLabel("Enter the trip ID:"));
+					panel.add(generalID);
+					panel.add(new JLabel("Departure date with the format: dd/mm/yyyy"));
+					panel.add(dateD);
+					panel.add(new JLabel("LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique:"));
 					int result = JOptionPane.showConfirmDialog(null, panel, 
 				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
 				      if (result == JOptionPane.OK_OPTION) {
-				    	  sc.set__transportationHubNameDeparture(depart.getText());
-				    	  ComfortClassEnum e = ComfortClassEnum.A;
-				    	  sc.set_sectionType(e);
-				    	  sc.set_transportationHubNameArrival(arrive.getText());
+				    	 
+				    	  if(!generalID.getText().isEmpty()){
+								sc.set_tripIDNumber(generalID.getText());
+							}
+							if(!dateD.getText().isEmpty()){
+								String[] dateArray = dateD.getText().split("/");
+								Date dateDepart = new Date();
+								dateDepart.setDate(Integer.parseInt(dateArray[0]));
+								dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
+								dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
+								sc.set_tripDepartureDate(dateDepart);
+							}
+							if(!section.getText().isEmpty()){
+								sc.set_sectionType(ComfortClassEnum.valueOf(section.getText().toUpperCase()));
+							}
+							
+							InstanceSeat seat = SystemeClient.getInstance().findSeat(sc);
+							
+							SystemeClient.getInstance().makeReservation(seat);
+				    	  
 				      }
-				      Vector<TripInstance> tripList = searcher.findTripInstances(sc);
+				      
 				      
 				}
 			}
