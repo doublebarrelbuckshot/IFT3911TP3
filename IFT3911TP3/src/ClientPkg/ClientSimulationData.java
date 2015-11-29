@@ -1,6 +1,7 @@
 package ClientPkg;
 
 import java.util.Date;
+import java.util.Vector;
 
 import AdminPkg.AdminManagement;
 import AdminPkg.Searcher;
@@ -34,13 +35,13 @@ public class ClientSimulationData {
 		sc.set_sectionType(ComfortClassEnum.E); 
 		for(int i=0; i<10; i++){
 			sc.set_sectionType(ComfortClassEnum.E); 
-			GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
-			String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+			Vector<GenericSeat> seat = SystemeClient.getInstance().findGenericSeat(sc);
+			String confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			if(i%5 == 0)
 			{
 				sc.set_sectionType(ComfortClassEnum.A); 
 				seat = SystemeClient.getInstance().findGenericSeat(sc);
-				confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+				confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			}
 		}
 		
@@ -50,13 +51,13 @@ public class ClientSimulationData {
 		dateDepart.setYear(2016 - 1900);
 		for(int i=0; i<16; i++){
 			sc.set_sectionType(ComfortClassEnum.E); 
-			GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
-			String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+			Vector<GenericSeat> seat = SystemeClient.getInstance().findGenericSeat(sc);
+			String confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			if(i%2 == 0)
 			{
 				sc.set_sectionType(ComfortClassEnum.A); 
 				seat = SystemeClient.getInstance().findGenericSeat(sc);
-				confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+				confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			}
 		}
 		
@@ -66,13 +67,13 @@ public class ClientSimulationData {
 		dateDepart.setYear(2016 - 1900);
 		for(int i=0; i<8; i++){
 			sc.set_sectionType(ComfortClassEnum.E); 
-			GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
-			String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+			Vector<GenericSeat> seat = SystemeClient.getInstance().findGenericSeat(sc);
+			String confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			if(i%2 == 0)
 			{
 				sc.set_sectionType(ComfortClassEnum.A); 
 				seat = SystemeClient.getInstance().findGenericSeat(sc);
-				confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+				confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			}
 		}
 		
@@ -82,13 +83,13 @@ public class ClientSimulationData {
 		dateDepart.setYear(2016 - 1900);
 		for(int i=0; i<8; i++){
 			sc.set_sectionType(ComfortClassEnum.E); 
-			GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
-			String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+			Vector<GenericSeat> seat = SystemeClient.getInstance().findGenericSeat(sc);
+			String confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			if(i%3 == 0)
 			{
 				sc.set_sectionType(ComfortClassEnum.A); 
 				seat = SystemeClient.getInstance().findGenericSeat(sc);
-				confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+				confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			}
 		}
 		
@@ -98,13 +99,13 @@ public class ClientSimulationData {
 		dateDepart.setYear(2016 - 1900);
 		for(int i=0; i<19; i++){
 			sc.set_sectionType(ComfortClassEnum.E); 
-			GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
-			String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+			Vector<GenericSeat> seat = SystemeClient.getInstance().findGenericSeat(sc);
+			String confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			if(i%3 == 0)
 			{
 				sc.set_sectionType(ComfortClassEnum.A); 
 				seat = SystemeClient.getInstance().findGenericSeat(sc);
-				confirmation = SystemeClient.getInstance().makeReservation(seat, client);
+				confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
 			}
 		}
 		
@@ -117,8 +118,8 @@ public class ClientSimulationData {
 		sc.set_tripDepartureDate(dateDepart);
 		sc.set_sectionType(ComfortClassEnum.F); 
 		for(int i=0; i<73; i++){
-			GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
-			String confirmation = SystemeClient.getInstance().makeReservation(seat, client);	
+			Vector<GenericSeat> seat = SystemeClient.getInstance().findGenericSeat(sc);
+			String confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);	
 		}
 		
 		
