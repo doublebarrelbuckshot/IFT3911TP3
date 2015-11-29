@@ -1,5 +1,7 @@
 package FinancePkg;
 
+import CommonComponentsPkg.GenerateurConfirmation;
+
 public class Transaction {
 	private Confirmation _confirmationNumber;
 

@@ -10,7 +10,7 @@ public class Reservation extends Order implements IReservation {
 	public Vector<GenericSeat> _reservedSeats = new Vector<GenericSeat>();
 	
 	public Reservation(){
-		
+		super();
 	}
 	public void cancelOrder() {
 		throw new UnsupportedOperationException();

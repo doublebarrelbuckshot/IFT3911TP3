@@ -1,11 +1,12 @@
 package ReservationPkg;
 
+import CommonComponentsPkg.GenerateurConfirmation;
 import TransportationPkg.TripInstance;
 import TransportationPkg.IOrder;
 
 public class Order implements IOrder {
 	private boolean _isActive;
-	private static int orderNumber = 0;
+	private static int orderNumber;
 	private int _number;
 	private Client client;
 	private TripInstance _tripInstance;
@@ -13,19 +14,20 @@ public class Order implements IOrder {
 
 	public Order(boolean isActive, Client client, TripInstance tripInstance){
 		_isActive = isActive;
-		_number = getOrderNumber();
-		client = client;
+		GenerateurConfirmation generateur = GenerateurConfirmation.getInstance();
+		_number =generateur.get_numeroConfirmation();
+		this.client = client;
 		_tripInstance = tripInstance;
 	}
 	
 	public Order(){
-		
+		GenerateurConfirmation generateur = GenerateurConfirmation.getInstance();
+		_number =generateur.get_numeroConfirmation();
 	}
 	
 	public int getOrderNumber()
 	{
-		orderNumber++;
-		return orderNumber;
+		return this._number;
 	}
 	public void cancelOrder() {
 		throw new UnsupportedOperationException();

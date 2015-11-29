@@ -1,4 +1,4 @@
-package FinancePkg;
+package CommonComponentsPkg;
 
 import AdminPkg.AdminManagement;
 
