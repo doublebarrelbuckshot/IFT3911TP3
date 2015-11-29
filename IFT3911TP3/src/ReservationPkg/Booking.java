@@ -10,8 +10,8 @@ import TransportationPkg.TripInstance;
 
 public class Booking extends Order {
 	private double _accountBalance;
-	public Vector<Passager> _listPassagers = new Vector<Passager>();
-	public Paiement paiement;
+	private Vector<Passager> _listPassagers = new Vector<Passager>();
+	private Paiement paiement;
 
 	public Booking(boolean isActive, Client client, TripInstance tripInstance) {
 		super(isActive, client, tripInstance);
@@ -38,7 +38,7 @@ public class Booking extends Order {
 	}
 
 	public void addPass(Passager aP) {
-		throw new UnsupportedOperationException();
+		this._listPassagers.add(aP);
 	}
 
 	public void addPmt(Paiement aPmt) {
@@ -46,11 +46,11 @@ public class Booking extends Order {
 	}
 
 	public boolean pay(double montant, int digit, Date exp) {
-		Paiement p = new Paiement(montant,digit,exp);
-		p._booking = this;
-		boolean value = p.conductPayment();
+		this.paiement = new Paiement(montant,digit,exp);
+		this.paiement._booking = this;
+		boolean value = this.paiement.conductPayment();
 		
-		if(value) addPmt(p);
+		if(value) addPmt(this.paiement);
 		
 		return value;
 	}
@@ -65,5 +65,29 @@ public class Booking extends Order {
 
 	public Booking Booking(Reservation aR) {
 		throw new UnsupportedOperationException();
+	}
+
+	public Vector<Passager> get_listPassagers() {
+		return _listPassagers;
+	}
+
+	public void set_listPassagers(Vector<Passager> _listPassagers) {
+		this._listPassagers = _listPassagers;
+	}
+
+	public Paiement getPaiement() {
+		return paiement;
+	}
+
+	public void setPaiement(Paiement paiement) {
+		this.paiement = paiement;
+	}
+
+	public double get_accountBalance() {
+		return _accountBalance;
+	}
+
+	public void set_accountBalance(double _accountBalance) {
+		this._accountBalance = _accountBalance;
 	}
 }
