@@ -60,7 +60,7 @@ public class SystemeClient {
 		return new InstanceSeat();
 	}
 
-	public GenericSeat findGenericSeat(SearchCriteria aSc) {
+	public Vector<GenericSeat> findGenericSeat(SearchCriteria aSc) {
 		Vector<GenericSeat> seat = new Vector<GenericSeat>();
 		try {
 			seat = Searcher.getInstance().findGenericSeat(aSc);
@@ -68,7 +68,7 @@ public class SystemeClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return seat.firstElement();
+		return seat;
 	
 	}
 
@@ -76,17 +76,17 @@ public class SystemeClient {
 		throw new UnsupportedOperationException();
 	}
 	
-	public String makeReservation(GenericSeat seat, Client client){
-		//essayer de reserver pour plusieurs sieges
-		seat.get_state().reserved(seat);
-		seat.set_reservationDate(new Date());
+	public String makeReservation(Vector<GenericSeat> seat,int nb, Client client){
 		Reservation r = new Reservation();
-		r.set_client_(client);
-		r.set_tripInstance(seat.get_comfortClass().get_tripInstance());
-		client.addOrder(r);
-		r.addSeat(seat);
-		seat.set_Ipassenger(new PassagerReal());
-
+		for(int i=0; i<nb; i++){
+			seat.get(i).get_state().reserved(seat.get(i));
+			seat.get(i).set_reservationDate(new Date());
+			r.set_client_(client);
+			r.set_tripInstance(seat.get(i).get_comfortClass().get_tripInstance());
+			client.addOrder(r);
+			r.addSeat(seat.get(i));
+			seat.get(i).set_Ipassenger(new PassagerReal());
+			}
 		return r.get_number()+"";
 	}
 }

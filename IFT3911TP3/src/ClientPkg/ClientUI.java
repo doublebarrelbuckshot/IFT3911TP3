@@ -250,6 +250,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					JTextField generalID = new JTextField();
 					JTextField dateD = new JTextField();
 					JTextField section = new JTextField();
+					JTextField nbPassenger = new JTextField();
 					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 					
 					panel.add(new JLabel("Enter the trip ID:"));
@@ -258,6 +259,8 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					panel.add(dateD);
 					panel.add(new JLabel("LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique:"));
 					panel.add(section);
+					panel.add(new JLabel("Number of passenger:"));
+					panel.add(nbPassenger);
 					int result = JOptionPane.showConfirmDialog(null, panel, 
 				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
 				      if (result == JOptionPane.OK_OPTION) {
@@ -277,11 +280,14 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 								sc.set_sectionType(ComfortClassEnum.valueOf(section.getText().toUpperCase()));
 							}
 							
-							GenericSeat seat = SystemeClient.getInstance().findGenericSeat(sc);
-							
-							String confirmation = SystemeClient.getInstance().makeReservation(seat, client);
-				    	  
-							update("Votre numero de confirmation est:"+confirmation+ "\n");
+							Vector<GenericSeat> seats = SystemeClient.getInstance().findGenericSeat(sc);
+							if(seats.size() >= Integer.parseInt(nbPassenger.getText())){
+								String confirmation = SystemeClient.getInstance().makeReservation(seats,Integer.parseInt(nbPassenger.getText()), client);
+								update("Votre numero de confirmation est:"+confirmation+ "\n");
+							}
+							else
+								update("Il n'y a plus de place pour: "+nbPassenger.getText()+" personne\n");
+								
 				      }
 				      
 				      
