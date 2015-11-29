@@ -5,19 +5,26 @@ import java.util.Vector;
 
 import AdminPkg.AdminManagement;
 import AdminPkg.Searcher;
+import CommonComponentsPkg.Adresse;
 import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
 import ReservationPkg.Client;
 import ReservationPkg.Entity;
 import ReservationPkg.Order;
+import ReservationPkg.Person;
 import ReservationPkg.Reservation;
+import ReservationPkg.Sexe;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.TripGeneral;
 import TransportationPkg.TripInstance;
 
 public class ClientSimulationData {
 
-	public static Client client = new Client();
+	private static Client client = new Client();
+	
+	public static Client getClient(){
+		return client;
+	}
 
 	public static void initClientSimulationData()
 	{
@@ -25,6 +32,15 @@ public class ClientSimulationData {
 
 		AdminManagement am = AdminManagement.getInstance();
 
+		Adresse a = new Adresse(123, "UdeM drive",
+				"3303", "Montreal", "Quebec",
+				"Canada", "H3M 2P5");
+
+		Person p = new Person("5145551234", a , "syriani@iro.umontreal.ca",
+				"Eugene", Sexe.Male, "Syriani");
+		
+		client._clientInfo = p;
+		
 		SearchCriteria sc = new SearchCriteria();
 		sc.set_tripIDNumber("WE1001");
 		Date dateDepart = new Date();

@@ -8,7 +8,7 @@ public class Person extends Entity {
 	private String _lastName;
 	public Person(){}
 	
-	public Person(int _numTel, Adresse _adresse, String _courriel,
+	public Person(String _numTel, Adresse _adresse, String _courriel,
 			String _firstName, Sexe _sexe, String _lastName) {
 		super(_numTel, _adresse, _courriel);
 		this._firstName = _firstName;

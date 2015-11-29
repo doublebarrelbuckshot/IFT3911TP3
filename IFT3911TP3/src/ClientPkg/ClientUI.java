@@ -64,7 +64,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 	{
 		
 		super("ClientUI");
-		this.client = new Client();
+		this.client = ClientSimulationData.getClient();
 		this.setSize(600,650);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
