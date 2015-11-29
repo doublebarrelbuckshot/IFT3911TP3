@@ -79,7 +79,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : affaire.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = affaire.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 	}
 
 
@@ -90,7 +91,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : econo.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = econo.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 		
 	}
 
@@ -101,7 +103,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : econoP.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = econoP.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 	}
 
 	@Override
@@ -111,7 +114,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : premiere.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = premiere.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 		
 	}
 
@@ -122,7 +126,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : famille.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = famille.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 	}
 
 	@Override
@@ -132,7 +137,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : famDeluxe.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = famDeluxe.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 	}
 
 	@Override
@@ -142,7 +148,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : interieur.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = interieur.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 		
 	}
 
@@ -153,7 +160,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : ocean.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = ocean.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 	}
 
 	@Override
@@ -163,7 +171,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : suite.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = suite.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 	}
 
 	@Override
@@ -173,7 +182,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : econo.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = econo.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 	}
 
 	@Override
@@ -183,7 +193,8 @@ public class ClientTripVisitor implements ITripVisitor{
 		for(ITripVisitable seat : premiere.get_seating()){
 			seat.accept(this);
 		}
-		result += this.get_count();
+		int available = premiere.get_layout().get_capacity() - this.get_count();
+		result += available+"";
 	}
 
 }

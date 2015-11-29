@@ -238,12 +238,10 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 						criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
 					}
 					
-					Vector<TripInstance> tripList = searcher.findTripInstances(criteria);
-					for (TripInstance trip: tripList){
-						TripGeneral descriptionCroisiere = trip.get_tripDescription();
-						updateOutput("Voyage: "+ descriptionCroisiere.get_tripID() + " Date de depart: " + trip.get_dateDepartStr() 
-						+ " Heure de depart: " + descriptionCroisiere.get_heureDepartStr() + " Heure d'arrivee: " + descriptionCroisiere.get_heureArriveStr());
-					}
+					String resultText = SystemeClient.getInstance().findTripInstance(criteria);
+					updateOutput(resultText + "\n");
+					
+						
 				}else if(iInput == 5){
 					SearchCriteria sc = new SearchCriteria();
 					
@@ -282,13 +280,16 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							}
 							
 							Vector<GenericSeat> seats = SystemeClient.getInstance().findGenericSeat(sc);
-							if(seats.size() >= Integer.parseInt(nbPassenger.getText())){
-								String confirmation = SystemeClient.getInstance().makeReservation(seats,Integer.parseInt(nbPassenger.getText()), client);
-								update("Votre numero de confirmation est:"+confirmation+ "\n");
+							if(seats != null){
+								if(seats.size() >= Integer.parseInt(nbPassenger.getText())){
+									String confirmation = SystemeClient.getInstance().makeReservation(seats,Integer.parseInt(nbPassenger.getText()), client);
+									update("Votre numero de confirmation est:"+confirmation+ "\n");
+								}
+								else
+									update("Il n'y a plus de place pour: "+nbPassenger.getText()+" personne\n");
 							}
 							else
-								update("Il n'y a plus de place pour: "+nbPassenger.getText()+" personne\n");
-								
+									update("Recherche contient 0 element.");
 				      }
 				      
 				      

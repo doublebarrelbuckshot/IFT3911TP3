@@ -84,9 +84,9 @@ public class Searcher {
 		//Vector<TripGeneral> listTripGeneral = findTripGeneral(aSc);
 		TripGeneral tripGeneral = findTripGeneralId(aSc.get_tripIDNumber());
 		Vector<GenericSeat> genericAvailableSeatList = new Vector<GenericSeat>();  
-		/*if (listTripGeneral.isEmpty()){
+		if (tripGeneral == null){
 			return null;
-		}
+		}/*
 		if(listTripGeneral.size() > 1){
 			throw new Exception("Ne peut pas contenir plusieurs trip generals avec le meme id");
 		}
