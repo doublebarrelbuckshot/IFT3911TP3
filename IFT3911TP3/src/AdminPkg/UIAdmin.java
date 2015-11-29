@@ -26,6 +26,7 @@ import javax.swing.border.TitledBorder;
 
 
 
+
 import AdminPkg.Administrator;
 import AdminPkg.AirAdminPkg.AirFactory;
 import TransportationPkg.TripGeneral;
@@ -40,7 +41,7 @@ import TransportationPkg.TransportationCompany;
 import TransportationPkg.TripInstance;
 import TransportationPkg.VehicleLayout;
 
-public class UIAdmin extends JFrame {
+public class UIAdmin extends JFrame implements Observer {
 	public Vector<Administrator> _systemeAdmin = new Vector<Administrator>();
 	public AdminManagement _interacts;
 
@@ -70,7 +71,7 @@ public class UIAdmin extends JFrame {
 		GridLayout buttonsGridLayout = new GridLayout(10,0);
 		jpButtons.setLayout(buttonsGridLayout);
 
-		taOutput = new JTextArea (showMenu());
+		taOutput = new JTextArea ("");
 		taOutput.setEditable(false);
 		taOutput.setBorder(new TitledBorder("Output"));
 		taOutput.setBackground(Color.WHITE);
@@ -229,7 +230,7 @@ public class UIAdmin extends JFrame {
 						departhhmm.setHours(Integer.parseInt(hhmmArray[0]));
 						departhhmm.setMinutes(Integer.parseInt(hhmmArray[1]));
 
-
+						System.out.println("COMPANY: " + company.get_name());
 						String[] hhmmArrayArrive = taDateArrive.getText().split(":");
 						Date arrivehhmm  = new Date();
 						arrivehhmm.setHours(Integer.parseInt(hhmmArrayArrive[0]));
@@ -363,18 +364,7 @@ public class UIAdmin extends JFrame {
 
 	}
 
-	public final String showMenu()
-	{
-		StringBuilder sb = new StringBuilder();
-		sb.append("*******MENU*******\n");
-		sb.append("1: Rename Transportation Company \n");
-		sb.append("2: Print all TripGeneral\n");
-		sb.append("3: Undo Last\n");
-		sb.append("4. Add Airport");
-
-		return sb.toString();
-
-	}
+	
 	public static UIAdmin getInstance()
 	{
 		if(instance == null)
@@ -437,5 +427,11 @@ public class UIAdmin extends JFrame {
 
 	public void removeTripGeneral(TripGeneral aTg) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void update(String message) {
+		updateOutput(message);
+		
 	}
 }

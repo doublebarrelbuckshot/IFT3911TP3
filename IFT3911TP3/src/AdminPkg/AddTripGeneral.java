@@ -19,7 +19,7 @@ public class AddTripGeneral  implements ICommand {
 		for(int i=0; i<_receiver.get_listTripGenerals().size(); i++)
 		{
 			TripGeneral tg = _receiver.get_listTripGenerals().get(i);
-			System.out.println(tg.get_hubDeparture().get_name() + "  " + tg.get_hubArrival().get_name() + tg.get_heureDepart().getHours());
+			//System.out.println(tg.get_hubDeparture().get_name() + "  " + tg.get_hubArrival().get_name() + tg.get_heureDepart().getHours());
 		}
 		
 	}
@@ -42,9 +42,9 @@ public class AddTripGeneral  implements ICommand {
 	}
 	public String getMessage(boolean isExecute) {
 		if(isExecute)
-			return "TripGeneral from" + _tg.get_hubDeparture().get_name() + " to " + _tg.get_hubArrival().get_name() + "     TripGeneralID:" +  _tg.get_tripID() + " + added!";
+			return "TripGeneral Added!  From " + _tg.get_hubDeparture().get_name() + " to " + _tg.get_hubArrival().get_name() + "     TripGeneralID:" +  _tg.get_tripID();
 		else{
-			return "TripGeneral: " +  _tg.get_hubDeparture().get_name() + " to " + _tg.get_hubArrival().get_name() + " removed from system!";
+			return "TripGeneral Removed! From " +  _tg.get_hubDeparture().get_name() + " to " + _tg.get_hubArrival().get_name()  +"     TripGeneralID:" +  _tg.get_tripID();
 		}
 		
 	}

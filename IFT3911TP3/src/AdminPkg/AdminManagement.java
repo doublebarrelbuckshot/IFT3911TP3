@@ -36,6 +36,7 @@ public class AdminManagement extends Subject {
 	}
 	private AdminManagement() {
 		this.attach(ClientUI.getInstance());
+		this.attach(UIAdmin.getInstance());
 		
 	}
 

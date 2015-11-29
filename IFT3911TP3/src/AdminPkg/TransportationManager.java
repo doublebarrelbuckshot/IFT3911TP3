@@ -54,8 +54,8 @@ public class TransportationManager {
 	}
 
 	public void removeTripGeneral(TripGeneral aTg) {
-		throw new UnsupportedOperationException();
-	}
+		this._listTripGenerals.remove(aTg);
+		}
 
 	public void addTripGeneral(String aTripID, TransportationHub aDepart, TransportationHub aArrive) {
 		throw new UnsupportedOperationException();
