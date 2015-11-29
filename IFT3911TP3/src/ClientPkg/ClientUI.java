@@ -46,6 +46,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		SimulationData.initAir();
 		SimulationData.initTrain();
 		SimulationData.initCruise();
+		ClientSimulationData.initClientSimulationData();
 		ClientUI cGUI = ClientUI.getInstance();
 		UIAdmin aGUI = UIAdmin.getInstance();
 	
