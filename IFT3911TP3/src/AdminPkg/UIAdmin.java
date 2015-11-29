@@ -236,8 +236,7 @@ public class UIAdmin extends JFrame {
 						arrivehhmm.setMinutes(Integer.parseInt(hhmmArrayArrive[1]));
 
 
-						TripGeneral tg = AirFactory.getInstance().createTripGeneral(departhhmm, arrivehhmm, departAirport, arriveAirport);
-						tg.setTptCompany(company);
+						TripGeneral tg = AirFactory.getInstance().createTripGeneral(departhhmm, arrivehhmm, company, departAirport, arriveAirport);
 						AddTripGeneral atg = new AddTripGeneral(tg);
 						am.addICommand(atg);
 

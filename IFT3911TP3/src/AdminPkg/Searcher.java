@@ -113,7 +113,8 @@ public class Searcher {
 			for(ComfortClass comfortClass : tripInstance.get_comfortClasses()){
 				for (GenericSeat genericSeat : comfortClass.get_seating()){
 					if(genericSeat.get_state() instanceof AvailableState){
-						genericAvailableSeatList.addElement(genericSeat);
+						if(genericSeat.get_comfortClass().getComfortClassType() == aSc.get_sectionType())
+							genericAvailableSeatList.addElement(genericSeat);
 					}
 				}
 			}

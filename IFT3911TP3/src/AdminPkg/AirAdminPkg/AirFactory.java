@@ -13,6 +13,7 @@ import TransportationPkg.AviationPkg.CompagnieAerienne;
 import TransportationPkg.AviationPkg.DescriptionVol;
 import TransportationPkg.AviationPkg.Vol;
 import AdminPkg.TransportationFactory;
+import CommonComponentsPkg.GenerateurConfirmation;
 
 public class AirFactory extends TransportationFactory {
 	private static AirFactory _instance;
@@ -48,11 +49,12 @@ public class AirFactory extends TransportationFactory {
 		return a;
 	}
 
-	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationHub depart, TransportationHub arrive ){
+	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationCompany company, TransportationHub depart, TransportationHub arrive ){
 		Vol v = new Vol();
+		v.setTptCompany(company);
 		v.set_heureArrive(dateArrival);
 		v.set_heureDepart(dateDepart);
-		v.set_tripID(depart.get_id() + arrive.get_id() + dateDepart.getHours()+ dateDepart.getMinutes());
+		v.set_tripID(company.get_name().substring(0, 2).toUpperCase() + GenerateurConfirmation.getInstance().get_numeroConfirmation());
 		v.set_hubArrival(arrive);
 		v.set_hubDeparture(depart);
 		System.out.println("NEW ID: " + depart.get_id() + arrive.get_id() + dateDepart.getHours()+ dateDepart.getMinutes());

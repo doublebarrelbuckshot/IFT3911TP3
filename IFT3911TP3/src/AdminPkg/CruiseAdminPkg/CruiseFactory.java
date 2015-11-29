@@ -15,6 +15,7 @@ import TransportationPkg.CroisierePkg.Paquebot;
 import TransportationPkg.CroisierePkg.Port;
 import TransportationPkg.TrainPkg.DescriptionTrajet;
 import AdminPkg.TransportationFactory;
+import CommonComponentsPkg.GenerateurConfirmation;
 
 public class CruiseFactory extends TransportationFactory {
 	private static CruiseFactory _instance;
@@ -50,11 +51,12 @@ public class CruiseFactory extends TransportationFactory {
 		p.setTptCompany(company);
 		return p;
 	}
-	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationHub depart, TransportationHub arrive ){
+	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationCompany company, TransportationHub depart, TransportationHub arrive ){
 		Croisiere c = new Croisiere();
+		c.setTptCompany(company);
 		c.set_heureArrive(dateArrival);
 		c.set_heureDepart(dateDepart);
-		c.set_tripID(depart.get_id() + arrive.get_id() + dateDepart.getHours()+ dateDepart.getMinutes());
+		c.set_tripID(company.get_name().substring(0, 2).toUpperCase() + GenerateurConfirmation.getInstance().get_numeroConfirmation());
 		c.set_hubArrival(arrive);
 		c.set_hubDeparture(depart);
 		return c;	

@@ -15,6 +15,7 @@ import TransportationPkg.TrainPkg.LigneTrain;
 import TransportationPkg.TrainPkg.Train;
 import TransportationPkg.TrainPkg.Trajet;
 import AdminPkg.TransportationFactory;
+import CommonComponentsPkg.GenerateurConfirmation;
 
 public class TrainFactory extends TransportationFactory {
 	private static TrainFactory _instance;
@@ -64,11 +65,12 @@ public class TrainFactory extends TransportationFactory {
 			_instance = new TrainFactory();
 		return _instance;
 	}
-	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationHub depart, TransportationHub arrive ){
+	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationCompany company, TransportationHub depart, TransportationHub arrive ){
 		Trajet t = new Trajet();
+		t.setTptCompany(company);
 		t.set_heureArrive(dateArrival);
 		t.set_heureDepart(dateDepart);
-		t.set_tripID(depart.get_id() + arrive.get_id() + dateDepart.getHours()+ dateDepart.getMinutes());
+		t.set_tripID(company.get_name().substring(0, 2).toUpperCase() + GenerateurConfirmation.getInstance().get_numeroConfirmation());
 
 		t.set_hubArrival(arrive);
 		t.set_hubDeparture(depart);

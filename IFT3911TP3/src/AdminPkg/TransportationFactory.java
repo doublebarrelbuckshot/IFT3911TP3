@@ -23,7 +23,7 @@ public abstract class TransportationFactory {
 		throw new UnsupportedOperationException();
 	}
 	
-	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival,  TransportationHub depart, TransportationHub arrive ){
+	public TripGeneral createTripGeneral(Date dateDepart, Date dateArrival, TransportationCompany company, TransportationHub depart, TransportationHub arrive ){
 		throw new UnsupportedOperationException();
 	}
 	
