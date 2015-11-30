@@ -90,7 +90,7 @@ public class UIAdmin extends JFrame implements Observer {
 		taInput = new JTextArea("");
 
 
-		JButton btnRenameAirport = new JButton("Rename Air Company");
+		JButton btnRenameAirport = new JButton("Rename Tpt Company");
 		JButton btnPrintAllTripGeneral = new JButton("Print all Trip Instances");
 		JButton btnUndo = new JButton("Undo");
 		JButton btnAddAirport = new JButton("AddAirport");
