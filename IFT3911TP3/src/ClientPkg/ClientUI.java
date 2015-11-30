@@ -366,7 +366,8 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							if(!reservationID.getText().isEmpty()){
 									String resultCancel=SystemeClient.getInstance().cancelReservation(reservationID.getText(),client);	
 									updateOutput(resultCancel+"\n");
-									//remboursement prix payé - 10%
+									
+									
 							}
 						
 						}

@@ -90,6 +90,7 @@ public class ClientSimulationData {
 				sc.set_sectionType(ComfortClassEnum.A); 
 				seat = SystemeClient.getInstance().findGenericSeat(sc);
 				confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
+				System.out.println("confirmation"+confirmation);
 			}
 		}
 		

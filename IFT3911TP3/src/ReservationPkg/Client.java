@@ -33,7 +33,7 @@ public class Client {
 		}
 		return null;
 	}
-
+	
 	public void deleteOrder(Order aOrder) {
 		
 	}

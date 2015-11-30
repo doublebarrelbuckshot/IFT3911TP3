@@ -99,16 +99,24 @@ public class SystemeClient {
 			return "not a valid reservation number";
 		}
 		String flag="";
+		boolean valide =false;
 		Reservation r =client.findReservation(numero);
 		
 		for(GenericSeat seat: r._reservedSeats){
 			if(seat.isBeforeTime()){
-				seat.available();
+				valide = true;
+				seat.get_state().available(seat);
 				flag = "Reservation is canceled";
 			}
 			else
 				flag="Reservation can't be canceled";
 		}
+		
+		if(valide){
+			
+			//remboursement du prix -10%
+		}
+		
 		return flag;
 	}
 }
