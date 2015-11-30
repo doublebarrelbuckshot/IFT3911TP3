@@ -71,7 +71,7 @@ public class TrainFactory extends TransportationFactory {
 		t.set_heureArrive(dateArrival);
 		t.set_heureDepart(dateDepart);
 		t.set_tripID(company.get_name().substring(0, 2).toUpperCase() + GenerateurConfirmation.getInstance().get_numeroConfirmation());
-
+		t.set_timeCompare("24");
 		t.set_hubArrival(arrive);
 		t.set_hubDeparture(depart);
 		return t;	

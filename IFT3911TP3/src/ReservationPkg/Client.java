@@ -1,6 +1,7 @@
 package ReservationPkg;
 
 import java.util.Vector;
+
 import ReservationPkg.Order;
 
 public class Client {
@@ -22,10 +23,10 @@ public class Client {
 		return null;
 	}
 	
-	public Reservation findReservation(int reservationNumber){
+	public Reservation findReservation(int numeroR){
 		for(Order order: _listOrders){
 			if(order instanceof Reservation){
-				if(order.get_number() == reservationNumber){
+				if(order.get_number() == numeroR){
 					return (Reservation)order;
 				}
 			}

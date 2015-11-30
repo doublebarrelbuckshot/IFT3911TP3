@@ -343,13 +343,36 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 								
 								int resultPanelReservation = JOptionPane.showConfirmDialog(panel, panelReservation, 
 							               "Pay reservation", JOptionPane.OK_CANCEL_OPTION);
-							} else{
-								updateOutput("Aucune reservation avec le id:" + reservationID.getText());
+								} else{
+									updateOutput("Aucune reservation avec le id:" + reservationID.getText());
 							}
-						} 
+							} 
 						
+						}
+					}else if(iInput == 7){
+						JPanel panel = new JPanel();
+						JTextField reservationID = new JTextField();
+						panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+						
+						panel.add(new JLabel("Enter Reservation Number:"));
+						panel.add(reservationID);
+						
+							
+						int result= JOptionPane.showConfirmDialog(null, panel, 
+					            "Cancel Reservation", JOptionPane.OK_CANCEL_OPTION);
+								//updateOutput("Aucune reservation avec le id:" + reservationID.getText());
+						if(result == JOptionPane.OK_OPTION){
+									
+							if(!reservationID.getText().isEmpty()){
+									String resultCancel=SystemeClient.getInstance().cancelReservation(reservationID.getText(),client);	
+									updateOutput(resultCancel+"\n");
+									//remboursement prix payé - 10%
+							}
+						
+						}
+							
+					
 					}
-				}
 			}				
 		} );
 		jpInput.add(bInput);
@@ -373,6 +396,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		sb.append("4: Find Train Ride \n");
 		sb.append("5: Make reservation \n");
 		sb.append("6: Pay reservation \n");
+		sb.append("7: Cancel reservation \n");
 		return sb.toString();
 
 	}

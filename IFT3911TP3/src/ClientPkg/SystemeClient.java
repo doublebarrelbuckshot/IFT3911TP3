@@ -89,4 +89,26 @@ public class SystemeClient {
 			}
 		return r.get_number()+"";
 	}
+	
+	public String cancelReservation(String numeroR,Client client){
+		int numero ;
+		
+		try{
+			numero=Integer.parseInt(numeroR);
+		}catch(Exception e){
+			return "not a valid reservation number";
+		}
+		String flag="";
+		Reservation r =client.findReservation(numero);
+		
+		for(GenericSeat seat: r._reservedSeats){
+			if(seat.isBeforeTime()){
+				seat.available();
+				flag = "Reservation is canceled";
+			}
+			else
+				flag="Reservation can't be canceled";
+		}
+		return flag;
+	}
 }

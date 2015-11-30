@@ -59,6 +59,7 @@ public class CruiseFactory extends TransportationFactory {
 		c.set_tripID(company.get_name().substring(0, 2).toUpperCase() + GenerateurConfirmation.getInstance().get_numeroConfirmation());
 		c.set_hubArrival(arrive);
 		c.set_hubDeparture(depart);
+		c.set_timeCompare("72");
 		return c;	
 		}
 

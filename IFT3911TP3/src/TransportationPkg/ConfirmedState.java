@@ -7,8 +7,8 @@ public class ConfirmedState implements GenericSeatState {
 	}
 
 	public void available(GenericSeat aS) {
-		//verifier si moins de x temps pour annuler
 		aS.set_state(new AvailableState());
+		
 	}
 
 	public void confirmed(GenericSeat aS) {

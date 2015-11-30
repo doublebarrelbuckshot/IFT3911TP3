@@ -43,4 +43,18 @@ public abstract class GenericSeat implements ISearchable, ITripVisitable {
 	public void set_Ipassenger(IPassenger _Ipassenger) {
 		this._Ipassenger = _Ipassenger;
 	}
+	
+	public boolean isBeforeTime(){
+		String timeCompare = this.get_comfortClass().get_tripInstance().get_tripDescription().get_timeCompare();
+		int hours =_reservationDate.getHours();
+		int totalHours = Integer.parseInt(timeCompare) + hours;
+
+		_reservationDate.setHours(totalHours);
+		Date now = new Date();
+		if(now.before(_reservationDate))
+			return true;
+		else
+			return false;
+		
+	}
 }

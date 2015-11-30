@@ -57,7 +57,7 @@ public class AirFactory extends TransportationFactory {
 		v.set_tripID(company.get_name().substring(0, 2).toUpperCase() + GenerateurConfirmation.getInstance().get_numeroConfirmation());
 		v.set_hubArrival(arrive);
 		v.set_hubDeparture(depart);
-		
+		v.set_timeCompare("24");
 		return v;
 	}
 	

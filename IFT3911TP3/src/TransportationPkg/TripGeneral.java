@@ -14,6 +14,7 @@ public abstract class TripGeneral implements ISearchable {
 	protected Date _heureDepart;
 	protected String _tripID;
 	protected Date _heureArrive;
+	protected String _timeCompare;
 	public TransportationHub _hubDeparture;
 	public TransportationCompany tptCompany;
 	public Vector<TripInstance> _tripInstances = new Vector<TripInstance>();
@@ -132,6 +133,14 @@ public abstract class TripGeneral implements ISearchable {
 			}
 		}
 		return false;
+	}
+
+	public String get_timeCompare() {
+		return _timeCompare;
+	}
+
+	public void set_timeCompare(String _timeCompare) {
+		this._timeCompare = _timeCompare;
 	}
 	
 }
