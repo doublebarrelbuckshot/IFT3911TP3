@@ -23,6 +23,16 @@ public class Client {
 		return null;
 	}
 	
+	public Booking findBooking(int bookingNumber){
+		for(Order order: _listOrders){
+			if(order instanceof Booking){
+				if(order.get_number() == bookingNumber){
+					return (Booking)order;
+				}
+			}
+		}
+		return null;
+	}
 	public Reservation findReservation(int numeroR){
 		for(Order order: _listOrders){
 			if(order instanceof Reservation){

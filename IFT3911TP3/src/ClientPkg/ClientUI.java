@@ -30,6 +30,7 @@ import AdminPkg.TransportationManager;
 import AdminPkg.UIAdmin;
 import CommonComponentsPkg.Adresse;
 import CommonComponentsPkg.ComfortClassEnum;
+import CommonComponentsPkg.GenerateurConfirmation;
 import CommonComponentsPkg.SearchCriteria;
 import ReservationPkg.Booking;
 import ReservationPkg.Client;
@@ -95,16 +96,17 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		taOutput.setBorder(new TitledBorder("Output"));
 		taOutput.setBackground(Color.WHITE);
 		taOutput.setOpaque(true);
-		JPanel panelTextArea = new JPanel();
 		JPanel jpCenter = new JPanel();
 		JPanel jpOutput = new JPanel();
+		JScrollPane sp = new JScrollPane(taOutput); 
+		sp.setPreferredSize(new Dimension(500,450));
+		sp.setBounds(23, 40, 394, 191);
+
+		sp.setViewportView(taOutput);
+		jpOutput.add(sp);
+
+		this.add(jpCenter);
 		
-		panelTextArea.add(taOutput);
-		scrollPane = new JScrollPane(panelTextArea);
-		scrollPane.setPreferredSize(new Dimension(500,500));
-		jpOutput.add(scrollPane, BorderLayout.CENTER);
-
-
 		taInput = new JTextArea("");
 		taInput.setBorder(new TitledBorder("Input"));
 		taInput.setPreferredSize(new Dimension(410,100));
@@ -357,11 +359,8 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 						if(!reservationID.getText().equals(null)){
 							int reservationIdInt = Integer.parseInt(reservationID.getText());
 							Reservation reservation = client.findReservation(reservationIdInt);
-							TransportationManager tpt = TransportationManager.getInstance();
 							
 							if (reservation != null){
-								
-								
 								TripInstance tripInstanceReservation = reservation.get_tripInstance();
 								JPanel panelReservation = new JPanel();
 								panelReservation.setLayout(new GridLayout(9,2));
@@ -448,8 +447,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 									booking.set_client_(client);
 									booking.set_totalPrice(reservation.getReservationPrice());
 									booking.set_accountBalance(reservation.getReservationPrice());
-									booking.set_number(4040);
-									//TODO ne pas hardcode le numero booking
+									booking.set_number(GenerateurConfirmation.getInstance().get_numeroConfirmation());
 									booking.set_tripInstance(reservation.get_tripInstance());
 									
 									for(Passager passager: reservation.get_listPassagers()){
@@ -480,10 +478,8 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 						if(result == JOptionPane.OK_OPTION){
 									
 							if(!reservationID.getText().isEmpty()){
-									String resultCancel=SystemeClient.getInstance().cancelReservation(reservationID.getText(),client);	
-									updateOutput(resultCancel+"\n");
-									
-									
+									String resultCancel=SystemeClient.getInstance().cancelReservation(reservationID.getText(),client);
+									updateOutput(resultCancel+"\n");							
 							}
 						
 						}
@@ -491,6 +487,26 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					
 					}
 					else if(iInput == 8){
+						JPanel panel = new JPanel();
+						JTextField bookingIDTextField = new JTextField();
+						panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+						
+						panel.add(new JLabel("Enter Booking Number:"));
+						panel.add(bookingIDTextField);
+						
+							
+						int result= JOptionPane.showConfirmDialog(null, panel, 
+					            "Cancel Reservation", JOptionPane.OK_CANCEL_OPTION);
+								//updateOutput("Aucune reservation avec le id:" + reservationID.getText());
+						if(result == JOptionPane.OK_OPTION){
+									
+//							if(!bookingIDTextField.getText().isEmpty()){
+//									String resultCancel=SystemeClient.getInstance().cancelReservation(bookingIDTextField.getText(),client);
+//									updateOutput(resultCancel+"\n");							
+//							}
+						
+						}
+					}else if(iInput == 9){
 						taOutput.setText(showMenu());
 					}
 			}				
@@ -517,7 +533,8 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		sb.append("5: Make reservation \n");
 		sb.append("6: Pay reservation \n");
 		sb.append("7: Cancel reservation \n");
-		sb.append("8: Clear screen \n");
+		sb.append("8: Cancel Booking \n");
+		sb.append("9: Clear screen \n");
 		return sb.toString();
 
 	}

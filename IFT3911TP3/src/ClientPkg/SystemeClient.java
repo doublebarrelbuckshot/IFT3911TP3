@@ -96,25 +96,31 @@ public class SystemeClient {
 		}catch(Exception e){
 			return "not a valid reservation number";
 		}
-		String flag="";
-		boolean valide =false;
+		String flag="Reservation" + numeroR + " is canceled";
+		boolean valide =true;
 		Reservation r =client.findReservation(numero);
-		
-		for(GenericSeat seat: r.get_reservedSeats()){
-			if(seat.isBeforeTime()){
-				valide = true;
-				seat.get_state().available(seat);
-				flag = "Reservation is canceled";
+		if(r != null){
+			for(GenericSeat seat: r.get_reservedSeats()){
+				if(seat.isBeforeTime()){
+					seat.get_state().available(seat);
+				}
+				else{
+					//je remets les seats reserve si il y eu une erreur dans la reservation
+					for(GenericSeat seatReserved: r.get_reservedSeats()){
+						seatReserved.get_state().reserved(seatReserved);
+					}
+					valide = false;
+					flag="Reservation can't be canceled, your trip will depart too soon. ";
+					break;
+				}
 			}
-			else
-				flag="Reservation can't be canceled";
-		}
-		
-		if(valide){
 			
-			//remboursement du prix -10%
+			if(valide){
+				client._listOrders.remove(r);
+			}
+		} else {
+			flag = "Reservation with id " + numeroR + " not found";
 		}
-		
 		return flag;
 	}
 }
