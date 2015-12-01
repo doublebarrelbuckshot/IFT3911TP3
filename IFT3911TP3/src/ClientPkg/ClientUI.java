@@ -264,34 +264,48 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				      }
 				}else if(iInput == 4){
 					SearchCriteria criteria = new SearchCriteria();
-					String originPort = JOptionPane.showInputDialog("Please input departure train station ID");
-					String destinationPort = JOptionPane.showInputDialog("Please input arrival train station ID");;
+					JPanel panel = new JPanel();
+					JTextField depart = new JTextField();
+					JTextField arrive = new JTextField();
+					JTextField departDate = new JTextField();
+					JTextField section = new JTextField();
+					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 					
+					panel.add(new JLabel("Please input departure train station ID"));
+					panel.add(depart);
+					panel.add(new JLabel("Please input arrival train station ID"));
+					panel.add(arrive);
+					panel.add(new JLabel("Please enter departure date with the format: dd/mm/yyyy"));
+					panel.add(departDate);
+					panel.add(new JLabel("Please enter the LETTER of the section you want to be in. F: Premiere, E: Economique"));
+					panel.add(section);
 					
-					String dateDepartStr = JOptionPane.showInputDialog("Please enter departure date with the format: dd/mm/yyyy");
+					int result = JOptionPane.showConfirmDialog(null, panel, 
+				               "Please Enter All Fields", JOptionPane.OK_CANCEL_OPTION);
 					
-					
-					String sectionType = JOptionPane.showInputDialog("Please enter the LETTER of the section you want to be in. F: Premiere, E: Economique");
-					
-					if(!originPort.isEmpty()){
-						criteria.set__transportationHubNameDeparture(originPort.toUpperCase());
-						criteria.set_transportationHubNameArrival(destinationPort.toUpperCase());
+					if (result == JOptionPane.OK_OPTION) {
+						if(!depart.getText().isEmpty()){
+							criteria.set__transportationHubNameDeparture(depart.getText().toUpperCase());
+							
+						}
+						if(!arrive.getText().isEmpty()){
+							criteria.set_transportationHubNameArrival(arrive.getText().toUpperCase());
+						}
+						if(!departDate.getText().isEmpty()){
+							String[] dateArray = departDate.getText().split("/");
+							Date dateDepart = new Date();
+							dateDepart.setDate(Integer.parseInt(dateArray[0]));
+							dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
+							dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
+							criteria.set_tripDepartureDate(dateDepart);
+						}
+						if(!section.getText().isEmpty()){
+							criteria.set_sectionType(ComfortClassEnum.valueOf(section.getText().toUpperCase()));
+						}
+						
+						String resultText = SystemeClient.getInstance().findTripInstance(criteria);
+						updateOutput(resultText + "\n");
 					}
-					if(!dateDepartStr.isEmpty()){
-						String[] dateArray = dateDepartStr.split("/");
-						Date dateDepart = new Date();
-						dateDepart.setDate(Integer.parseInt(dateArray[0]));
-						dateDepart.setMonth(Integer.parseInt(dateArray[1]) - 1);
-						dateDepart.setYear(Integer.parseInt(dateArray[2]) - 1900);
-						criteria.set_tripDepartureDate(dateDepart);
-					}
-					if(!sectionType.isEmpty()){
-						criteria.set_sectionType(ComfortClassEnum.valueOf(sectionType.toUpperCase()));
-					}
-					
-					String resultText = SystemeClient.getInstance().findTripInstance(criteria);
-					updateOutput(resultText + "\n");
-					
 						
 				}else if(iInput == 5){
 					SearchCriteria sc = new SearchCriteria();
@@ -334,7 +348,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							if(seats != null){
 								if(seats.size() >= Integer.parseInt(nbPassenger.getText())){
 									String confirmation = SystemeClient.getInstance().makeReservation(seats,Integer.parseInt(nbPassenger.getText()), client);
-									update("Votre numero de confirmation est:"+confirmation+ "\n");
+									update("Here is your reservation number:"+confirmation+ "\n");
 								}
 								else
 									update("Il n'y a plus de place pour: "+nbPassenger.getText()+" personne\n");
