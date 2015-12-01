@@ -11,7 +11,9 @@ import ReservationPkg.PassagerReal;
 import ReservationPkg.Reservation;
 import TransportationPkg.ComfortClass;
 import TransportationPkg.GenericSeat;
+import TransportationPkg.GenericSeatState;
 import TransportationPkg.InstanceSeat;
+import TransportationPkg.ReservedState;
 import TransportationPkg.TripInstance;
 
 public class SystemeClient {
@@ -97,11 +99,18 @@ public class SystemeClient {
 			return "not a valid reservation number";
 		}
 		String flag="Reservation " + numeroR + " is cancelled";
-		boolean valide =true;
+		
 		Reservation r =client.findReservation(numero);
 		if(r != null){
 			for(GenericSeat seat: r.get_reservedSeats()){
-				if(seat.isBeforeTime()){
+				
+				if(seat.get_state() instanceof ReservedState){
+					seat.get_state().available(seat);
+					flag = "Your reservation "+numeroR+" is canceled.";
+				}
+				else
+					flag= "Your reservation "+numeroR+" cannot be canceled.";
+				/*if(seat.isBeforeTime()){
 					seat.get_state().available(seat);
 				}
 				else{
@@ -112,12 +121,12 @@ public class SystemeClient {
 					valide = false;
 					flag="Reservation can't be canceled, your trip will depart too soon. ";
 					break;
-				}
+				}*/
 			}
 			
-			if(valide){
+			/*if(valide){
 				client._listOrders.remove(r);
-			}
+			}*/
 		} else {
 			flag = "Reservation with id " + numeroR + " not found";
 		}
