@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -30,7 +31,6 @@ import AdminPkg.UIAdmin;
 import CommonComponentsPkg.Adresse;
 import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
-import FinancePkg.Paiement;
 import ReservationPkg.Booking;
 import ReservationPkg.Client;
 import ReservationPkg.IClientUI;
@@ -38,9 +38,14 @@ import ReservationPkg.Passager;
 import ReservationPkg.PassagerReal;
 import ReservationPkg.Reservation;
 import ReservationPkg.Sexe;
+import TransportationPkg.ComfortClass;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.InstanceSeat;
+import TransportationPkg.TripGeneral;
 import TransportationPkg.TripInstance;
+import TransportationPkg.AviationPkg.Vol;
+import TransportationPkg.CroisierePkg.Croisiere;
+import TransportationPkg.TrainPkg.Trajet;
 
 public class ClientUI extends JFrame implements IClientUI, Observer {
 
@@ -61,6 +66,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 
 	private static ClientUI instance;
 	private Client client;
+	public static JScrollPane scrollPane;
 	public static JTextArea  taOutput;
 	public static JTextArea taInput;
 	public static JButton bInput;
@@ -87,12 +93,16 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		taOutput = new JTextArea (showMenu());
 		taOutput.setEditable(false);
 		taOutput.setBorder(new TitledBorder("Output"));
-		taOutput.setPreferredSize(new Dimension(540,450));
 		taOutput.setBackground(Color.WHITE);
 		taOutput.setOpaque(true);
+		JPanel panelTextArea = new JPanel();
 		JPanel jpCenter = new JPanel();
 		JPanel jpOutput = new JPanel();
-		jpOutput.add(taOutput);
+		
+		panelTextArea.add(taOutput);
+		scrollPane = new JScrollPane(panelTextArea);
+		scrollPane.setPreferredSize(new Dimension(500,500));
+		jpOutput.add(scrollPane, BorderLayout.CENTER);
 
 
 		taInput = new JTextArea("");
@@ -134,6 +144,40 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				updateOutput("User Entered " + iInput);
 				JFrame frame = new JFrame("FrameDemo");
 				Searcher searcher = Searcher.getInstance();
+				if(iInput == 1){
+					ClientTripVisitor visitorFlights = new ClientTripVisitor();
+					ClientTripVisitor visitorTrain = new ClientTripVisitor();
+					ClientTripVisitor visitorCruises = new ClientTripVisitor();
+					for(TripGeneral tripGeneral : TransportationManager.getInstance().get_listTripGenerals()){
+						if (tripGeneral instanceof Vol){
+							for(TripInstance tripInstance: tripGeneral.get_tripInstances()){
+								for(ComfortClass cc : tripInstance.get_comfortClasses()){	
+										tripInstance.accept(visitorFlights);
+										cc.accept(visitorFlights);
+								}
+							}
+						} else if (tripGeneral instanceof Croisiere){
+							for(TripInstance tripInstance: tripGeneral.get_tripInstances()){
+								for(ComfortClass cc : tripInstance.get_comfortClasses()){	
+										tripInstance.accept(visitorTrain);
+										cc.accept(visitorTrain);
+								}
+							}
+						} else if (tripGeneral instanceof Trajet)
+							for(TripInstance tripInstance: tripGeneral.get_tripInstances()){
+								for(ComfortClass cc : tripInstance.get_comfortClasses()){	
+										tripInstance.accept(visitorCruises);
+										cc.accept(visitorCruises);
+								}
+							}
+					}
+					updateOutput("\nFlights");
+					updateOutput(visitorFlights.getResult());
+					updateOutput("\nCruises");
+					updateOutput(visitorCruises.getResult());
+					updateOutput("\nTrain cruise");
+					updateOutput(visitorTrain.getResult());
+				}
 				if(iInput == 2){
 					JPanel panel = new JPanel();
 					JTextField depart = new JTextField();
@@ -416,7 +460,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 								}
 								
 								} else{
-									updateOutput("Aucune reservation avec le id:" + reservationID.getText());
+									updateOutput("No reservation with id: " + reservationID.getText());
 							}
 							} 
 						
@@ -446,6 +490,9 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							
 					
 					}
+					else if(iInput == 8){
+						taOutput.setText(showMenu());
+					}
 			}				
 		} );
 		jpInput.add(bInput);
@@ -470,6 +517,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 		sb.append("5: Make reservation \n");
 		sb.append("6: Pay reservation \n");
 		sb.append("7: Cancel reservation \n");
+		sb.append("8: Clear screen \n");
 		return sb.toString();
 
 	}
