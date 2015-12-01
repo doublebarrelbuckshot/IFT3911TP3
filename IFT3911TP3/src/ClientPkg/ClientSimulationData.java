@@ -37,7 +37,7 @@ public class ClientSimulationData {
 				"Canada", "H3M 2P5");
 
 		Person p = new Person("5145551234", a , "syriani@iro.umontreal.ca",
-				"Eugene", Sexe.Male, "Syriani");
+				"Eugene", Sexe.MALE, "Syriani");
 		
 		client._clientInfo = p;
 		
@@ -52,7 +52,7 @@ public class ClientSimulationData {
 		for(int i=0; i<10; i++){
 			sc.set_sectionType(ComfortClassEnum.E); 
 			Vector<GenericSeat> seat = SystemeClient.getInstance().findGenericSeat(sc);
-			String confirmation = SystemeClient.getInstance().makeReservation(seat,1, client);
+			String confirmation = SystemeClient.getInstance().makeReservation(seat,2, client);
 			if(i%5 == 0)
 			{
 				sc.set_sectionType(ComfortClassEnum.A); 

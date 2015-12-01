@@ -1,24 +1,18 @@
 package ClientPkg;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
-import AdminPkg.AdminManagement;
-import AdminPkg.AdminTripVisitor;
 import AdminPkg.Searcher;
-import AdminPkg.TransportationManager;
+import CommonComponentsPkg.SearchCriteria;
 import ReservationPkg.Client;
+import ReservationPkg.PassagerNull;
 import ReservationPkg.PassagerReal;
 import ReservationPkg.Reservation;
-import TransportationPkg.TripInstance;
-import CommonComponentsPkg.ComfortClassEnum;
-import CommonComponentsPkg.SearchCriteria;
 import TransportationPkg.ComfortClass;
-import TransportationPkg.ITripVisitable;
-import TransportationPkg.InstanceSeat;
 import TransportationPkg.GenericSeat;
-import TransportationPkg.TripGeneral;
+import TransportationPkg.InstanceSeat;
+import TransportationPkg.TripInstance;
 
 public class SystemeClient {
 	private static SystemeClient _instance;
@@ -82,6 +76,7 @@ public class SystemeClient {
 			seat.get(i).get_state().reserved(seat.get(i));
 			seat.get(i).set_reservationDate(new Date());
 			r.set_client_(client);
+			r.addPassenger(PassagerNull.getInstance());
 			r.set_tripInstance(seat.get(i).get_comfortClass().get_tripInstance());
 			client.addOrder(r);
 			r.addSeat(seat.get(i));

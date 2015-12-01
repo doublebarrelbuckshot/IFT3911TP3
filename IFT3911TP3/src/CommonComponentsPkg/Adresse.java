@@ -9,6 +9,10 @@ public class Adresse {
 	private String _provinceState;
 	private String _country;
 	private String _postalZip;
+	
+	public Adresse(){
+		
+	}
 	public Adresse(int _streetNumber, String _streetName,
 			String _apartmentNumber, String _city, String _provinceState,
 			String _country, String _postalZip) {

@@ -1,5 +1,7 @@
 package ReservationPkg;
 
+import java.util.Vector;
+
 import CommonComponentsPkg.GenerateurConfirmation;
 import TransportationPkg.TripInstance;
 import TransportationPkg.IOrder;
@@ -10,6 +12,7 @@ public class Order implements IOrder {
 	private int _number;
 	private Client client;
 	private TripInstance _tripInstance;
+	private Vector<Passager> _listPassagers = new Vector<Passager>();
 
 
 	public Order(boolean isActive, Client client, TripInstance tripInstance){
@@ -71,5 +74,17 @@ public class Order implements IOrder {
 
 	public TripInstance get_tripInstance() {
 		return _tripInstance;
+	}
+	
+	public Vector<Passager> get_listPassagers() {
+		return _listPassagers;
+	}
+
+	public void set_listPassagers(Vector<Passager> _listPassagers) {
+		this._listPassagers = _listPassagers;
+	}
+	
+	public void addPassenger(Passager aP) {
+		this._listPassagers.add(aP);
 	}
 }

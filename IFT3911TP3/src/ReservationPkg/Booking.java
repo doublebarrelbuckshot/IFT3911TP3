@@ -10,7 +10,7 @@ import TransportationPkg.TripInstance;
 
 public class Booking extends Order {
 	private double _accountBalance;
-	private Vector<Passager> _listPassagers = new Vector<Passager>();
+	
 	private Paiement paiement;
 
 	public Booking(boolean isActive, Client client, TripInstance tripInstance) {
@@ -37,10 +37,6 @@ public class Booking extends Order {
 		aP.setAssignedSeat(aS);
 	}
 
-	public void addPass(Passager aP) {
-		this._listPassagers.add(aP);
-	}
-
 	public void addPmt(Paiement aPmt) {
 		this._accountBalance += aPmt.get_montant();
 	}
@@ -65,14 +61,6 @@ public class Booking extends Order {
 
 	public Booking Booking(Reservation aR) {
 		throw new UnsupportedOperationException();
-	}
-
-	public Vector<Passager> get_listPassagers() {
-		return _listPassagers;
-	}
-
-	public void set_listPassagers(Vector<Passager> _listPassagers) {
-		this._listPassagers = _listPassagers;
 	}
 
 	public Paiement getPaiement() {

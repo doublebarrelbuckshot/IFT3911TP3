@@ -27,14 +27,16 @@ import AdminPkg.Searcher;
 import AdminPkg.SimulationData;
 import AdminPkg.TransportationManager;
 import AdminPkg.UIAdmin;
+import CommonComponentsPkg.Adresse;
 import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
 import ReservationPkg.Client;
 import ReservationPkg.IClientUI;
+import ReservationPkg.PassagerReal;
 import ReservationPkg.Reservation;
+import ReservationPkg.Sexe;
 import TransportationPkg.GenericSeat;
 import TransportationPkg.InstanceSeat;
-import TransportationPkg.TripGeneral;
 import TransportationPkg.TripInstance;
 
 public class ClientUI extends JFrame implements IClientUI, Observer {
@@ -295,6 +297,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				      
 				}else if(iInput == 6){
 					JPanel panel = new JPanel();
+					Client client2 = client;
 					JTextField reservationID = new JTextField();
 					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 					
@@ -305,15 +308,15 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					if (result == JOptionPane.OK_OPTION) {
 						if(!reservationID.getText().equals(null)){
 							int reservationIdInt = Integer.parseInt(reservationID.getText());
-							//Reservation reservation = client.findReservation(reservationIdInt);
+							Reservation reservation = client.findReservation(reservationIdInt);
 							TransportationManager tpt = TransportationManager.getInstance();
 							TripInstance tripInstance = tpt.get_listTripGenerals().get(0).get_tripInstances().get(0);
-							Reservation reservation = new Reservation();
-							reservation.set_isActive(true);
-							reservation.set_number(1050);
-							reservation.set_client_(client);
-							reservation.set_tripInstance(tripInstance);
-
+//							Reservation reservation = new Reservation();
+//							reservation.set_isActive(true);
+//							reservation.set_number(1050);
+//							reservation.set_client_(client);
+//							reservation.set_tripInstance(tripInstance);
+							// TODO reservation trouver par le client
 							if (reservation != null){
 								TripInstance tripInstanceReservation = reservation.get_tripInstance();
 								JPanel panelReservation = new JPanel();
@@ -337,12 +340,61 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 								panelReservation.add(creditCardNumber);
 								panelReservation.add(new JLabel("Credit card expiration:"));
 								panelReservation.add(creditCardExpiration);
-//								panelReservation.add(new JLabel("Active:"));
-//								panelReservation.add(new JLabel(Boolean.toString(reservation.is_isActive())));
-								
-								
+
 								int resultPanelReservation = JOptionPane.showConfirmDialog(panel, panelReservation, 
 							               "Pay reservation", JOptionPane.OK_CANCEL_OPTION);
+								if(resultPanelReservation == JOptionPane.OK_OPTION){
+									for(int i=0; i<reservation.get_listPassagers().size(); i++){
+										JPanel panelAddPassenger = new JPanel();
+										panelAddPassenger.setLayout(new GridLayout(8,2));
+										JTextField firstNameTextField = new JTextField();
+										JTextField lastNameTextField = new JTextField();
+										JTextField adresseTextField = new JTextField();
+										JTextField courrielTextField = new JTextField();
+										JTextField numTelTextField = new JTextField();
+										JTextField sexeTextField = new JTextField();
+										JTextField dateNaissanceTextField = new JTextField();
+										JTextField numPassportTextField = new JTextField();
+										panelAddPassenger.add(new JLabel("First name: "));
+										panelAddPassenger.add(firstNameTextField);
+										panelAddPassenger.add(new JLabel("Last name: "));
+										panelAddPassenger.add(lastNameTextField);
+										panelAddPassenger.add(new JLabel("Adresse: "));
+										panelAddPassenger.add(adresseTextField);
+										panelAddPassenger.add(new JLabel("Email: "));
+										panelAddPassenger.add(courrielTextField);
+										panelAddPassenger.add(new JLabel("Phone number: "));
+										panelAddPassenger.add(numTelTextField);
+										panelAddPassenger.add(new JLabel("Sex (Male, Female): "));
+										panelAddPassenger.add(sexeTextField);
+										panelAddPassenger.add(new JLabel("Birthday (dd/mm/yyyy): "));
+										panelAddPassenger.add(dateNaissanceTextField);
+										panelAddPassenger.add(new JLabel("Passport number: "));
+										panelAddPassenger.add(numPassportTextField);
+										PassagerReal passager = new PassagerReal();
+										int resultPanelPassager= JOptionPane.showConfirmDialog(panelReservation, panelAddPassenger, 
+									               "Passager " + (i + 1), JOptionPane.OK_CANCEL_OPTION);
+										if (resultPanelPassager == JOptionPane.OK_OPTION){
+											passager.set_firstName(firstNameTextField.getText());
+											passager.set_lastName(lastNameTextField.getText());
+											Adresse adresse = new Adresse();
+											adresse.set_streetName(adresseTextField.getText());
+											passager.set_adresse(adresse);
+											passager.set_courriel(courrielTextField.getText());
+											passager.set_numTel(numTelTextField.getText());
+											passager.set_sexe(Sexe.valueOf(sexeTextField.getText().toUpperCase()));
+											String[] dateArray = dateNaissanceTextField.getText().split("/");
+											Date dateNaissance = new Date();
+											dateNaissance.setDate(Integer.parseInt(dateArray[0]));
+											dateNaissance.setMonth(Integer.parseInt(dateArray[1]) - 1);
+											dateNaissance.setYear(Integer.parseInt(dateArray[2]) - 1900);
+											passager.setDateNaissance(dateNaissance);
+											passager.setNumPassport(numPassportTextField.getText());
+										}
+										reservation.get_listPassagers().set(i, passager);
+									}
+								}
+								
 								} else{
 									updateOutput("Aucune reservation avec le id:" + reservationID.getText());
 							}
