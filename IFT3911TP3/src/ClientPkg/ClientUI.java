@@ -161,15 +161,15 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 						} else if (tripGeneral instanceof Croisiere){
 							for(TripInstance tripInstance: tripGeneral.get_tripInstances()){
 								for(ComfortClass cc : tripInstance.get_comfortClasses()){	
-										tripInstance.accept(visitorTrain);
-										cc.accept(visitorTrain);
+										tripInstance.accept(visitorCruises);
+										cc.accept(visitorCruises);
 								}
 							}
 						} else if (tripGeneral instanceof Trajet)
 							for(TripInstance tripInstance: tripGeneral.get_tripInstances()){
 								for(ComfortClass cc : tripInstance.get_comfortClasses()){	
-										tripInstance.accept(visitorCruises);
-										cc.accept(visitorCruises);
+										tripInstance.accept(visitorTrain);
+										cc.accept(visitorTrain);
 								}
 							}
 					}
@@ -235,7 +235,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 					panel.add(depart);
 					panel.add(new JLabel("Departure date with the format: dd/mm/yyyy"));
 					panel.add(departDate);
-					panel.add(new JLabel("LETTER of the section you want to be in. F: Premiere, A: Affaire, P: Economique premium, E: Economique:"));
+					panel.add(new JLabel("LETTER of the section you want to be in. I: Interieure, O: Vue sur sur ocean, S: Suite, F: Famille, D: Famille Deluxe."));
 					panel.add(section);
 					
 					int result = JOptionPane.showConfirmDialog(null, panel, 
