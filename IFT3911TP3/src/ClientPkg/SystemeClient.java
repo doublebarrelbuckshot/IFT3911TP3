@@ -96,7 +96,7 @@ public class SystemeClient {
 		}catch(Exception e){
 			return "not a valid reservation number";
 		}
-		String flag="Reservation" + numeroR + " is canceled";
+		String flag="Reservation " + numeroR + " is cancelled";
 		boolean valide =true;
 		Reservation r =client.findReservation(numero);
 		if(r != null){

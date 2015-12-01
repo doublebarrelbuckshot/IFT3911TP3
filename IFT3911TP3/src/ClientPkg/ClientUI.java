@@ -530,7 +530,9 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 										updateOutput("Booking number " + booking.get_number()+" has been cancelled. The amount of "+ booking.get_refundableAmount() + "$ has been refunded to your credit "
 												+ "card: " + booking.getPaiement().get_creditcard().get_digits());
 									}
-								} 
+								} else {
+									updateOutput("No booking with id: " + bookingIDTextField.getText());
+								}
 							}
 //							if(!bookingIDTextField.getText().isEmpty()){
 //									String resultCancel=SystemeClient.getInstance().cancelReservation(bookingIDTextField.getText(),client);
