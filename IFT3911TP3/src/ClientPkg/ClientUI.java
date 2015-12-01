@@ -450,7 +450,9 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 											dateNaissance.setYear(Integer.parseInt(dateArray[2]) - 1900);
 											passager.setDateNaissance(dateNaissance);
 											passager.setNumPassport(numPassportTextField.getText());
-											passager.setAssignedSeat((InstanceSeat)reservation.get_reservedSeats().get(i));
+											GenericSeat seat = reservation.get_reservedSeats().get(i);
+											passager.setAssignedSeat((InstanceSeat)seat);
+											seat.get_state().confirmed(seat);
 										}
 										reservation.get_listPassagers().set(i, passager);
 									}
