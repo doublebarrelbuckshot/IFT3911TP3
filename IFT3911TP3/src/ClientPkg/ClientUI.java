@@ -360,8 +360,6 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				      
 				}else if(iInput == 6){
 					JPanel panel = new JPanel();
-					Client client2 = client;
-					//TODO enlever client2
 					JTextField reservationID = new JTextField();
 					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 					
