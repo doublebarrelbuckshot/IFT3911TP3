@@ -10,6 +10,7 @@ import TransportationPkg.TripInstance;
 
 public class Booking extends Order {
 	private double _accountBalance;
+	private double _totalPrice;
 	
 	private Paiement paiement;
 
@@ -38,12 +39,12 @@ public class Booking extends Order {
 	}
 
 	public void addPmt(Paiement aPmt) {
-		this._accountBalance += aPmt.get_montant();
+		this._accountBalance -= aPmt.get_montant();
 	}
 
-	public boolean pay(double montant, int digit, Date exp) {
-		this.paiement = new Paiement(montant,digit,exp);
-		this.paiement._booking = this;
+	public boolean pay(double montant, String digit, Date exp) {
+		this.paiement = new Paiement(this, montant,digit,exp);
+		this.paiement.set_booking(this);
 		boolean value = this.paiement.conductPayment();
 		
 		if(value) addPmt(this.paiement);
@@ -77,5 +78,13 @@ public class Booking extends Order {
 
 	public void set_accountBalance(double _accountBalance) {
 		this._accountBalance = _accountBalance;
+	}
+
+	public double get_totalPrice() {
+		return _totalPrice;
+	}
+
+	public void set_totalPrice(double _totalPrice) {
+		this._totalPrice = _totalPrice;
 	}
 }

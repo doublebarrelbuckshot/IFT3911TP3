@@ -13,7 +13,7 @@ public abstract class GenericSeat implements ISearchable, ITripVisitable {
 	public IReservation _IReservation;
 
 	public double getPrice() {
-		throw new UnsupportedOperationException();
+		return this.get_comfortClass().getPricePercentage() * this.get_comfortClass().get_tripInstance().get_fullPrice();
 	}
 	public ComfortClass get_comfortClass(){return _section;}
 	public void set_comfortClass(ComfortClass section){ this._section = section;}

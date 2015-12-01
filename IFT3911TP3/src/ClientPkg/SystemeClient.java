@@ -72,6 +72,7 @@ public class SystemeClient {
 	
 	public String makeReservation(Vector<GenericSeat> seat,int nb, Client client){
 		Reservation r = new Reservation();
+		double reservationPrice = 0;
 		for(int i=0; i<nb; i++){
 			seat.get(i).get_state().reserved(seat.get(i));
 			seat.get(i).set_reservationDate(new Date());
@@ -81,7 +82,9 @@ public class SystemeClient {
 			client.addOrder(r);
 			r.addSeat(seat.get(i));
 			seat.get(i).set_Ipassenger(new PassagerReal());
+			reservationPrice += seat.get(i).getPrice();
 			}
+		r.setReservationPrice(reservationPrice);
 		return r.get_number()+"";
 	}
 	
@@ -97,7 +100,7 @@ public class SystemeClient {
 		boolean valide =false;
 		Reservation r =client.findReservation(numero);
 		
-		for(GenericSeat seat: r._reservedSeats){
+		for(GenericSeat seat: r.get_reservedSeats()){
 			if(seat.isBeforeTime()){
 				valide = true;
 				seat.get_state().available(seat);

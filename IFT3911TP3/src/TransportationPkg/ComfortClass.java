@@ -7,7 +7,7 @@ import CommonComponentsPkg.ComfortClassEnum;
 import ReservationPkg.PassagerNull;
 
 public abstract class ComfortClass implements ISearchable, ITripVisitable {
-	protected double _prixPercent;
+	//private double _prixPercent;
 	private ComfortClassEnum comfortClassType;
 	public TripInstance _tripInstance;
 	public Vector<GenericSeat> _seating = new Vector<GenericSeat>();

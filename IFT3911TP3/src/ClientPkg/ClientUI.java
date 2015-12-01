@@ -30,8 +30,11 @@ import AdminPkg.UIAdmin;
 import CommonComponentsPkg.Adresse;
 import CommonComponentsPkg.ComfortClassEnum;
 import CommonComponentsPkg.SearchCriteria;
+import FinancePkg.Paiement;
+import ReservationPkg.Booking;
 import ReservationPkg.Client;
 import ReservationPkg.IClientUI;
+import ReservationPkg.Passager;
 import ReservationPkg.PassagerReal;
 import ReservationPkg.Reservation;
 import ReservationPkg.Sexe;
@@ -298,6 +301,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 				}else if(iInput == 6){
 					JPanel panel = new JPanel();
 					Client client2 = client;
+					//TODO enlever client2
 					JTextField reservationID = new JTextField();
 					panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 					
@@ -310,17 +314,13 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 							int reservationIdInt = Integer.parseInt(reservationID.getText());
 							Reservation reservation = client.findReservation(reservationIdInt);
 							TransportationManager tpt = TransportationManager.getInstance();
-							TripInstance tripInstance = tpt.get_listTripGenerals().get(0).get_tripInstances().get(0);
-//							Reservation reservation = new Reservation();
-//							reservation.set_isActive(true);
-//							reservation.set_number(1050);
-//							reservation.set_client_(client);
-//							reservation.set_tripInstance(tripInstance);
-							// TODO reservation trouver par le client
+							
 							if (reservation != null){
+								
+								
 								TripInstance tripInstanceReservation = reservation.get_tripInstance();
 								JPanel panelReservation = new JPanel();
-								panelReservation.setLayout(new GridLayout(8,2));
+								panelReservation.setLayout(new GridLayout(9,2));
 								JTextField creditCardNumber = new JTextField();
 								JTextField creditCardExpiration = new JTextField();
 								panelReservation.add(new JLabel("Reservation number: "));
@@ -338,12 +338,15 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 								
 								panelReservation.add(new JLabel("Credit card number:"));
 								panelReservation.add(creditCardNumber);
-								panelReservation.add(new JLabel("Credit card expiration:"));
+								panelReservation.add(new JLabel("Credit card expiration (mm/yyyy):"));
 								panelReservation.add(creditCardExpiration);
+								panelReservation.add(new JLabel("Amount owed:"));
+								panelReservation.add(new JLabel(reservation.getReservationPrice() + ""));
 
 								int resultPanelReservation = JOptionPane.showConfirmDialog(panel, panelReservation, 
 							               "Pay reservation", JOptionPane.OK_CANCEL_OPTION);
 								if(resultPanelReservation == JOptionPane.OK_OPTION){
+									
 									for(int i=0; i<reservation.get_listPassagers().size(); i++){
 										JPanel panelAddPassenger = new JPanel();
 										panelAddPassenger.setLayout(new GridLayout(8,2));
@@ -393,6 +396,23 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 										}
 										reservation.get_listPassagers().set(i, passager);
 									}
+									String[] dateArray1 = creditCardExpiration.getText().split("/");
+									Date dateExpiration = new Date();
+									dateExpiration.setMonth(Integer.parseInt(dateArray1[0]) - 1);
+									dateExpiration.setYear(Integer.parseInt(dateArray1[1]) - 1900);
+									Booking booking = new Booking();
+									booking.set_client_(client);
+									booking.set_totalPrice(reservation.getReservationPrice());
+									booking.set_accountBalance(reservation.getReservationPrice());
+									booking.set_number(4040);
+									//TODO ne pas hardcode le numero booking
+									booking.set_tripInstance(reservation.get_tripInstance());
+									
+									for(Passager passager: reservation.get_listPassagers()){
+										booking.addPassenger(passager);
+									}
+									booking.pay(reservation.getReservationPrice(), creditCardNumber.getText(), dateExpiration);
+									updateOutput("Thank you! You have paid the amount of: " + booking.get_totalPrice() + ". Here is your confirmation number: " + booking.getPaiement().get_confirmationNumber().get_numero());
 								}
 								
 								} else{
