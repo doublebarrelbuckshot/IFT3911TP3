@@ -1,10 +1,12 @@
 package TransportationPkg;
 
-public interface GenericSeatState {
+public abstract class GenericSeatState {
+	
+	
+	public abstract void reserved(GenericSeat aS);
 
-	public void reserved(GenericSeat aS);
+	public abstract void available(GenericSeat aS);
 
-	public void available(GenericSeat aS);
-
-	public void confirmed(GenericSeat aS);
+	public abstract void confirmed(GenericSeat aS);
+	
 }
