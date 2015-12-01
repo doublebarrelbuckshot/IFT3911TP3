@@ -1,6 +1,6 @@
 package TransportationPkg;
 
-public class ConfirmedState extends GenericSeatState {
+public class ConfirmedState implements GenericSeatState {
 	public void reserved(GenericSeat aS) {
 		
 	}

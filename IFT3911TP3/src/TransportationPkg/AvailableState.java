@@ -1,6 +1,6 @@
 package TransportationPkg;
 
-public class AvailableState extends GenericSeatState {
+public class AvailableState implements GenericSeatState {
 	
 	public void reserved(GenericSeat aS) {
 		aS.set_state(new ReservedState());	
