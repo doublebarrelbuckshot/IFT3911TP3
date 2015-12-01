@@ -83,7 +83,9 @@ public class Booking extends Order {
 	public double get_totalPrice() {
 		return _totalPrice;
 	}
-
+	public double get_refundableAmount() {
+		return _totalPrice * 0.9;
+	}
 	public void set_totalPrice(double _totalPrice) {
 		this._totalPrice = _totalPrice;
 	}

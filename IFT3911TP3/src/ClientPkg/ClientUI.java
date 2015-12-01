@@ -436,6 +436,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 											dateNaissance.setYear(Integer.parseInt(dateArray[2]) - 1900);
 											passager.setDateNaissance(dateNaissance);
 											passager.setNumPassport(numPassportTextField.getText());
+											passager.setAssignedSeat((InstanceSeat)reservation.get_reservedSeats().get(i));
 										}
 										reservation.get_listPassagers().set(i, passager);
 									}
@@ -454,7 +455,8 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 										booking.addPassenger(passager);
 									}
 									booking.pay(reservation.getReservationPrice(), creditCardNumber.getText(), dateExpiration);
-									updateOutput("Thank you! You have paid the amount of: " + booking.get_totalPrice() + ". Here is your confirmation number: " + booking.getPaiement().get_confirmationNumber().get_numero());
+									client.addOrder(booking);
+									updateOutput("Thank you! You have paid the amount of: " + booking.get_totalPrice() + ". Here is your booking number: " + booking.get_number());
 								}
 								
 								} else{
@@ -496,10 +498,40 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 						
 							
 						int result= JOptionPane.showConfirmDialog(null, panel, 
-					            "Cancel Reservation", JOptionPane.OK_CANCEL_OPTION);
-								//updateOutput("Aucune reservation avec le id:" + reservationID.getText());
+					            "Cancel Booking", JOptionPane.OK_CANCEL_OPTION);
+	
 						if(result == JOptionPane.OK_OPTION){
-									
+							if(!bookingIDTextField.getText().isEmpty()){
+								
+								Booking booking = client.findBooking(Integer.parseInt(bookingIDTextField.getText()));
+								if(booking != null){
+									JPanel panelBooking = new JPanel();
+																	
+									panelBooking.add(new JLabel("Booking: "));
+									panelBooking.add(new JLabel(booking.get_number() + ""));
+									int counter=1;
+									for(Passager passager: booking.get_listPassagers() ){
+										panelBooking.add(new JLabel("Passager " + counter+ ": "));
+										panelBooking.add(new JLabel(passager.get_firstName() + " " + passager.get_lastName()));
+										panelBooking.add(new JLabel("Seat cost: "));
+										panelBooking.add(new JLabel (passager.getAssignedSeat().getPrice()+""));
+										counter++;
+									}
+									panelBooking.add(new JLabel("Price paid: "));
+									panelBooking.add(new JLabel( booking.get_totalPrice() + ""));
+									panelBooking.add(new JLabel("Refund amount: "));
+									panelBooking.add(new JLabel( booking.get_refundableAmount()+""));
+									panelBooking.add(new JLabel( "Are you sure you wish to refund your booking?"));
+									panelBooking.setLayout(new GridLayout(4 + (2*counter-1),2));
+									int resultBooking= JOptionPane.showConfirmDialog(panel, panelBooking, 
+								            "Cancel booking", JOptionPane.OK_CANCEL_OPTION);
+									if(resultBooking == JOptionPane.OK_OPTION){
+										client._listOrders.remove(booking);
+										updateOutput("Booking number " + booking.get_number()+" has been cancelled. The amount of "+ booking.get_refundableAmount() + "$ has been refunded to your credit "
+												+ "card: " + booking.getPaiement().get_creditcard().get_digits());
+									}
+								} 
+							}
 //							if(!bookingIDTextField.getText().isEmpty()){
 //									String resultCancel=SystemeClient.getInstance().cancelReservation(bookingIDTextField.getText(),client);
 //									updateOutput(resultCancel+"\n");							
