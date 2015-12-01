@@ -470,6 +470,7 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 									}
 									booking.pay(reservation.getReservationPrice(), creditCardNumber.getText(), dateExpiration);
 									client.addOrder(booking);
+									client._listOrders.remove(reservation);
 									updateOutput("Thank you! You have paid the amount of: " + booking.get_totalPrice() + ". Here is your booking number: " + booking.get_number());
 								}
 								
