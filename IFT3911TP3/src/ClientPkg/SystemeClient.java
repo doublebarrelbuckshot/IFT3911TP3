@@ -110,23 +110,8 @@ public class SystemeClient {
 				}
 				else
 					flag= "Your reservation "+numeroR+" cannot be canceled.";
-				/*if(seat.isBeforeTime()){
-					seat.get_state().available(seat);
-				}
-				else{
-					//je remets les seats reserve si il y eu une erreur dans la reservation
-					for(GenericSeat seatReserved: r.get_reservedSeats()){
-						seatReserved.get_state().reserved(seatReserved);
-					}
-					valide = false;
-					flag="Reservation can't be canceled, your trip will depart too soon. ";
-					break;
-				}*/
+				
 			}
-			
-			/*if(valide){
-				client._listOrders.remove(r);
-			}*/
 		} else {
 			flag = "Reservation with id " + numeroR + " not found";
 		}

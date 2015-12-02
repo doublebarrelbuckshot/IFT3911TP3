@@ -541,9 +541,29 @@ public class ClientUI extends JFrame implements IClientUI, Observer {
 									int resultBooking= JOptionPane.showConfirmDialog(panel, panelBooking, 
 								            "Cancel booking", JOptionPane.OK_CANCEL_OPTION);
 									if(resultBooking == JOptionPane.OK_OPTION){
+										boolean valide = true;
+										for(Passager p : booking.get_listPassagers()){
+											GenericSeat seat = p.getAssignedSeat();
+											if(seat.isBeforeTime()){
+												seat.get_state().available(seat);
+											}
+											else{
+												//je remets les seats reserve si il y eu une erreur dans la reservation
+												for(Passager pass : booking.get_listPassagers()){
+													pass.getAssignedSeat().get_state().confirmed(pass.getAssignedSeat());
+												}
+												valide = false;
+												break;
+											}
+										}
+										
+										if(valide){
 										client._listOrders.remove(booking);
 										updateOutput("Booking number " + booking.get_number()+" has been cancelled. The amount of "+ booking.get_refundableAmount() + "$ has been refunded to your credit "
 												+ "card: " + booking.getPaiement().get_creditcard().get_digits());
+										}
+										else
+											updateOutput("It is not possible to cancel your booking since it's too close to departure.");
 									}
 								} else {
 									updateOutput("No booking with id: " + bookingIDTextField.getText());

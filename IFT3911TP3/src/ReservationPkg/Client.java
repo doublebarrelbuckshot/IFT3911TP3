@@ -13,15 +13,6 @@ public class Client {
 	public void addOrder(Order aOrder) {
 		_listOrders.add(aOrder);
 	}
-
-	public Order findOrder(int aOrderNum) {
-		for(Order o: _listOrders)
-		{
-			if(o.get_number() == aOrderNum)
-				return o;
-		}
-		return null;
-	}
 	
 	public Booking findBooking(int bookingNumber){
 		for(Order order: _listOrders){
